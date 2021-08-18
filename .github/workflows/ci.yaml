@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - master
+      - release*
   push:
     branches:
       - master
@@ -41,8 +42,15 @@ jobs:
             echo "::set-output name=changed::true"
           fi
 
-      - name: Run chart-testing (lint)
-        run: ct lint --config tests/ct.yaml
+      - name: Run chart-testing (lint-master)
+        run: |
+          if [ "${{github.base_ref}}" == "master" ]; then
+            echo "validating against ${{github.base_ref}} without version bump validation"
+            ct lint --check-version-increment=false --config tests/ct.yaml
+          else
+            echo "validating against ${{github.base_ref}}"
+            ct lint --config tests/ct.yaml
+          fi
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
