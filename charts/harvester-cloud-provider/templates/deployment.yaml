@@ -30,9 +30,11 @@ spec:
             - harvester-cloud-provider
           resources:
           {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.cloudConfigPath }}
           volumeMounts:
             - mountPath: /etc/kubernetes/cloud-config
               name: cloud-config
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
       {{- toYaml . | nindent 8 }}
@@ -45,8 +47,10 @@ spec:
       tolerations:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.cloudConfigPath }}
       volumes:
         - name: cloud-config
           hostPath:
-            path: {{ required "A valid cloudConfigPath required!" .Values.cloudConfigPath }}
+            path: {{ .Values.cloudConfigPath }}
             type: File
+      {{- end }}
