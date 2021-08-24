@@ -1,5 +1,18 @@
 apiVersion: v1
 entries:
+  harvester-cloud-provider:
+  - apiVersion: v2
+    appVersion: v0.1.1
+    created: "2021-08-24T09:38:05.880852129Z"
+    description: A Helm chart for Harvester Cloud Provider
+    digest: 097e0e19ff587db1100ce55846a70d10c244da656400ecffdbd2ac9d310a8e3a
+    maintainers:
+    - name: harvester
+    name: harvester-cloud-provider
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-cloud-provider-0.1.1/harvester-cloud-provider-0.1.1.tgz
+    version: 0.1.1
   harvester-csi-driver:
   - apiVersion: v2
     appVersion: v0.1.0
@@ -26,4 +39,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-network-controller-0.1.0/harvester-network-controller-0.1.0.tgz
     version: 0.1.0
-generated: "2021-08-24T09:24:19.678883531Z"
+generated: "2021-08-24T09:38:05.880857429Z"
