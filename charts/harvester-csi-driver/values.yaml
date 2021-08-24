@@ -6,7 +6,7 @@ image:
   harvester:
     csiDriver:
       repository: rancher/harvester-csi-driver
-      tag: "master-head"
+      tag: ""
   csi:
     nodeDriverRegistrar:
       repository: longhornio/csi-node-driver-registrar
