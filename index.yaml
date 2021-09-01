@@ -16,6 +16,18 @@ entries:
   harvester-csi-driver:
   - apiVersion: v2
     appVersion: v0.1.1
+    created: "2021-09-01T10:15:11.78591706Z"
+    description: A Helm chart for Harvester CSI driver
+    digest: caa692ea046fa6056b0f6a9cb2cb7123893e7aa86830a24751b357b401db49ad
+    maintainers:
+    - name: harvester
+    name: harvester-csi-driver
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-csi-driver-0.1.2/harvester-csi-driver-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: v0.1.1
     created: "2021-08-25T08:02:43.899114931Z"
     description: A Helm chart for Harvester CSI driver
     digest: 95f5c838b4445a963db7b05f0e34315e391f7f00e466f477166aebdb37924351
@@ -67,4 +79,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-network-controller-0.1.0/harvester-network-controller-0.1.0.tgz
     version: 0.1.0
-generated: "2021-09-01T05:47:29.407945428Z"
+generated: "2021-09-01T10:15:11.785945161Z"
