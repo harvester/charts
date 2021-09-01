@@ -38,6 +38,22 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-csi-driver-0.1.0/harvester-csi-driver-0.1.0.tgz
     version: 0.1.0
+  harvester-load-balancer:
+  - apiVersion: v2
+    appVersion: v0.1.1
+    created: "2021-09-01T05:47:29.407936527Z"
+    description: A load balancer implementation for Harvester
+    digest: b420bd97b696dd60b0bb2d54de4e90561ac1e27a220ce1547fb445396c897ae9
+    home: https://github.com/harvester/harvester-load-balancer
+    maintainers:
+    - name: harvester
+    name: harvester-load-balancer
+    sources:
+    - https://github.com/harvester/harvester-load-balancer
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-load-balancer-0.1.1/harvester-load-balancer-0.1.1.tgz
+    version: 0.1.1
   harvester-network-controller:
   - apiVersion: v2
     appVersion: 0.1.7
@@ -51,4 +67,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-network-controller-0.1.0/harvester-network-controller-0.1.0.tgz
     version: 0.1.0
-generated: "2021-08-25T08:02:43.899123532Z"
+generated: "2021-09-01T05:47:29.407945428Z"
