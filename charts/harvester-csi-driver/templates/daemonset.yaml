@@ -24,7 +24,7 @@ spec:
           env:
             - name: ADDRESS
               value: /csi/csi.sock
-          image: {{ .Values.image.csi.nodeDriverRegistrar.repository }}:{{ .Values.image.csi.nodeDriverRegistrar.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.image.csi.nodeDriverRegistrar.repository }}:{{ .Values.image.csi.nodeDriverRegistrar.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           lifecycle:
             preStop:
@@ -54,7 +54,7 @@ spec:
                   fieldPath: spec.nodeName
             - name: CSI_ENDPOINT
               value: unix:///csi/csi.sock
-          image: {{ .Values.image.harvester.csiDriver.repository }}:{{ .Values.image.harvester.csiDriver.tag | default .Chart.AppVersion }}
+          image: {{ template "system_default_registry" . }}{{ .Values.image.harvester.csiDriver.repository }}:{{ .Values.image.harvester.csiDriver.tag | default .Chart.AppVersion }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           lifecycle:
             preStop:

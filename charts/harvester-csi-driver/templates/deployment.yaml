@@ -32,7 +32,7 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.namespace
-          image: {{ .Values.image.csi.resizer.repository }}:{{ .Values.image.csi.resizer.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.image.csi.resizer.repository }}:{{ .Values.image.csi.resizer.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: csi-resizer
           volumeMounts:
@@ -52,7 +52,7 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.namespace
-          image: {{ .Values.image.csi.provisioner.repository }}:{{ .Values.image.csi.provisioner.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.image.csi.provisioner.repository }}:{{ .Values.image.csi.provisioner.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: csi-provisioner
           volumeMounts:
@@ -72,7 +72,7 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.namespace
-          image: {{ .Values.image.csi.attacher.repository }}:{{ .Values.image.csi.attacher.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.image.csi.attacher.repository }}:{{ .Values.image.csi.attacher.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: csi-attacher
           volumeMounts:

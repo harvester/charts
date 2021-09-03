@@ -19,7 +19,7 @@ spec:
       serviceAccountName: {{ include "harvester-cloud-provider.name" . }}
       containers:
         - name: {{ include "harvester-cloud-provider.name" . }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: {{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - --cloud-config=/etc/kubernetes/cloud-config
