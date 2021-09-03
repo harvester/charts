@@ -60,3 +60,6 @@ tolerations:
   value: "true"
 
 affinity: {}
+
+global:
+  systemDefaultRegistry: ""
