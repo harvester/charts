@@ -34,3 +34,6 @@ tolerations:
 - effect: NoSchedule
   key: kubevirt.io/drain
   operator: Exists
+
+global:
+  systemDefaultRegistry: ""
