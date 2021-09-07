@@ -18,13 +18,16 @@ spec:
     spec:
       serviceAccountName: {{ include "harvester-network-controller.name" . }}
       containers:
-        - name: network-manager
+        - name: harvester-network-manager
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - harvester-network-controller
           args:
             - manager
+            {{- if .Values.vipEnabled}}
+            - --enable-vip-controller
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
