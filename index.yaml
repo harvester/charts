@@ -103,4 +103,17 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-network-controller-0.1.0/harvester-network-controller-0.1.0.tgz
     version: 0.1.0
-generated: "2021-09-03T08:56:14.831483455Z"
+  harvester-node-disk-manager:
+  - apiVersion: v2
+    appVersion: v0.1.0
+    created: "2021-09-08T13:06:14.45392515Z"
+    description: A Helm chart for Harvester Node Disk Manager
+    digest: 2cf8be1426ca0e065499ec11b91002c05c68748676a90a00b29cfc80733a11e1
+    maintainers:
+    - name: harvester
+    name: harvester-node-disk-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-node-disk-manager-0.1.0/harvester-node-disk-manager-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-09-08T13:06:14.453942651Z"
