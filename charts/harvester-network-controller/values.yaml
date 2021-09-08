@@ -3,9 +3,9 @@
 # Declare variables to be passed into your templates.
 image:
   repository: rancher/harvester-network-controller
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "master-head"
+  tag: ""
 
 nameOverride: ""
 
@@ -17,7 +17,7 @@ resources:
     cpu: 100m
     memory: 128Mi
   requests:
-    cpu: 50m
+    cpu: 10m
     memory: 64Mi
 
 nodeSelector: {}
