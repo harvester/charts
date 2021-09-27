@@ -44,3 +44,26 @@ tolerations: []
 affinity: {}
 
 longhornNamespace:
+
+# An array of disk vendor strings that you want to exclude from creating block device resources.
+vendorFilter: []
+  # - longhorn
+
+# An array of mount paths that you want to exclude from creating block device resources.
+pathFilter: []
+  # - /oem
+  # - /path/to/exclude
+
+# An array of filesystem labels on partitions that you want to exclude from
+# creating block device resources.
+# Accepting Golang's glob patterns.
+labelFilter: []
+  # - MY_FS_LABEL
+  # - GLOB_*_WORKS
+
+# Specify the interval of device rescanning of the node (in seconds)
+rescanInterval:
+
+# Perform auto GPT partition generating if a disk can not be globally identified
+# Default to false.
+autoGPTGenerate:

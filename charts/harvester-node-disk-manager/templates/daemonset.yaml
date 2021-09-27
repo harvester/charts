@@ -31,6 +31,26 @@ spec:
         command:
         - node-disk-manager
         env:
+        {{- with .Values.vendorFilter }}
+        - name: NDM_VENDOR_FILTER
+          value: {{ . | join "," | quote }}
+        {{- end }}
+        {{- with .Values.pathFilter }}
+        - name: NDM_PATH_FILTER
+          value: {{ . | join "," | quote }}
+        {{- end }}
+        {{- with .Values.labelFilter }}
+        - name: NDM_LABEL_FILTER
+          value: {{ . | join "," | quote }}
+        {{- end }}
+        {{- with .Values.rescanInterval }}
+        - name: NDM_RESCAN_INTERVAL
+          value: {{ . }}
+        {{- end }}
+        {{- with .Values.autoGPTGenerate }}
+        - name: NDM_AUTO_GPT_GENERATE
+          value: {{ . }}
+        {{- end }}
         - name: LONGHORN_NAMESPACE
           value: {{ .Values.longhornNamespace | default "longhorn-system" }}
         - name: NODE_NAME
