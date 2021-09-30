@@ -45,11 +45,11 @@ spec:
         {{- end }}
         {{- with .Values.rescanInterval }}
         - name: NDM_RESCAN_INTERVAL
-          value: {{ . }}
+          value: {{ . | quote }}
         {{- end }}
         {{- with .Values.autoGPTGenerate }}
         - name: NDM_AUTO_GPT_GENERATE
-          value: {{ . }}
+          value: {{ . | quote }}
         {{- end }}
         - name: LONGHORN_NAMESPACE
           value: {{ .Values.longhornNamespace | default "longhorn-system" }}
