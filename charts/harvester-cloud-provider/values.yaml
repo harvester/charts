@@ -58,6 +58,12 @@ tolerations:
   key: node.cloudprovider.kubernetes.io/uninitialized
   operator: Equal
   value: "true"
+- effect: NoSchedule
+  key: node-role.kubernetes.io/control-plane
+  operator: Equal
+- effect: NoExecute
+  key: node-role.kubernetes.io/etcd
+  operator: Equal
 
 affinity: {}
 
