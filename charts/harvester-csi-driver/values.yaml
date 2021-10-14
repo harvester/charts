@@ -34,6 +34,12 @@ tolerations:
 - effect: NoSchedule
   key: kubevirt.io/drain
   operator: Exists
+- effect: NoSchedule
+  key: node-role.kubernetes.io/control-plane
+  operator: Equal
+- effect: NoExecute
+  key: node-role.kubernetes.io/etcd
+  operator: Equal
 
 global:
   systemDefaultRegistry: ""
