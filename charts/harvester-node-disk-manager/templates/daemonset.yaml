@@ -43,6 +43,10 @@ spec:
         - name: NDM_LABEL_FILTER
           value: {{ . | join "," | quote }}
         {{- end }}
+        {{- with .Values.autoProvisionFilter }}
+        - name: NDM_AUTO_PROVISION_FILTER
+          value: {{ . | join "," | quote }}
+        {{- end }}
         {{- with .Values.rescanInterval }}
         - name: NDM_RESCAN_INTERVAL
           value: {{ . | quote }}
