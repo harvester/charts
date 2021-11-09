@@ -61,6 +61,12 @@ labelFilter: []
   # - MY_FS_LABEL
   # - GLOB_*_WORKS
 
+# An array of device paths of disks that you want to auto-provision to Longhorn.
+# Accepting Golang's glob patterns.
+autoProvisionFilter: []
+  # - /dev/sda?
+  # - /dev/nvme0n1p1
+
 # Specify the interval of device rescanning of the node (in seconds)
 rescanInterval:
 
