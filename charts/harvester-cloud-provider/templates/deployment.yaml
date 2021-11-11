@@ -19,7 +19,7 @@ spec:
       serviceAccountName: {{ include "harvester-cloud-provider.name" . }}
       containers:
         - name: {{ include "harvester-cloud-provider.name" . }}
-          image: {{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+          image: {{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - --cloud-config=/etc/kubernetes/cloud-config
@@ -48,5 +48,5 @@ spec:
       volumes:
         - name: cloud-config
           hostPath:
-            path: {{ required "A valid cloudConfigPath required!" .Values.cloudConfigPath }}
+            path: {{ required "A valid cloudConfigPath is required!" .Values.cloudConfigPath }}
             type: File
