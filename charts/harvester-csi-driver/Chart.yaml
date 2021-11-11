@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.1.4
+version: 0.1.5
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -24,3 +24,13 @@ appVersion: v0.1.1
 
 maintainers:
   - name: harvester
+
+annotations:
+  catalog.cattle.io/certified: rancher
+  catalog:cattle.io/namespace: kube-system
+  catalog.cattle.io/experimental: "true"
+  catalog.cattle.io/release-name: harvester-csi-driver
+  catalog.cattle.io/os: linux
+  catalog.cattle.io/rancher-version: ">= 2.6.1"
+  catalog.cattle.io/ui-component: harvester-csi-driver
+  catalog.cattle.io/display-name: Harvester CSI Driver
