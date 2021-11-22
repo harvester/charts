@@ -22,5 +22,15 @@ version: 0.0.0-dev
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: v0.1.1
 
+annotations:
+  catalog.cattle.io/certified: rancher
+  catalog.cattle.io/namespace: kube-system
+  catalog.cattle.io/experimental: "true"
+  catalog.cattle.io/release-name: harvester-cloud-provider
+  catalog.cattle.io/os: linux
+  catalog.cattle.io/rancher-version: ">= 2.6.1"
+  catalog.cattle.io/ui-component: harvester-cloud-provider
+  catalog.cattle.io/display-name: Harvester Cloud Provider
+
 maintainers:
   - name: harvester
