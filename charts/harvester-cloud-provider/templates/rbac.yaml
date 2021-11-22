@@ -15,7 +15,7 @@ rules:
     resources: [ "services", "nodes", "events" ]
     verbs: [ "get", "watch", "list", "update", "create", "patch" ]
   - apiGroups: [ "" ]
-    resources: [ "nodes/status", "services/status"]
+    resources: [ "nodes/status", "services/status" ]
     verbs: [ "update", "patch" ]
   - apiGroups: [ "coordination.k8s.io" ]
     resources: [ "leases" ]
