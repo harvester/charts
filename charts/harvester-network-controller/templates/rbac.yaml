@@ -32,6 +32,9 @@ rules:
   - apiGroups: [ "apps" ]
     resources: [ "daemonsets" ]
     verbs: [ "watch", "list", "update" ]
+  - apiGroups: [ "batch" ]
+    resources: [ "jobs" ]
+    verbs: [ "*" ]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -46,4 +49,36 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: {{ include "harvester-network-controller.name" . }}
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: harvester-network-helper
+  namespace: {{ .Release.Namespace }}
+  labels:
+  {{- include "harvester-network-controller.labels" . | nindent 4 }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: harvester-network-helper
+rules:
+  - apiGroups: [ "k8s.cni.cncf.io" ]
+    resources: [ "network-attachment-definitions" ]
+    verbs: [ "get", "update" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: harvester-network-helper
+  labels:
+  {{- include "harvester-network-controller.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: harvester-network-helper
+subjects:
+  - kind: ServiceAccount
+    name: harvester-network-helper
     namespace: {{ .Release.Namespace }}
