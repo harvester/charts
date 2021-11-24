@@ -40,7 +40,6 @@ helm.sh/chart: {{ include "harvester-cloud-provider.chart" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
@@ -55,19 +54,15 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Create the name of the service account to use
 */}}
 {{- define "harvester-cloud-provider.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
 {{- default (include "harvester-cloud-provider.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
 {{- end }}
 
 {{/*
 Global system default registry
 */}}
 {{- define "system_default_registry" -}}
-{{- if .Values.global.systemDefaultRegistry -}}
-{{- printf "%s/" .Values.global.systemDefaultRegistry -}}
+{{- if .Values.global.cattle.systemDefaultRegistry -}}
+{{- printf "%s/" .Values.global.cattle.systemDefaultRegistry -}}
 {{- else -}}
 {{- "" -}}
 {{- end -}}

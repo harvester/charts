@@ -18,8 +18,6 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  # Specifies whether a service account should be created
-  create: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -38,7 +36,8 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-nodeSelector: {}
+nodeSelector:
+  kubernetes.io/os: linux
 
 tolerations:
 - effect: NoSchedule
@@ -51,8 +50,13 @@ tolerations:
 - effect: NoExecute
   key: node-role.kubernetes.io/etcd
   operator: Equal
+- key: cattle.io/os
+  operator: Equal
+  value: "linux"
+  effect: NoSchedule
 
 affinity: {}
 
 global:
-  systemDefaultRegistry: ""
+  cattle:
+    systemDefaultRegistry: ""
