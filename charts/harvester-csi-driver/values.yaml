@@ -28,7 +28,10 @@ fullnameOverride: ""
 kubeletRootDir: /var/lib/kubelet
 cloudConfig:
   secretName: ""
-  hostPath: /var/lib/rancher/rke2/etc/config-files/cloud-provider-config
+  hostPath: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
+
+nodeSelector:
+  kubernetes.io/os: linux
 
 tolerations:
   - effect: NoSchedule
@@ -40,6 +43,11 @@ tolerations:
   - effect: NoExecute
     key: node-role.kubernetes.io/etcd
     operator: Equal
+  - key: cattle.io/os
+    operator: Equal
+    value: "linux"
+    effect: NoSchedule
 
 global:
-  systemDefaultRegistry: ""
+  cattle:
+    systemDefaultRegistry: ""
