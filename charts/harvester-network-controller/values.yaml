@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 image:
   repository: rancher/harvester-network-controller
+  helperRepository: rancher/harvester-network-helper
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "master-head"
