@@ -65,4 +65,4 @@ manager:
 helper:
   image:
     repository: rancher/harvester-network-helper
-    tag: "master-head"
+    tag: ""
