@@ -34,7 +34,7 @@ spec:
             {{- if .Values.vipEnabled}}
             - --enable-vip-controller
             {{- end }}
-            - --helper-image="{{ .Values.helper.image.repository }}:{{ .Values.helper.image.tag | default .Chart.AppVersion }}"
+            - --helper-image={{ printf "%s:%s" .Values.helper.image.repository .Values.helper.image.tag | default .Chart.AppVersion }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
