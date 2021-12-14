@@ -18,7 +18,7 @@ keywords:
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.1.7
+version: 0.1.8
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -43,4 +43,4 @@ annotations:
   catalog.cattle.io/kube-version: ">= 1.18"
   # The version of the upstream chart or app. It prevents the unexpected "downgrade"
   # when upgrading an installed chart that uses our 100.x.x+upVersion version schema.```
-  catalog.cattle.io/upstream-version: "0.1.6"
+  catalog.cattle.io/upstream-version: "0.1.8"
