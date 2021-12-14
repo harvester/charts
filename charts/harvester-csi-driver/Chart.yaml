@@ -31,7 +31,6 @@ maintainers:
 annotations:
   catalog.cattle.io/certified: rancher
   catalog.cattle.io/namespace: kube-system
-  catalog.cattle.io/experimental: "true"
   catalog.cattle.io/release-name: harvester-csi-driver
   catalog.cattle.io/os: linux
   catalog.cattle.io/rancher-version: ">= 2.6.1-0 <= 2.6.99-0"
