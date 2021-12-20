@@ -32,3 +32,18 @@ Selector labels
 app.kubernetes.io/name: {{ include "harvester-network-controller.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{- define "harvester-network-controller-manager.labels" -}}
+helm.sh/chart: {{ include "harvester-network-controller.chart" . }}
+{{ include "harvester-network-controller-manager.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/component: network
+{{- end }}
+
+{{- define "harvester-network-controller-manager.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "harvester-network-controller.name" . }}-manager
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
