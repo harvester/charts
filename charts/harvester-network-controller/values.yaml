@@ -47,20 +47,14 @@ manager:
               values:
                 - linux
   podAntiAffinity:
-    preferredDuringSchedulingIgnoredDuringExecution:
-      - podAffinityTerm:
-          labelSelector:
-            matchExpressions:
-              - key: app.kubernetes.io/name
-                operator: In
-                values:
-                  - harvester-network-controller-manager
-              - key: app.kubernetes.io/component
-                operator: In
-                values:
-                  - network
-          topologyKey: kubernetes.io/hostname
-        weight: 1
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+                - harvester-network-controller-manager
+        topologyKey: kubernetes.io/hostname
 
 helper:
   image:

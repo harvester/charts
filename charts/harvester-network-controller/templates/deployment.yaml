@@ -4,17 +4,27 @@ kind: Deployment
 metadata:
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "harvester-network-controller.labels" . | nindent 4 }}
+    {{- include "harvester-network-controller-manager.labels" . | nindent 4 }}
+  {{- if .Values.manager.replicas }}
+  # The annotation does not support 0 replicas.
+  annotations:
+    management.cattle.io/scale-available: "{{ .Values.manager.replicas }}"
+  {{- end }}
   name: {{ include "harvester-network-controller.name" . }}-manager
 spec:
+  {{- if not .Values.manager.replicas }}
+  # Use this field instead of the scale-available annotation when it is 0 replicas.
   replicas: {{ .Values.manager.replicas }}
+  {{- end }}
   selector:
     matchLabels:
-      {{- include "harvester-network-controller.selectorLabels" . | nindent 6 }}
+      {{- include "harvester-network-controller-manager.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
-        {{- include "harvester-network-controller.selectorLabels" . | nindent 8 }}
+        {{- include "harvester-network-controller-manager.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "harvester-network-controller.name" . }}
       hostNetwork: true
