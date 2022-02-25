@@ -32,8 +32,8 @@ spec:
     - jsonPath: .spec.nodeName
       name: NodeName
       type: string
-    - jsonPath: .status.state
-      name: Status
+    - jsonPath: .status.provisionPhase
+      name: ProvisionPhase
       type: string
     - jsonPath: .metadata.creationTimestamp
       name: Age
@@ -256,17 +256,8 @@ spec:
                 - Unprovisioned
                 - Unprovisioning
                 type: string
-              state:
-                description: the current state of the block device, options are "Active",
-                  "Inactive", or "Unknown"
-                enum:
-                - Active
-                - Inactive
-                - Unknown
-                type: string
             required:
             - provisionPhase
-            - state
             type: object
         required:
         - metadata
