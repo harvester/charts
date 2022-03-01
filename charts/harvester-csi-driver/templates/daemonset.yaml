@@ -73,11 +73,10 @@ spec:
           volumeMounts:
             - name: cloud-config
               readOnly: true
-            {{- if .Values.cloudConfig.secretName }}
               mountPath: /var/lib/harvester
-            {{- else }}
-              mountPath: /var/lib/harvester/cloud-provider-config
-            {{- end }}
+            - name: kubernetes
+              readOnly: true
+              mountPath: /etc/kubernetes
             - mountPath: {{ .Values.kubeletRootDir }}/plugins/kubernetes.io/csi
               mountPropagation: Bidirectional
               name: kubernetes-csi-dir
@@ -114,8 +113,12 @@ spec:
         {{- else }}
           hostPath:
             path: {{ .Values.cloudConfig.hostPath }}
-            type: File
+            type: DirectoryOrCreate
         {{- end }}
+        - hostPath:
+            path: /etc/kubernetes
+            type: DirectoryOrCreate
+          name: kubernetes
         - hostPath:
             path: {{ .Values.kubeletRootDir }}/plugins/kubernetes.io/csi
             type: DirectoryOrCreate
