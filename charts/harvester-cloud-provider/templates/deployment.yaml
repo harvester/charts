@@ -17,6 +17,7 @@ spec:
     {{- include "harvester-cloud-provider.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "harvester-cloud-provider.name" . }}
+      hostNetwork: true
       containers:
         - name: {{ include "harvester-cloud-provider.name" . }}
           image: {{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag }}
