@@ -72,6 +72,8 @@ spec:
                 - successThreshold
                 - timeoutSeconds
                 type: object
+              ipPool:
+                type: string
               ipam:
                 enum:
                 - pool
@@ -102,8 +104,6 @@ spec:
                 - vm
                 - cluster
                 type: string
-            required:
-            - ipam
             type: object
           status:
             properties:
