@@ -6,31 +6,28 @@ metadata:
   annotations:
     {}
   creationTimestamp: null
-  name: loadbalancers.loadbalancer.harvesterhci.io
+  name: ippools.loadbalancer.harvesterhci.io
 spec:
   group: loadbalancer.harvesterhci.io
   names:
-    kind: LoadBalancer
-    listKind: LoadBalancerList
-    plural: loadbalancers
+    kind: IPPool
+    listKind: IPPoolList
+    plural: ippools
     shortNames:
-    - lb
-    - lbs
-    singular: loadbalancer
-  scope: Namespaced
+    - pool
+    - pools
+    singular: ippool
+  scope: Cluster
   versions:
   - additionalPrinterColumns:
     - jsonPath: .spec.description
       name: DESCRIPTION
       type: string
-    - jsonPath: .spec.workloadType
-      name: WORKLOADTYPE
+    - jsonPath: .spec.network.vlan
+      name: VLAN
       type: string
-    - jsonPath: .spec.ipam
-      name: IPAM
-      type: string
-    - jsonPath: .status.address
-      name: ADDRESS
+    - jsonPath: .spec.ranges
+      name: RANGES
       type: string
     name: v1alpha1
     schema:
@@ -46,80 +43,80 @@ spec:
             type: object
           spec:
             properties:
-              backendServers:
-                description: The LB for Harvester is different from common lb because all listeners have the same backend servers.
-                items:
-                  type: string
-                type: array
               description:
                 type: string
-              healthCheck:
-                properties:
-                  PeriodSeconds:
-                    type: integer
-                  failureThreshold:
-                    type: integer
-                  port:
-                    type: integer
-                  successThreshold:
-                    type: integer
-                  timeoutSeconds:
-                    type: integer
-                required:
-                - PeriodSeconds
-                - failureThreshold
-                - port
-                - successThreshold
-                - timeoutSeconds
-                type: object
-              ipPool:
-                type: string
-              ipam:
-                enum:
-                - pool
-                - dhcp
-                type: string
-              listeners:
+              namespaces:
                 items:
                   properties:
-                    backendPort:
-                      format: int32
-                      type: integer
+                    guestClusters:
+                      items:
+                        type: string
+                      type: array
                     name:
-                      type: string
-                    port:
-                      format: int32
-                      type: integer
-                    protocol:
-                      default: TCP
                       type: string
                   required:
                   - name
-                  - port
-                  - protocol
                   type: object
                 type: array
-              workloadType:
-                enum:
-                - vm
-                - cluster
-                type: string
+              network:
+                properties:
+                  vlan:
+                    type: integer
+                type: object
+              projects:
+                items:
+                  properties:
+                    name:
+                      type: string
+                    namespaces:
+                      items:
+                        properties:
+                          guestClusters:
+                            items:
+                              type: string
+                            type: array
+                          name:
+                            type: string
+                        required:
+                        - name
+                        type: object
+                      type: array
+                  required:
+                  - name
+                  type: object
+                type: array
+              ranges:
+                items:
+                  description: Refer to github.com/containernetworking/plugins/plugins/ipam/host-local/backend/allocator.Range
+                  properties:
+                    gateway:
+                      type: string
+                    rangeEnd:
+                      type: string
+                    rangeStart:
+                      type: string
+                    subnet:
+                      type: string
+                  required:
+                  - subnet
+                  type: object
+                type: array
+            required:
+            - ranges
             type: object
           status:
             properties:
-              address:
-                type: string
-              allocatedAddress:
-                properties:
-                  gateway:
-                    type: string
-                  ip:
-                    type: string
-                  ipPool:
-                    type: string
-                  mask:
-                    type: string
+              allocated:
+                additionalProperties:
+                  type: string
                 type: object
+              allocatedHistory:
+                additionalProperties:
+                  type: string
+                type: object
+              available:
+                format: int64
+                type: integer
               conditions:
                 items:
                   properties:
@@ -146,6 +143,15 @@ spec:
                   - type
                   type: object
                 type: array
+              lastAllocated:
+                type: string
+              total:
+                format: int64
+                type: integer
+            required:
+            - available
+            - lastAllocated
+            - total
             type: object
         type: object
     served: true

@@ -14,14 +14,17 @@ metadata:
   name: {{ include "harvester-load-balancer.name" . }}
 rules:
   - apiGroups: [ "loadbalancer.harvesterhci.io" ]
-    resources: [ "loadbalancers" ]
-    verbs: [ "get", "watch", "list", "update", "create", "delete" ]
-  - apiGroups: ["discovery.k8s.io"]
-    resources: ["endpointslices"]
+    resources: [ "loadbalancers", "ippools" ]
     verbs: [ "get", "watch", "list", "update", "create", "delete" ]
   - apiGroups: [ "" ]
     resources: [ "services", "configmaps" ]
     verbs: [ "get", "watch", "list", "update", "create" ]
+  - apiGroups: [ "discovery.k8s.io" ]
+    resources: [ "endpointslices" ]
+    verbs: [ "get", "watch", "list", "update", "create", "delete" ]
+  - apiGroups: [ "k8s.cni.cncf.io" ]
+    resources: [ "network-attachment-definitions" ]
+    verbs: [ "get", "watch", "list" ]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -36,4 +39,47 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: {{ include "harvester-load-balancer.name" . }}
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "harvester-load-balancer.name" . }}-webhook
+  namespace: {{ .Release.Namespace }}
+  labels:
+  {{- include "harvester-load-balancer-webhook.labels" . | nindent 4 }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  name: {{ include "harvester-load-balancer.name" . }}-webhook
+rules:
+  - apiGroups: [ "" ]
+    resources: [ "secrets", "configmaps" ]
+    verbs: [ "get", "watch", "list", "update", "create" ]
+  - apiGroups: [ "apiregistration.k8s.io" ]
+    resources: [ "apiservices" ]
+    verbs: [ "get", "watch", "list" ]
+  - apiGroups: [ "apiextensions.k8s.io" ]
+    resources: [ "customresourcedefinitions" ]
+    verbs: [ "get", "watch", "list" ]
+  - apiGroups: [ "admissionregistration.k8s.io" ]
+    resources: [ "validatingwebhookconfigurations", "mutatingwebhookconfigurations" ]
+    verbs: [ "*" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "harvester-load-balancer.name" . }}-webhook
+  labels:
+  {{- include "harvester-load-balancer-webhook.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "harvester-load-balancer.name" . }}-webhook
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "harvester-load-balancer.name" . }}-webhook
     namespace: {{ .Release.Namespace }}

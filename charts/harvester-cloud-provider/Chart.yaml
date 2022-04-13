@@ -43,3 +43,8 @@ annotations:
 
 maintainers:
   - name: harvester
+
+dependencies:
+  - name: kube-vip
+    version: 0.4.2
+    repository: https://kube-vip.io/helm-charts
