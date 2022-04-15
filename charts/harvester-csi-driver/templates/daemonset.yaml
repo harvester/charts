@@ -54,7 +54,7 @@ spec:
                   fieldPath: spec.nodeName
             - name: CSI_ENDPOINT
               value: unix:///csi/csi.sock
-          image: {{ template "system_default_registry" . }}{{ .Values.image.harvester.csiDriver.repository }}:{{ .Values.image.harvester.csiDriver.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.image.harvester.csiDriver.repository }}:{{ .Values.image.harvester.csiDriver.tag | default .Chart.AppVersion }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           lifecycle:
             preStop:
