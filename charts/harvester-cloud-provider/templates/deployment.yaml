@@ -24,8 +24,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - --cloud-config=/etc/kubernetes/cloud-config
-            {{- if ne .Values.clusterName "" }}
-            - --cluster-name={{ .Values.clusterName }}
+            {{- if ne .Values.global.cattle.clusterName "" }}
+            - --cluster-name={{ .Values.global.cattle.clusterName }}
           {{- end }}
           command:
             - harvester-cloud-provider
