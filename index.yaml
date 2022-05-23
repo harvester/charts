@@ -274,6 +274,31 @@ entries:
       catalog.cattle.io/upstream-version: 0.1.9
     apiVersion: v2
     appVersion: v0.1.3
+    created: "2022-05-23T03:42:38.731368667Z"
+    description: A Helm chart for Harvester CSI driver
+    digest: 69e544581417bdec9c5d492ecb7edf7b83e39f4d7f804097ed53d5d10605970b
+    keywords:
+    - infrastructure
+    - harvester
+    maintainers:
+    - name: harvester
+    name: harvester-csi-driver
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-csi-driver-0.1.12/harvester-csi-driver-0.1.12.tgz
+    version: 0.1.12
+  - annotations:
+      catalog.cattle.io/certified: rancher
+      catalog.cattle.io/display-name: Harvester CSI Driver
+      catalog.cattle.io/kube-version: '>= 1.18'
+      catalog.cattle.io/namespace: kube-system
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/rancher-version: '>= 2.6.1-0 <= 2.6.99-0'
+      catalog.cattle.io/release-name: harvester-csi-driver
+      catalog.cattle.io/ui-component: harvester-csi-driver
+      catalog.cattle.io/upstream-version: 0.1.9
+    apiVersion: v2
+    appVersion: v0.1.3
     created: "2022-04-15T06:43:32.557948094Z"
     description: A Helm chart for Harvester CSI driver
     digest: 7b56142535813f3e058b6153430dec3490d7613c83503177ebf5a5ef9c34fbc4
@@ -760,4 +785,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-node-disk-manager-0.1.0/harvester-node-disk-manager-0.1.0.tgz
     version: 0.1.0
-generated: "2022-04-26T04:05:05.601075445Z"
+generated: "2022-05-23T03:42:38.731566369Z"
