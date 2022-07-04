@@ -70,6 +70,9 @@ autoProvisionFilter: []
 # Specify the interval of device rescanning of the node (in seconds)
 rescanInterval:
 
+# Sepcify how many concurrent ops we could execute at the same time
+maxConcurrentOps:
+
 # Perform auto GPT partition generating if a disk can not be globally identified
 # Default to false.
 autoGPTGenerate:
