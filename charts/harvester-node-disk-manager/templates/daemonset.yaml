@@ -51,6 +51,10 @@ spec:
         - name: NDM_RESCAN_INTERVAL
           value: {{ . | quote }}
         {{- end }}
+        {{- with .Values.maxConcurrentOps }}
+        - name: NDM_MAX_CONCURRENT_OPS
+          value: {{ . | quote }}
+        {{- end }}
         {{- with .Values.autoGPTGenerate }}
         - name: NDM_AUTO_GPT_GENERATE
           value: {{ . | quote }}
