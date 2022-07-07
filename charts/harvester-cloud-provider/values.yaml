@@ -6,9 +6,9 @@ replicasCount: 1
 
 image:
   repository: rancher/harvester-cloud-provider
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "master-head"
+  tag: v0.1.4
 
 cloudConfigPath: "/etc/kubernetes/cloud-config"
 
