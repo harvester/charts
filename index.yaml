@@ -4,6 +4,31 @@ entries:
   - annotations:
       catalog.cattle.io/certified: rancher
       catalog.cattle.io/display-name: Harvester Cloud Provider
+      catalog.cattle.io/kube-version: '>= 1.18.0-0 < 1.24.0-0'
+      catalog.cattle.io/namespace: kube-system
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/permits-os: linux
+      catalog.cattle.io/rancher-version: '>= 2.6.1-0 < 2.7.0-0'
+      catalog.cattle.io/release-name: harvester-cloud-provider
+      catalog.cattle.io/ui-component: harvester-cloud-provider
+    apiVersion: v2
+    appVersion: v0.1.4
+    created: "2022-07-07T10:01:58.55194335Z"
+    description: A Helm chart for Harvester Cloud Provider
+    digest: 2bea1885a208777ea9eb5c68388a9e29cf74f5125b10f01dfa5254aaebd0b33f
+    keywords:
+    - infrastructure
+    - harvester
+    maintainers:
+    - name: harvester
+    name: harvester-cloud-provider
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-cloud-provider-0.1.13/harvester-cloud-provider-0.1.13.tgz
+    version: 0.1.13
+  - annotations:
+      catalog.cattle.io/certified: rancher
+      catalog.cattle.io/display-name: Harvester Cloud Provider
       catalog.cattle.io/kube-version: '>= 1.18'
       catalog.cattle.io/namespace: kube-system
       catalog.cattle.io/os: linux
@@ -834,4 +859,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-node-disk-manager-0.1.0/harvester-node-disk-manager-0.1.0.tgz
     version: 0.1.0
-generated: "2022-06-14T13:46:53.544866636Z"
+generated: "2022-07-07T10:01:58.552103932Z"
