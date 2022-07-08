@@ -1,4 +1,3 @@
-
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -23,21 +22,25 @@ spec:
     - jsonPath: .spec.description
       name: DESCRIPTION
       type: string
-    - jsonPath: .spec.network.vlan
-      name: VLAN
-      type: string
     - jsonPath: .spec.ranges
       name: RANGES
+      type: string
+    - jsonPath: .spec.selector.priority
+      name: Priority
       type: string
     name: v1alpha1
     schema:
       openAPIV3Schema:
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
@@ -45,46 +48,6 @@ spec:
             properties:
               description:
                 type: string
-              namespaces:
-                items:
-                  properties:
-                    guestClusters:
-                      items:
-                        type: string
-                      type: array
-                    name:
-                      type: string
-                  required:
-                  - name
-                  type: object
-                type: array
-              network:
-                properties:
-                  vlan:
-                    type: string
-                type: object
-              projects:
-                items:
-                  properties:
-                    name:
-                      type: string
-                    namespaces:
-                      items:
-                        properties:
-                          guestClusters:
-                            items:
-                              type: string
-                            type: array
-                          name:
-                            type: string
-                        required:
-                        - name
-                        type: object
-                      type: array
-                  required:
-                  - name
-                  type: object
-                type: array
               ranges:
                 items:
                   description: Refer to github.com/containernetworking/plugins/plugins/ipam/host-local/backend/allocator.Range
@@ -101,8 +64,27 @@ spec:
                   - subnet
                   type: object
                 type: array
+              selector:
+                properties:
+                  network:
+                    type: string
+                  priority:
+                    type: integer
+                  scope:
+                    items:
+                      properties:
+                        guestCluster:
+                          type: string
+                        namespace:
+                          type: string
+                        project:
+                          type: string
+                      type: object
+                    type: array
+                type: object
             required:
             - ranges
+            - selector
             type: object
           status:
             properties:
@@ -121,13 +103,15 @@ spec:
                 items:
                   properties:
                     lastTransitionTime:
-                      description: Last time the condition transitioned from one status to another.
+                      description: Last time the condition transitioned from one status
+                        to another.
                       type: string
                     lastUpdateTime:
                       description: The last time this condition was updated.
                       type: string
                     message:
-                      description: Human-readable message indicating details about last transition
+                      description: Human-readable message indicating details about
+                        last transition
                       type: string
                     reason:
                       description: The reason for the condition's last transition.
@@ -157,9 +141,3 @@ spec:
     served: true
     storage: true
     subresources: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []
