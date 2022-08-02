@@ -752,6 +752,18 @@ entries:
     version: 0.1.0
   harvester-node-disk-manager:
   - apiVersion: v2
+    appVersion: v0.4.5
+    created: "2022-08-02T08:12:00.736546216Z"
+    description: A Helm chart for Harvester Node Disk Manager
+    digest: 21cca041099abb6d85ff47627e1225f31602b2b0204771d4f939c4cd6598c541
+    maintainers:
+    - name: harvester
+    name: harvester-node-disk-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-node-disk-manager-0.4.5/harvester-node-disk-manager-0.4.5.tgz
+    version: 0.4.5
+  - apiVersion: v2
     appVersion: v0.4.4
     created: "2022-07-21T10:17:08.771551252Z"
     description: A Helm chart for Harvester Node Disk Manager
@@ -871,4 +883,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-node-disk-manager-0.1.0/harvester-node-disk-manager-0.1.0.tgz
     version: 0.1.0
-generated: "2022-07-21T10:17:08.771743551Z"
+generated: "2022-08-02T08:12:00.736994826Z"
