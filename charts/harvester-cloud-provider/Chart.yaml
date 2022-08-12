@@ -18,7 +18,7 @@ keywords:
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.1.13
+version: 0.0.0-dev
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -37,7 +37,7 @@ annotations:
   # A SemVer range of compatible Kubernetes versions, just like Helm's kubeVersion.
   # The difference is that ours will only hide the chart in the dashboard UI, and still
   # allow users to edit (helm upgrade) the chart; the helm's kubeVersion disables edit in installed charts.
-  catalog.cattle.io/kube-version: ">= 1.18.0-0 < 1.24.0-0"
+  catalog.cattle.io/kube-version: ">= 1.18.0-0 < 1.25.0-0"
 
 
 maintainers:
