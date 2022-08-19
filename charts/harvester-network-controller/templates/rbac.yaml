@@ -14,8 +14,11 @@ rules:
   - apiGroups: [ "apiextensions.k8s.io" ]
     resources: [ "customresourcedefinitions" ]
     verbs: [ "*" ]
+  - apiGroups: [ "coordination.k8s.io" ]
+    resources: [ "leases" ]
+    verbs: [ "*" ]
   - apiGroups: [ "network.harvesterhci.io" ]
-    resources: [ "clusternetworks", "nodenetworks" ]
+    resources: [ "clusternetworks", "vlanconfigs", "vlanstatuses" ]
     verbs: [ "*" ]
   - apiGroups: [ "k8s.cni.cncf.io" ]
     resources: [ "network-attachment-definitions" ]
@@ -81,4 +84,60 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: harvester-network-helper
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: harvester-network-webhook
+  namespace: {{ .Release.Namespace }}
+  labels:
+  {{- include "harvester-network-controller.labels" . | nindent 4 }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: harvester-network-webhook
+rules:
+  - apiGroups: [ "" ]
+    resources: [ "secrets", "configmaps" ]
+    verbs: [ "*" ]
+  - apiGroups: [ "" ]
+    resources: [ "nodes" ]
+    verbs: [ "get", "watch", "list" ]
+  - apiGroups: [ "coordination.k8s.io" ]
+    resources: [ "leases" ]
+    verbs: [ "*" ]
+  - apiGroups: [ "k8s.cni.cncf.io" ]
+    resources: [ "network-attachment-definitions" ]
+    verbs: [ "get", "watch", "list", "update" ]
+  - apiGroups: [ "apiregistration.k8s.io" ]
+    resources: [ "apiservices" ]
+    verbs: [ "get", "watch", "list" ]
+  - apiGroups: [ "apiextensions.k8s.io" ]
+    resources: [ "customresourcedefinitions" ]
+    verbs: [ "get", "watch", "list" ]
+  - apiGroups: [ "admissionregistration.k8s.io" ]
+    resources: [ "validatingwebhookconfigurations", "mutatingwebhookconfigurations" ]
+    verbs: [ "*" ]
+  - apiGroups: [ "kubevirt.io" ]
+    resources: [ "virtualmachines" ]
+    verbs: [ "get", "watch", "list" ]
+  - apiGroups: [ "network.harvesterhci.io" ]
+    resources: [ "vlanstatuses" ]
+    verbs: [ "get", "watch", "list" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: harvester-network-webhook
+  labels:
+  {{- include "harvester-network-controller.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: harvester-network-webhook
+subjects:
+  - kind: ServiceAccount
+    name: harvester-network-webhook
     namespace: {{ .Release.Namespace }}
