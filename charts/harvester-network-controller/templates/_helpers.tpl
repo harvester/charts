@@ -47,3 +47,18 @@ app.kubernetes.io/component: network
 app.kubernetes.io/name: {{ include "harvester-network-controller.name" . }}-manager
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{- define "harvester-network-webhook.labels" -}}
+helm.sh/chart: {{ include "harvester-network-controller.chart" . }}
+{{ include "harvester-network-webhook.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/component: network-webhook
+{{- end }}
+
+{{- define "harvester-network-webhook.selectorLabels" -}}
+app.kubernetes.io/name: harvester-network-webhook
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}

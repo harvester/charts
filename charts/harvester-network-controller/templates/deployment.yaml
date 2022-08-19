@@ -64,7 +64,43 @@ spec:
         podAntiAffinity:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "harvester-network-webhook.labels" . | nindent 4 }}
+  {{- if .Values.webhook.replicas }}
+  # The annotation does not support 0 replicas.
+  annotations:
+    management.cattle.io/scale-available: "{{ .Values.webhook.replicas }}"
+  {{- end }}
+  name: harvester-network-webhook
+spec:
+  {{- if not .Values.webhook.replicas }}
+  # Use this field instead of the scale-available annotation when it is 0 replicas.
+  replicas: {{ .Values.webhook.replicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "harvester-network-webhook.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "harvester-network-webhook.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: harvester-network-webhook
+      containers:
+        - name: harvester-network-webhook
+          image: "{{ .Values.webhook.image.repository }}:{{ .Values.webhook.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          command:
+            - harvester-network-webhook
+          resources:
+            {{- toYaml .Values.webhook.resources | nindent 12 }}
