@@ -8,7 +8,7 @@ namespaceOverride: ""
 nameOverride: ""
 fullnameOverride: ""
 
-debug: true
+debug: false
 
 nodeSelector:
   kubernetes.io/os: linux

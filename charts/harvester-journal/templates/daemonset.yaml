@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: "{{ .Release.Name }}-aggregator"
-  namespace: "{{ .Release.Namespace }}"
+  name: "{{ include "harvester-journal.name" }}-aggregator"
+  namespace: "{{ include "harvester-journal.namespace" }}"
 spec:
   selector:
     matchLabels:
-      name: {{ .Release.Name }}-aggregator
+      name: {{ include "harvester-journal.name" }}-aggregator
   template:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-      name: "{{ .Release.Name }}-aggregator"
-      namespace: "{{ .Release.Namespace }}"
+      name: "{{ include "harvester-journal.name" }}-aggregator"
+      namespace: "{{ include "harvester-journal.namespace" }}"
       labels:
-        name: {{ .Release.Name }}-aggregator
+        name: {{ include "harvester-journal.name" }}-aggregator
     spec:
       containers:
         - name: fluentbit
@@ -43,11 +43,11 @@ spec:
       {{- with .Values.nodeSelector }}
       nodeSelector: {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: "{{ .Release.Name }}-aggregator"
+      serviceAccountName: "{{ include "harvester-journal.name" }}-aggregator"
       volumes:
         - name: config
           configMap:
-            name: "{{ .Release.Name }}"
+            name: "{{ include "harvester-journal.name" }}"
         - name: journal
           hostPath:
             path: {{ .Values.systemdLogPath | default "/var/log/journal" }}
@@ -61,19 +61,19 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: "{{ .Release.Name }}-aggregator"
-  namespace: "{{ .Release.Namespace }}"
+  name: "{{ include "harvester-journal.name" }}-aggregator"
+  namespace: "{{ include "harvester-journal.namespace" }}"
 {{- if .Values.global.psp.enabled }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: "{{ .Release.Name }}-aggregator"
+  name: "{{ include "harvester-journal.name" }}-aggregator"
 rules:
   - apiGroups:
     - policy
     resourceNames:
-    - "{{ .Release.Name }}-aggregator"
+    - "{{ include "harvester-journal.name" }}-aggregator"
     resources:
     - podsecuritypolicies
     verbs:
@@ -82,20 +82,20 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: "{{ .Release.Name }}-aggregator"
+  name: "{{ include "harvester-journal.name" }}-aggregator"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: "{{ .Release.Name }}-aggregator"
+  name: "{{ include "harvester-journal.name" }}-aggregator"
 subjects:
   - kind: ServiceAccount
-    name: "{{ .Release.Name }}-aggregator"
+    name: "{{ include "harvester-journal.name" }}-aggregator"
 ---
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: "{{ .Release.Name }}-aggregator"
-  namespace: "{{ .Release.Namespace }}"
+  name: "{{ include "harvester-journal.name" }}-aggregator"
+  namespace: "{{ include "harvester-journal.namespace" }}"
 spec:
   allowPrivilegeEscalation: false
   fsGroup:
