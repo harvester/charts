@@ -1,0 +1,21 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "vm-import-controller.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "vm-import-controller.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem 
+  resources:
+    requests:
+      storage: {{ .Values.pvcClaim.size | quote }}
+{{- if .Values.pvcClaim.storageClass }}
+{{- if (eq "-" .Values.pvcClaim.storageClass) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.pvcClaim.storageClass }}"
+{{- end }}
+{{- end }}
