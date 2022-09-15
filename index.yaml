@@ -883,4 +883,17 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-node-disk-manager-0.1.0/harvester-node-disk-manager-0.1.0.tgz
     version: 0.1.0
-generated: "2022-08-02T08:12:00.736994826Z"
+  harvester-vm-import-controller:
+  - apiVersion: v2
+    appVersion: v0.1.0
+    created: "2022-09-15T07:32:53.734267848Z"
+    description: A Helm chart for Kubernetes
+    digest: 34a79bce7dbfdff167d29c3773a14f50d9596bebc6fa341b16012ff343c06660
+    maintainers:
+    - name: harvester
+    name: harvester-vm-import-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.1.0/harvester-vm-import-controller-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-09-15T07:32:53.734445055Z"
