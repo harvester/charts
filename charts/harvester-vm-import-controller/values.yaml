@@ -6,9 +6,9 @@ replicaCount: 1
 
 image:
   repository: rancher/harvester-vm-import-controller
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: main-head
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
