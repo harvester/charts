@@ -1,0 +1,153 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    {}
+  creationTimestamp: null
+  name: ksmtuneds.node.harvesterhci.io
+spec:
+  group: node.harvesterhci.io
+  names:
+    kind: Ksmtuned
+    listKind: KsmtunedList
+    plural: ksmtuneds
+    shortNames:
+    - ksmtd
+    singular: ksmtuned
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.run
+      name: Run
+      type: string
+    - jsonPath: .spec.mode
+      name: Mode
+      type: string
+    name: v1beta1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              ksmtunedParameters:
+                properties:
+                  boost:
+                    type: integer
+                  decay:
+                    type: integer
+                  maxPages:
+                    type: integer
+                  minPages:
+                    type: integer
+                  sleepMsec:
+                    format: int64
+                    type: integer
+                required:
+                - boost
+                - decay
+                - maxPages
+                - minPages
+                - sleepMsec
+                type: object
+              mode:
+                default: standard
+                description: KsmtunedMode defines the mode used by ksmtuned
+                enum:
+                - standard
+                - high
+                - customized
+                type: string
+              run:
+                default: stop
+                enum:
+                - stop
+                - run
+                - prune
+                type: string
+              thresCoef:
+                default: 20
+                maximum: 100
+                minimum: 0
+                type: integer
+            required:
+            - ksmtunedParameters
+            - mode
+            - run
+            - thresCoef
+            type: object
+          status:
+            properties:
+              fullScans:
+                description: how many times all mergeable areas have been scanned
+                format: int64
+                type: integer
+              ksmdPhase:
+                default: Stopped
+                description: ksmd status
+                enum:
+                - Stopped
+                - Running
+                - Pruned
+                type: string
+              shared:
+                description: how many shared pages are being used
+                format: int64
+                type: integer
+              sharing:
+                description: how many more sites are sharing them i.e. how much saved
+                format: int64
+                type: integer
+              stableNodeChains:
+                description: the number of KSM pages that hit the max_page_sharing
+                  limit
+                format: int64
+                type: integer
+              stableNodeDups:
+                description: number of duplicated KSM pages
+                format: int64
+                type: integer
+              unshared:
+                description: how many pages unique but repeatedly checked for merging
+                format: int64
+                type: integer
+              volatile:
+                description: how many pages changing too fast to be placed in a tree
+                format: int64
+                type: integer
+            required:
+            - fullScans
+            - ksmdPhase
+            - shared
+            - sharing
+            - stableNodeChains
+            - stableNodeDups
+            - unshared
+            - volatile
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
