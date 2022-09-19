@@ -1,0 +1,22 @@
+# Default values for harvester-node-manager.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  repository: rancher/harvester-node-manager
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "master-head"
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 10m
+    memory: 64Mi
+
+tolerations:
+  # this toleration is to have the daemonset runnable on master nodes
+  # remove it if your masters can't run pods
+  - key: node-role.kubernetes.io/master
+    effect: NoSchedule
