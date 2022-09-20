@@ -21,7 +21,6 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      hostNetwork: true
       serviceAccountName: {{ include "harvester-pcidevices-controller.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
@@ -69,3 +68,16 @@ spec:
         hostPath:
           path: /lib/modules
           type: Directory
+apiVersion: v1
+kind: Service
+metadata:
+  name: pcidevices-webhook
+  labels:
+    {{- include "harvester-pcidevices-controller.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "harvester-pcidevices-controller.selectorLabels" . | nindent 4 }}
+  ports:
+    - protocol: TCP
+      port: 8443
+      targetPort: 8443
