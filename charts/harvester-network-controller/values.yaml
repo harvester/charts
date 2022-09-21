@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 image:
   repository: rancher/harvester-network-controller
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
@@ -57,16 +57,17 @@ manager:
         topologyKey: kubernetes.io/hostname
 
 helper:
+  # Helper image version is used in the harvester-network-controller codes as the job's template image.
   image:
     repository: rancher/harvester-network-helper
-    tag: "master-head"
+    tag: v0.3.0-rc1
 
 webhook:
   replicas: 1
   image:
     repository: rancher/harvester-network-webhook
-    tag: "master-head"
-    pullPolicy: Always
+    tag: ""
+    pullPolicy: IfNotPresent
   httpsPort: 8443
   resources:
     limits:
