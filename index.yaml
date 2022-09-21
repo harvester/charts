@@ -883,6 +883,19 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-node-disk-manager-0.1.0/harvester-node-disk-manager-0.1.0.tgz
     version: 0.1.0
+  harvester-node-manager:
+  - apiVersion: v2
+    appVersion: v0.1.0
+    created: "2022-09-21T08:22:07.645838864Z"
+    description: A Helm chart for Harvester Node Manager
+    digest: ee1fc160d0f45c0e2a6b1fa80935670fe9f9d24af61b32196db453ffb44eb0f0
+    maintainers:
+    - name: harvester
+    name: harvester-node-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-node-manager-0.1.0/harvester-node-manager-0.1.0.tgz
+    version: 0.1.0
   harvester-pcidevices-controller:
   - apiVersion: v2
     appVersion: 0.2.1-rc1
@@ -909,4 +922,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.1.0/harvester-vm-import-controller-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-21T04:43:24.99898736Z"
+generated: "2022-09-21T08:22:07.645993068Z"
