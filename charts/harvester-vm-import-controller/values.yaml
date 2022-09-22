@@ -53,6 +53,7 @@ resources:
     memory: "4Gi"
 
 pvcClaim:
+  enabled: false
   size: "200Gi"
   # leave empty to use longhorn default
   storageClassName: ""
