@@ -38,11 +38,11 @@ service:
 
 resources:
   limits:
-    cpu: 20m
-    memory: 100Mi
+    cpu: 50m
+    memory: 300Mi
   requests:
-    cpu: 10m
-    memory: 50Mi
+    cpu: 20m
+    memory: 200Mi
 
 
 nodeSelector: {}
