@@ -50,5 +50,9 @@ spec:
       {{- end }}
       volumes:
       - name: storage
+{{- if .Values.pvcClaim.enabled }}
         persistentVolumeClaim:
           claimName: {{ include "vm-import-controller.fullname" . }}
+{{- else }}
+        emptyDir: {}
+{{- end }}
