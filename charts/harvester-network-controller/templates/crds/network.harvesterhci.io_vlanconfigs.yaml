@@ -22,9 +22,6 @@ spec:
     - jsonPath: .spec.clusterNetwork
       name: CLUSTERNETWORK
       type: string
-    - jsonPath: .spec.paused
-      name: PAUSED
-      type: boolean
     - jsonPath: .spec.description
       name: DESCRIPTION
       type: string
@@ -57,9 +54,6 @@ spec:
                 additionalProperties:
                   type: string
                 type: object
-              paused:
-                description: optional
-                type: boolean
               uplink:
                 properties:
                   bondOptions:
