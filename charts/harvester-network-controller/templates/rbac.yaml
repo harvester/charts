@@ -18,7 +18,7 @@ rules:
     resources: [ "leases" ]
     verbs: [ "*" ]
   - apiGroups: [ "network.harvesterhci.io" ]
-    resources: [ "clusternetworks", "vlanconfigs", "vlanstatuses" ]
+    resources: [ "clusternetworks", "vlanconfigs", "vlanstatuses", "linkmonitors" ]
     verbs: [ "*" ]
   - apiGroups: [ "k8s.cni.cncf.io" ]
     resources: [ "network-attachment-definitions" ]
