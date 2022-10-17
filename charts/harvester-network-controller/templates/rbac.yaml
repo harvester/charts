@@ -22,7 +22,7 @@ rules:
     verbs: [ "*" ]
   - apiGroups: [ "k8s.cni.cncf.io" ]
     resources: [ "network-attachment-definitions" ]
-    verbs: [ "get", "watch", "list", "update" ]
+    verbs: [ "*" ]
   - apiGroups: [ "" ]
     resources: [ "nodes" ]
     verbs: [ "get", "watch", "list", "update" ]
