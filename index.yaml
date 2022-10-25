@@ -957,6 +957,18 @@ entries:
     version: 0.1.0
   harvester-node-manager:
   - apiVersion: v2
+    appVersion: v0.1.2
+    created: "2022-10-25T08:13:57.233861391Z"
+    description: A Helm chart for Harvester Node Manager
+    digest: 7d2067b0ac855505cdf6f694ba9bbf672a2686be12a3be12711ea8ee3ba02933
+    maintainers:
+    - name: harvester
+    name: harvester-node-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-node-manager-0.1.2/harvester-node-manager-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     appVersion: v0.1.1
     created: "2022-09-29T09:42:15.273406242Z"
     description: A Helm chart for Harvester Node Manager
@@ -981,6 +993,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-node-manager-0.1.0/harvester-node-manager-0.1.0.tgz
     version: 0.1.0
   harvester-pcidevices-controller:
+  - apiVersion: v2
+    appVersion: v0.2.2
+    created: "2022-10-25T08:13:57.45421533Z"
+    description: A Helm chart for Harvester PCI devices controller
+    digest: feda18c40b785726c6ce47c0f413715fd3ad09aff1ff1c7d74ba4d391681307d
+    maintainers:
+    - name: harvester
+    name: harvester-pcidevices-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-pcidevices-controller-0.2.2/harvester-pcidevices-controller-0.2.2.tgz
+    version: 0.2.2
   - apiVersion: v2
     appVersion: v0.2.1
     created: "2022-10-24T11:43:23.11612951Z"
@@ -1090,4 +1114,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.1.0/harvester-vm-import-controller-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-24T11:43:23.116338908Z"
+generated: "2022-10-25T08:13:57.454529833Z"
