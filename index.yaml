@@ -4,6 +4,31 @@ entries:
   - annotations:
       catalog.cattle.io/certified: rancher
       catalog.cattle.io/display-name: Harvester Cloud Provider
+      catalog.cattle.io/kube-version: '>= 1.18.0-0 < 1.26.0-0'
+      catalog.cattle.io/namespace: kube-system
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/permits-os: linux
+      catalog.cattle.io/rancher-version: '>= 2.6.1-0 < 2.8.0-0'
+      catalog.cattle.io/release-name: harvester-cloud-provider
+      catalog.cattle.io/ui-component: harvester-cloud-provider
+    apiVersion: v2
+    appVersion: v0.1.5
+    created: "2023-01-11T08:59:38.603502635Z"
+    description: A Helm chart for Harvester Cloud Provider
+    digest: 1efba93d18efb620b21f110df89cbda98e7f2d3825842939792b6958e252fbc4
+    keywords:
+    - infrastructure
+    - harvester
+    maintainers:
+    - name: harvester
+    name: harvester-cloud-provider
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-cloud-provider-0.1.14/harvester-cloud-provider-0.1.14.tgz
+    version: 0.1.14
+  - annotations:
+      catalog.cattle.io/certified: rancher
+      catalog.cattle.io/display-name: Harvester Cloud Provider
       catalog.cattle.io/kube-version: '>= 1.18.0-0 < 1.24.0-0'
       catalog.cattle.io/namespace: kube-system
       catalog.cattle.io/os: linux
@@ -1174,4 +1199,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.1.0/harvester-vm-import-controller-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-22T09:22:52.59500764Z"
+generated: "2023-01-11T08:59:38.603920139Z"
