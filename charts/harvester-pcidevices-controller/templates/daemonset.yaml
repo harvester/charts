@@ -18,7 +18,6 @@ spec:
         {{- include "harvester-pcidevices-controller.selectorLabels" . | nindent 8 }}
     spec:
       hostNetwork: true
-      hostPID: true
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -42,6 +41,8 @@ spec:
             - mountPath: /sys
               name: sys
           env:
+            - name: GHW_DISABLE_WARNINGS
+              value: "1"
             - name: NODE_NAME
               valueFrom:
                 fieldRef:
