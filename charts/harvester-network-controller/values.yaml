@@ -60,7 +60,7 @@ helper:
   # Helper image version is used in the harvester-network-controller codes as the job's template image.
   image:
     repository: rancher/harvester-network-helper
-    tag: v0.3.1
+    tag: v0.3.1-rc1
 
 webhook:
   replicas: 1
