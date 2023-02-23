@@ -121,10 +121,10 @@ rules:
     resources: [ "validatingwebhookconfigurations", "mutatingwebhookconfigurations" ]
     verbs: [ "*" ]
   - apiGroups: [ "kubevirt.io" ]
-    resources: [ "virtualmachines" ]
+    resources: [ "virtualmachineinstances" ]
     verbs: [ "get", "watch", "list" ]
   - apiGroups: [ "network.harvesterhci.io" ]
-    resources: [ "vlanconfigs", "vlanstatuses" ]
+    resources: [ "vlanconfigs", "vlanstatuses", "clusternetworks" ]
     verbs: [ "get", "watch", "list" ]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
