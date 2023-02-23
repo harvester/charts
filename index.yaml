@@ -323,6 +323,31 @@ entries:
       catalog.cattle.io/release-name: harvester-csi-driver
       catalog.cattle.io/ui-component: harvester-csi-driver
     apiVersion: v2
+    appVersion: v0.1.5
+    created: "2023-02-23T15:40:12.000824515Z"
+    description: A Helm chart for Harvester CSI driver
+    digest: 215142a064debf0a1ab7f34ab4cf465be0dff7c9b9ab0b9aa342f1e4c7ff3280
+    keywords:
+    - infrastructure
+    - harvester
+    maintainers:
+    - name: harvester
+    name: harvester-csi-driver
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-csi-driver-0.1.16/harvester-csi-driver-0.1.16.tgz
+    version: 0.1.16
+  - annotations:
+      catalog.cattle.io/certified: rancher
+      catalog.cattle.io/display-name: Harvester CSI Driver
+      catalog.cattle.io/kube-version: '>= 1.18.0-0 < 1.26.0-0'
+      catalog.cattle.io/namespace: kube-system
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/permits-os: linux
+      catalog.cattle.io/rancher-version: '>= 2.6.1-0 < 2.8.0-0'
+      catalog.cattle.io/release-name: harvester-csi-driver
+      catalog.cattle.io/ui-component: harvester-csi-driver
+    apiVersion: v2
     appVersion: v0.1.4
     created: "2023-01-12T09:52:59.27427127Z"
     description: A Helm chart for Harvester CSI driver
@@ -1275,4 +1300,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.1.0/harvester-vm-import-controller-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-23T07:07:38.649710707Z"
+generated: "2023-02-23T15:40:12.001389344Z"
