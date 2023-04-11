@@ -17,7 +17,6 @@ spec:
       labels:
         {{- include "harvester-pcidevices-controller.selectorLabels" . | nindent 8 }}
     spec:
-      hostNetwork: true
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -40,6 +39,8 @@ spec:
               name: modules
             - mountPath: /sys
               name: sys
+            - mountPath: /host/proc
+              name: proc
           env:
             - name: GHW_DISABLE_WARNINGS
               value: "1"
@@ -75,3 +76,7 @@ spec:
             path: /sys
             type: Directory
           name: sys
+        - hostPath:
+            path: /proc
+            type: Directory
+          name: proc
