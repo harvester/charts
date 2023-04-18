@@ -733,6 +733,18 @@ entries:
     version: 0.1.1
   harvester-network-controller:
   - apiVersion: v2
+    appVersion: v0.3.2-rc5
+    created: "2023-04-18T12:27:48.807227781Z"
+    description: A Helm chart for Harvester Network Controller
+    digest: 7721e9d609f98158b504ac9dc847d19f4c303c1a3bef9ec855c46e9dccf492c1
+    maintainers:
+    - name: harvester
+    name: harvester-network-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-network-controller-0.3.2-rc5/harvester-network-controller-0.3.2-rc5.tgz
+    version: 0.3.2-rc5
+  - apiVersion: v2
     appVersion: v0.3.2-rc1
     created: "2023-02-15T09:42:28.569649958Z"
     description: A Helm chart for Harvester Network Controller
@@ -1336,4 +1348,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.1.0/harvester-vm-import-controller-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-13T04:05:53.340402464Z"
+generated: "2023-04-18T12:27:48.807639982Z"
