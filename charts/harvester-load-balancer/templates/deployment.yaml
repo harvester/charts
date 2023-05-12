@@ -4,17 +4,17 @@ kind: Deployment
 metadata:
   namespace: {{ .Release.Namespace }}
   labels:
-  {{- include "harvester-load-balancer.labels" . | nindent 4 }}
+    {{- include "harvester-load-balancer.labels" . | nindent 4 }}
   name: {{ include "harvester-load-balancer.name" . }}
 spec:
   replicas: {{ .Values.replicaCount}}
   selector:
     matchLabels:
-  {{- include "harvester-load-balancer.selectorLabels" . | nindent 6 }}
+      {{- include "harvester-load-balancer.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-    {{- include "harvester-load-balancer.selectorLabels" . | nindent 8 }}
+        {{- include "harvester-load-balancer.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "harvester-load-balancer.name" . }}
       containers:
@@ -24,16 +24,46 @@ spec:
           command:
             - harvester-load-balancer
           resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "harvester-load-balancer-webhook.labels" . | nindent 4 }}
+  name: {{ include "harvester-load-balancer.name" . }}-webhook
+spec:
+  replicas: {{ .Values.webhook.replicasCount }}
+  selector:
+    matchLabels:
+      {{- include "harvester-load-balancer-webhook.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "harvester-load-balancer-webhook.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "harvester-load-balancer.name" . }}-webhook
+      containers:
+        - name: {{ include "harvester-load-balancer.name" . }}-webhook
+          image: "{{ .Values.webhook.image.repository }}:{{ .Values.webhook.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
+          command:
+            - harvester-load-balancer-webhook
+          env:
+            - name: HARVESTER_WEBHOOK_SERVER_HTTPS_PORT
+              value: {{ .Values.webhook.httpsPort | quote }}
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                 fieldPath: metadata.namespace
+            - name: HARVESTER_CONTROLLER_USER_NAME
+              value: {{ print "system:serviceaccount:" .Release.Namespace ":harvester-load-balancer-webhook" | quote }}
+          resources:
           {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-      {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-      {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-      {{- toYaml . | nindent 8 }}
-      {{- end }}
+          ports:
+            - containerPort: {{ .Values.webhook.httpsPort }}
+              name: https
+              protocol: TCP
+          securityContext:
+          {{- toYaml .Values.webhook.securityContext | nindent 12 }}
