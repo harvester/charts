@@ -23,22 +23,25 @@ version: 0.1.14
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
-appVersion: v0.1.5
+appVersion: v0.2.0
 
 annotations:
   catalog.cattle.io/certified: rancher
   catalog.cattle.io/namespace: kube-system
+  catalog.cattle.io/kube-version: '>= 1.23.0-0 < 1.27.0-0'
   catalog.cattle.io/release-name: harvester-cloud-provider
   catalog.cattle.io/os: linux
-  catalog.cattle.io/permits-os: linux
-  catalog.cattle.io/rancher-version: ">= 2.6.1-0 < 2.8.0-0"
+  catalog.cattle.io/rancher-version: '>= 2.7.0-0 < 2.8.0-0'
   catalog.cattle.io/ui-component: harvester-cloud-provider
   catalog.cattle.io/display-name: Harvester Cloud Provider
-  # A SemVer range of compatible Kubernetes versions, just like Helm's kubeVersion.
-  # The difference is that ours will only hide the chart in the dashboard UI, and still
-  # allow users to edit (helm upgrade) the chart; the helm's kubeVersion disables edit in installed charts.
-  catalog.cattle.io/kube-version: ">= 1.18.0-0 < 1.26.0-0"
-
+  # The version of the upstream chart or app. It prevents the unexpected "downgrade"
+  # when upgrading an installed chart that uses our 100.x.x+upVersion version schema.```
+  catalog.cattle.io/upstream-version: "0.2.0"
 
 maintainers:
   - name: harvester
+
+dependencies:
+  - name: kube-vip
+    version: 0.4.2
+    repository: file://dependency_charts/kube-vip
