@@ -61,3 +61,17 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "harvester-load-balancer-webhook.labels" -}}
+helm.sh/chart: {{ include "harvester-load-balancer.chart" . }}
+{{ include "harvester-load-balancer-webhook.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{- define "harvester-load-balancer-webhook.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "harvester-load-balancer.name" . }}-webhook
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
