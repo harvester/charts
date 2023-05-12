@@ -69,3 +69,21 @@ global:
   cattle:
     systemDefaultRegistry: ""
     clusterName: ""
+
+kube-vip:
+  enabled: true
+  image:
+    repository: plndr/kube-vip-iptables
+    tag: v0.6.0
+  nodeSelector:
+    node-role.kubernetes.io/control-plane: "true"
+  env:
+    vip_interface: ""
+    vip_arp: "true"
+    lb_enable: "true"
+    lb_port: "6443"
+    vip_cidr: "32"
+    cp_enable: "false"
+    svc_enable: "true"
+    vip_leaderelection: "false"
+    enable_service_security: "true"
