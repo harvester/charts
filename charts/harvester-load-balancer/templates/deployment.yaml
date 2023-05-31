@@ -60,7 +60,7 @@ spec:
             - name: HARVESTER_CONTROLLER_USER_NAME
               value: {{ print "system:serviceaccount:" .Release.Namespace ":harvester-load-balancer-webhook" | quote }}
           resources:
-          {{- toYaml .Values.resources | nindent 12 }}
+          {{- toYaml .Values.webhook.resources | nindent 12 }}
           ports:
             - containerPort: {{ .Values.webhook.httpsPort }}
               name: https
