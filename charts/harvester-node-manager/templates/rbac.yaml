@@ -12,7 +12,7 @@ metadata:
   name: {{ include "harvester-node-manager.name" . }}
 rules:
   - apiGroups: [ "node.harvesterhci.io" ]
-    resources: [ "ksmtuneds", "ksmtuneds/status" ]
+    resources: [ "*" ]
     verbs: [ "*" ]
   - apiGroups: [ "" ]
     resources: [ "nodes" ]
