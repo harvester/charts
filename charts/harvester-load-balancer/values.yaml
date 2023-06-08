@@ -46,7 +46,7 @@ webhook:
   image:
     repository: rancher/harvester-load-balancer-webhook
     pullPolicy: IfNotPresent
-    tag: v0.2.0-rc1
+    tag: v0.2.0-rc2
   httpsPort: 8443
   resources:
     limits:
