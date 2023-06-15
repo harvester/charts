@@ -730,6 +730,21 @@ entries:
     version: 0.1.0
   harvester-load-balancer:
   - apiVersion: v2
+    appVersion: v0.2.0-rc3
+    created: "2023-06-15T10:50:24.64662512Z"
+    description: A load balancer implementation for Harvester
+    digest: fc57ff28163aee14c0de5a5c47d1e760fb9ac6cb0b045cf6c233159cefe14619
+    home: https://github.com/harvester/harvester-load-balancer
+    maintainers:
+    - name: harvester
+    name: harvester-load-balancer
+    sources:
+    - https://github.com/harvester/harvester-load-balancer
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-load-balancer-0.2.0-rc3/harvester-load-balancer-0.2.0-rc3.tgz
+    version: 0.2.0-rc3
+  - apiVersion: v2
     appVersion: v0.2.0-rc2
     created: "2023-06-08T02:59:12.051559317Z"
     description: A load balancer implementation for Harvester
@@ -1547,4 +1562,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.1.0/harvester-vm-import-controller-0.1.0.tgz
     version: 0.1.0
-generated: "2023-06-15T06:23:49.132769299Z"
+generated: "2023-06-15T10:50:24.647213852Z"
