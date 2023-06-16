@@ -73,7 +73,7 @@ global:
 kube-vip:
   enabled: true
   image:
-    repository: plndr/kube-vip-iptables
+    repository: rancher/mirrored-kube-vip-kube-vip-iptables
     tag: v0.6.0
   nodeSelector:
     node-role.kubernetes.io/control-plane: "true"
