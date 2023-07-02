@@ -3,23 +3,22 @@ description: vcluster - Virtual Kubernetes Clusters
 home: https://vcluster.com
 icon: https://static.loft.sh/branding/logos/vcluster/vertical/vcluster_vertical.svg
 keywords:
-- developer
-- development
-- sharing
-- share
-- multi-tenancy
-- tenancy
-- cluster
-- space
-- namespace
-- vcluster
-- vclusters
+  - developer
+  - development
+  - sharing
+  - share
+  - multi-tenancy
+  - tenancy
+  - cluster
+  - space
+  - namespace
+  - vcluster
+  - vclusters
 maintainers:
-- email: info@loft.sh
-  name: Loft Labs, Inc.
-  url: https://twitter.com/loft_sh
+  - name: LoftLabs
 name: vcluster
 sources:
-- https://github.com/loft-sh/vcluster
+  - https://github.com/loft-sh/vcluster
 type: application
 version: 0.15.2
+appVersion: 0.15.2
