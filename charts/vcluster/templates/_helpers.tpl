@@ -25,11 +25,7 @@ If release name contains chart name it will be used as a full name.
 Whether the ingressclasses syncer should be enabled
 */}}
 {{- define "vcluster.syncIngressclassesEnabled" -}}
-{{- if or
-    (.Values.sync.ingressclasses).enabled
-    (and
-        .Values.sync.ingresses.enabled
-        (not .Values.sync.ingressclasses)) -}}
+{{- if or (.Values.sync.ingressclasses).enabled (and .Values.sync.ingresses.enabled (not .Values.sync.ingressclasses)) -}}
     {{- true -}}
 {{- end -}}
 {{- end -}}
@@ -38,26 +34,7 @@ Whether the ingressclasses syncer should be enabled
 Whether to create a cluster role or not
 */}}
 {{- define "vcluster.createClusterRole" -}}
-{{- if or
-    (not
-        (empty (include "vcluster.serviceMapping.fromHost" . )))
-    (not
-        (empty (include "vcluster.plugin.clusterRoleExtraRules" . )))
-    (not
-        (empty (include "vcluster.generic.clusterRoleExtraRules" . )))
-    .Values.rbac.clusterRole.create
-    .Values.sync.hoststorageclasses.enabled
-    (index
-        ((index .Values.sync "legacy-storageclasses") | default (dict "enabled" false))
-    "enabled")
-    (include "vcluster.syncIngressclassesEnabled" . )
-    .Values.sync.nodes.enabled
-    .Values.sync.persistentvolumes.enabled
-    .Values.sync.storageclasses.enabled
-    .Values.sync.priorityclasses.enabled
-    .Values.sync.volumesnapshots.enabled
-    .Values.proxy.metricsServer.nodes.enabled
-    .Values.multiNamespaceMode.enabled -}}
+{{- if or (not (empty (include "vcluster.serviceMapping.fromHost" . ))) (not (empty (include "vcluster.plugin.clusterRoleExtraRules" . ))) (not (empty (include "vcluster.generic.clusterRoleExtraRules" . ))) .Values.rbac.clusterRole.create .Values.sync.hoststorageclasses.enabled (index ((index .Values.sync "legacy-storageclasses") | default (dict "enabled" false)) "enabled") (include "vcluster.syncIngressclassesEnabled" . ) .Values.sync.nodes.enabled .Values.sync.persistentvolumes.enabled .Values.sync.storageclasses.enabled .Values.sync.priorityclasses.enabled .Values.sync.volumesnapshots.enabled .Values.proxy.metricsServer.nodes.enabled .Values.multiNamespaceMode.enabled -}}
     {{- true -}}
 {{- end -}}
 {{- end -}}
