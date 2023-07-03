@@ -144,7 +144,7 @@ hostpathMapper:
 # Syncer configuration
 syncer:
   # Image to use for the syncer
-  # image: ghcr.io/loft-sh/vcluster
+  image: ghcr.io/loft-sh/vcluster:0.15.2
   extraArgs: []
   env: []
   livenessProbe:
