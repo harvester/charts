@@ -1542,6 +1542,19 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-pcidevices-controller-0.2.0-rc1/harvester-pcidevices-controller-0.2.0-rc1.tgz
     version: 0.2.0-rc1
+  harvester-seeder:
+  - apiVersion: v2
+    appVersion: v0.1.0-rc2
+    created: "2023-07-05T08:31:34.88106916Z"
+    description: A Helm chart for Harvester Seeder
+    digest: da916c468afade7aad9932c41241dcb16b6eec8c993062dabfe05b3b86c34044
+    maintainers:
+    - name: harvester
+    name: harvester-seeder
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-seeder-0.1.0-rc2/harvester-seeder-0.1.0-rc2.tgz
+    version: 0.1.0-rc2
   harvester-vm-import-controller:
   - apiVersion: v2
     appVersion: v0.1.4
@@ -1644,4 +1657,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2023-07-05T02:51:30.200996717Z"
+generated: "2023-07-05T08:31:34.881709562Z"
