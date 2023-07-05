@@ -2,12 +2,12 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 3
+replicaCount: 1
 
 image:
   repository: rancher/harvester-seeder
-  tag: main-head
-  pullPolicy: Always
+  tag: v0.1.0-rc2
+  pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 nameOverride: ""
@@ -47,8 +47,8 @@ resources:
 
 strategy:
   rollingUpdate:
-    maxSurge: 2
-    maxUnavailable: 2
+    maxSurge: 1
+    maxUnavailable: 1
   type: RollingUpdate
 
 # set to true for use in harvester-addon
