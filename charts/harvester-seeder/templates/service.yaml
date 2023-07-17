@@ -11,5 +11,9 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: 443
+      targetPort: webhook
+      protocol: TCP
+      name: webhook
   selector:
     {{- include "seeder.selectorLabels" . | nindent 4 }}
