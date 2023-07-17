@@ -23,6 +23,8 @@ rules:
   - get
   - list
   - watch
+  - create
+  - update
 - apiGroups:
   - bmc.tinkerbell.org
   resources:
@@ -82,6 +84,29 @@ rules:
     - events
   verbs:
     - create
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - validatingwebhookconfigurations
+  verbs:
+  - get
+  - watch
+  - list
+  - update
+  - create
+  - delete
+  - patch
+- apiGroups:
+  - apiregistration.k8s.io
+  resources:
+  - apiservices
+  verbs:
+  - get
+  - watch
+  - list
+  - update
+  - create
+  - delete
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
