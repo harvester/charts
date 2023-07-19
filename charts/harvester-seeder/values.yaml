@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: rancher/harvester-seeder
-  tag: v0.1.0-rc3
+  tag: ""
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
