@@ -1571,6 +1571,18 @@ entries:
     version: 0.2.0-rc1
   harvester-seeder:
   - apiVersion: v2
+    appVersion: v0.1.0
+    created: "2023-07-31T08:41:54.304223806Z"
+    description: A Helm chart for Harvester Seeder
+    digest: 508eb1c6d69d65948250c645d246b4383b1365c3457e9b06c4b1874bfad0f16c
+    maintainers:
+    - name: harvester
+    name: harvester-seeder
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-seeder-0.1.0/harvester-seeder-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
     appVersion: v0.1.0-rc3
     created: "2023-07-19T09:44:02.488899405Z"
     description: A Helm chart for Harvester Seeder
@@ -1708,4 +1720,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2023-07-19T09:44:02.489300009Z"
+generated: "2023-07-31T08:41:54.30461321Z"
