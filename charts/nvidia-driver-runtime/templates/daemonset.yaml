@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "nvidia-driver-runtime.fullname" . }}
+  labels:
+    {{- include "nvidia-driver-runtime.labels" . | nindent 4 }}
+spec:
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      {{- include "nvidia-driver-runtime.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "nvidia-driver-runtime.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "nvidia-driver-runtime.serviceAccountName" . }}
+      hostPID: true
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: nvidia-driver-ctr
+          env:
+          - name: "DRIVER_LOCATION"
+            value: "{{ .Values.driverLocation }}"
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: var-log
+              mountPath: /var/log
+            - name: dev-log
+              mountPath: /dev/log
+            - name: host-os-release
+              mountPath: "/host-etc/os-release"
+              readOnly: true
+            - name: host-sys
+              mountPath: /sys
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: var-log
+          hostPath:
+            path: /var/log
+        - name: dev-log
+          hostPath:
+            path: /dev/log
+        - name: host-os-release
+          hostPath:
+            path: "/etc/os-release"
+        - name: host-sys
+          hostPath:
+            path: /sys
+            type: Directory
