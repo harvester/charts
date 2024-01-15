@@ -72,6 +72,13 @@ global:
 
 kube-vip:
   enabled: true
+  tolerations:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/control-plane
+    operator: Exists
+  - effect: NoExecute
+    key: node-role.kubernetes.io/etcd
+    operator: Exists
   image:
     repository: rancher/mirrored-kube-vip-kube-vip-iptables
     tag: v0.6.0
