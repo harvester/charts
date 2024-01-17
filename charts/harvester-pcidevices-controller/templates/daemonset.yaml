@@ -42,7 +42,10 @@ spec:
             - mountPath: /host/proc
               name: proc
             - mountPath: /host/usr/lib
-              name: host-lib                 
+              name: host-lib
+            - mountPath: /host/usr/bin/file
+              name: host-file
+              readOnly: true     
           env:
           {{- if .Values.debug }}
             - name: DEBUG_LOGGING
@@ -89,4 +92,8 @@ spec:
         - hostPath:
             path: /usr/lib/
             type: Directory
-          name: host-lib         
+          name: host-lib
+        - hostPath:
+            path: /usr/bin/file
+            type: File
+          name: host-file            
