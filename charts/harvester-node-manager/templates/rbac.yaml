@@ -35,3 +35,47 @@ subjects:
   - kind: ServiceAccount
     name: {{ include "harvester-node-manager.name" . }}
     namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    {{- include "harvester-node-manager-webhook.labels" . | nindent 4 }}
+  name: {{ include "harvester-node-manager-webhook.name" . }}
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "harvester-node-manager-webhook.name" . }}
+rules:
+  - apiGroups: [ "node.harvesterhci.io" ]
+    resources: [ "*" ]
+    verbs: [ "get", "watch", "list" ]
+  - apiGroups: [ "" ]
+    resources: [ "secrets", "configmaps" ]
+    verbs: [ "get", "watch", "list", "update", "create" ]
+  - apiGroups: [ "apiregistration.k8s.io" ]
+    resources: [ "apiservices"]
+    verbs: [ "get", "watch", "list" ]
+  - apiGroups: [ "apiextensions.k8s.io" ]
+    resources: [ "customresourcedefinitions" ]
+    verbs: [ "get", "watch", "list" ]
+  - apiGroups: [ "admissionregistration.k8s.io" ]
+    resources: [ "validatingwebhookconfigurations", "mutatingwebhookconfigurations" ]
+    verbs: [ "*" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    {{- include "harvester-node-manager-webhook.labels" . | nindent 4 }}
+  name: {{ include "harvester-node-manager-webhook.name" . }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "harvester-node-manager-webhook.name" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "harvester-node-manager-webhook.name" . }}
+    namespace: {{ .Release.Namespace }}
