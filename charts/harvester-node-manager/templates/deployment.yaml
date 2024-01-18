@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "harvester-node-manager-webhook.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "harvester-node-manager-webhook.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "harvester-node-manager-webhook.selectorLabels" . | nindent 6 }}
+  replicas: {{ .Values.webhook.replicas }}
+  template:
+    metadata:
+      labels:
+        {{- include "harvester-node-manager-webhook.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "harvester-node-manager-webhook.name" . }}
+      containers:
+        - name: harvester-node-manager-webhook
+          image: "{{ .Values.webhook.image.repository}}:{{ .Values.webhook.image.tag }}"
+          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
+          ports:
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          env:
+            - name: WEBHOOK_SERVER_HTTPS_PORT
+              value: "8443"
+            - name: NAMESPACE
+              value: {{ .Release.Namespace }}
