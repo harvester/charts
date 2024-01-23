@@ -96,4 +96,4 @@ spec:
         - hostPath:
             path: /usr/bin/file
             type: File
-          name: host-file            
+          name: host-file
