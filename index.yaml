@@ -1456,6 +1456,18 @@ entries:
     version: 0.1.0
   harvester-pcidevices-controller:
   - apiVersion: v2
+    appVersion: v0.3.1
+    created: "2024-01-23T08:05:53.428892503Z"
+    description: A Helm chart for Harvester PCI devices controller
+    digest: 0b1c02ca09588197198aa811471c51e163439ceb227a7eeb6ec88251aaaa81b7
+    maintainers:
+    - name: harvester
+    name: harvester-pcidevices-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-pcidevices-controller-0.3.1/harvester-pcidevices-controller-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
     appVersion: v0.3.0
     created: "2024-01-23T02:45:56.794656391Z"
     description: A Helm chart for Harvester PCI devices controller
@@ -1859,4 +1871,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2024-01-23T04:05:50.106875856Z"
+generated: "2024-01-23T08:05:53.429434613Z"
