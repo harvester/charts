@@ -1817,6 +1817,19 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.1.0/harvester-vm-import-controller-0.1.0.tgz
     version: 0.1.0
+  nvidia-driver-runtime:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2024-01-23T04:05:50.106530548Z"
+    description: A Helm chart for Kubernetes
+    digest: 8abeee0423c508fdbbbf154a7529f718851dc91138f5c5672bb2e995879eb41f
+    maintainers:
+    - name: harvester
+    name: nvidia-driver-runtime
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/nvidia-driver-runtime-0.1.1/nvidia-driver-runtime-0.1.1.tgz
+    version: 0.1.1
   vcluster:
   - apiVersion: v2
     appVersion: 0.15.2
@@ -1846,4 +1859,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2024-01-23T02:45:56.795191164Z"
+generated: "2024-01-23T04:05:50.106875856Z"
