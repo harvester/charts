@@ -26,7 +26,6 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext: {}
-  # fsGroup: 2000
 
 securityContext:
   privileged: true
@@ -34,7 +33,6 @@ securityContext:
 service:
   type: ClusterIP
   port: 80
-
 
 resources:
   limits:
@@ -44,7 +42,6 @@ resources:
     cpu: 20m
     memory: 200Mi
 
-
 nodeSelector: {}
 
 tolerations:
@@ -52,3 +49,6 @@ tolerations:
     effect: NoSchedule
 
 affinity: {}
+
+# enable debug logging for pcidevices controller
+debug: false

@@ -41,7 +41,16 @@ spec:
               name: sys
             - mountPath: /host/proc
               name: proc
+            - mountPath: /host/usr/lib
+              name: host-lib
+            - mountPath: /host/usr/bin/file
+              name: host-file
+              readOnly: true     
           env:
+          {{- if .Values.debug }}
+            - name: DEBUG_LOGGING
+              value: "true"
+          {{- end }}    
             - name: GHW_DISABLE_WARNINGS
               value: "1"
             - name: NODE_NAME
@@ -80,3 +89,11 @@ spec:
             path: /proc
             type: Directory
           name: proc
+        - hostPath:
+            path: /usr/lib/
+            type: Directory
+          name: host-lib
+        - hostPath:
+            path: /usr/bin/file
+            type: File
+          name: host-file
