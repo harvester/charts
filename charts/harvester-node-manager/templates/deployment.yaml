@@ -19,7 +19,7 @@ spec:
       serviceAccountName: {{ include "harvester-node-manager-webhook.name" . }}
       containers:
         - name: harvester-node-manager-webhook
-          image: "{{ .Values.webhook.image.repository}}:{{ .Values.webhook.image.tag }}"
+          image: "{{ .Values.webhook.image.repository}}:{{ .Values.webhook.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
           ports:
           - containerPort: 8443
