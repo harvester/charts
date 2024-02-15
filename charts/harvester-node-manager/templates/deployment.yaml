@@ -6,6 +6,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "harvester-node-manager-webhook.labels" . | nindent 4 }}
+  {{- with .Values.webhook.replicas }}
+  annotations:
+    management.cattle.io/scale-available: "{{ . }}"
+  {{- end }}
 spec:
   selector:
     matchLabels:
