@@ -14,7 +14,9 @@ spec:
   selector:
     matchLabels:
       {{- include "harvester-node-manager-webhook.selectorLabels" . | nindent 6 }}
+  {{- if not .Values.webhook.replicas }}
   replicas: {{ .Values.webhook.replicas }}
+  {{- end }}
   template:
     metadata:
       labels:
