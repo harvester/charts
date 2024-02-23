@@ -36,3 +36,7 @@ spec:
               value: "8443"
             - name: NAMESPACE
               value: {{ .Release.Namespace }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
