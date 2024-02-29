@@ -82,8 +82,6 @@ kube-vip:
   image:
     repository: rancher/mirrored-kube-vip-kube-vip-iptables
     tag: v0.6.0
-  nodeSelector:
-    node-role.kubernetes.io/control-plane: "true"
   env:
     vip_interface: ""
     vip_arp: "true"
@@ -94,3 +92,15 @@ kube-vip:
     svc_enable: "true"
     vip_leaderelection: "false"
     enable_service_security: "true"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        # For RKE1
+        - matchExpressions:
+          - key: node-role.kubernetes.io/controlplane
+            operator: Exists
+        # For RKE2
+        - matchExpressions:
+          - key: node-role.kubernetes.io/control-plane
+            operator: Exists
