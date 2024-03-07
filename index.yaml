@@ -1823,6 +1823,18 @@ entries:
     version: 0.1.0-rc2
   harvester-vm-dhcp-controller:
   - apiVersion: v2
+    appVersion: v0.3.0
+    created: "2024-03-07T10:18:31.963448976Z"
+    description: A Helm chart for Harvester VM DHCP Controller
+    digest: dfbc92e0787555464f4159077a50c772429c2b948c30acc8a42d319f9f4ab117
+    maintainers:
+    - name: harvester
+    name: harvester-vm-dhcp-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-vm-dhcp-controller-0.3.0/harvester-vm-dhcp-controller-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     appVersion: v0.2.1
     created: "2024-02-19T23:50:29.582405953Z"
     description: A Helm chart for Harvester VM DHCP Controller
@@ -1997,4 +2009,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2024-03-06T09:29:32.353328528Z"
+generated: "2024-03-07T10:18:31.963858188Z"
