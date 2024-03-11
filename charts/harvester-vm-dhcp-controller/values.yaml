@@ -28,6 +28,9 @@ webhook:
     port: 443
   resources: {}
 
+# The service CIDR used in the cluster
+serviceCIDR: "10.53.0.0/16"
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

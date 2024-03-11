@@ -109,6 +109,8 @@ spec:
           - {{ .Release.Namespace }}
           - --https-port
           - "{{ .Values.webhook.httpsPort }}"
+          - --service-cidr
+          - "{{ .Values.serviceCIDR }}"
           ports:
           - name: https
             protocol: TCP
