@@ -60,6 +60,10 @@ jobs:
         run: "kubectl create namespace harvester-system"
         if: steps.list-changed.outputs.changed == 'true'
 
+      - name: Create roletemplate crd
+        run: "kubectl create -f tests/roletemplate_crd.yaml"
+        if: steps.list-changed.outputs.changed == 'true'
+                
       - name: Run chart-testing (install)
         run: ct install --config tests/ct.yaml
 
