@@ -1,0 +1,45 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: cluster
+description: "Harvester PCIDevices Admin can manage all device resources on downstream Harvester cluster"
+displayName: Harvester PCIDevices ReadOnly Role
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  name: harvester-pcidevices-readonly
+rules:
+- apiGroups:
+  - devices.harvesterhci.io
+  resources:
+  - pcidevices
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - devices.harvesterhci.io
+  resources:
+  - pcideviceclaims
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - harvesterhci.io
+  resources:
+  - addons
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - devices.harvesterhci.io
+  resources:
+  - sriovgpudevices
+  - vgpudevices
+  - sriovnetworkdevices
+  verbs:
+  - get
+  - list
+  - watch
