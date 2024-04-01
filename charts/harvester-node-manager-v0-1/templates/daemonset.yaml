@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "harvester-node-manager.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "harvester-node-manager.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "harvester-node-manager.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "harvester-node-manager.selectorLabels" . | nindent 8 }}
+        name: harvester-node-manager
+    spec:
+      serviceAccountName: {{ include "harvester-node-manager.name" . }}
+      containers:
+        - name: node-manager
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - harvester-node-manager
+          env:
+            - name: NODENAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+            - name: HOST_PROC
+              value: /host/proc
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /sys/kernel/mm/ksm
+              name: ksm
+              readOnly: false
+            - mountPath: /host/proc
+              name: proc
+              readOnly: true
+            - mountPath: /var/run/dbus/system_bus_socket
+              name: dbus-socket
+              readOnly: true
+            - mountPath: /host/etc/systemd
+              name: host-systemd
+            - mountPath: /host/oem
+              name: host-oem
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: ksm
+          hostPath:
+            path: /sys/kernel/mm/ksm
+        - name: proc
+          hostPath:
+            path: /proc
+        - name: dbus-socket
+          hostPath:
+            path: /var/run/dbus/system_bus_socket
+            type: ""
+        - name: host-systemd
+          hostPath:
+            path: /etc/systemd
+            type: ""
+        - name: host-oem
+          hostPath:
+            path: /oem
+            type: ""
