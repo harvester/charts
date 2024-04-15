@@ -1884,6 +1884,18 @@ entries:
     version: 0.1.0
   harvester-vm-import-controller:
   - apiVersion: v2
+    appVersion: v0.1.8
+    created: "2024-04-15T07:49:36.316901309Z"
+    description: A Helm chart for Kubernetes
+    digest: b5335ccbe481daecfad25df0757dae3985a66b6105d09e342f9acfd35d22d5d6
+    maintainers:
+    - name: harvester
+    name: harvester-vm-import-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.1.8/harvester-vm-import-controller-0.1.8.tgz
+    version: 0.1.8
+  - apiVersion: v2
     appVersion: v0.1.7
     created: "2024-01-22T07:20:35.506234232Z"
     description: A Helm chart for Kubernetes
@@ -2033,4 +2045,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2024-03-25T06:36:44.639088168Z"
+generated: "2024-04-15T07:49:36.317502971Z"
