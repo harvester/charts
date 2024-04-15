@@ -11,6 +11,10 @@ spec:
   selector:
     matchLabels:
   {{- include "harvester-cloud-provider.selectorLabels" . | nindent 6 }}
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
