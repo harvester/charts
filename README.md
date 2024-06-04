@@ -1,5 +1,4 @@
 # Harvester Charts
-![Release Charts](https://github.com/harvester/charts/workflows/Release%20Charts/badge.svg)
 
 ## Prerequisites
 - Helm 3.x
@@ -17,3 +16,6 @@ Once pushed, GitHub Actions will look for any changes to charts in the `charts/`
 
 Note that changes should only be synced to this repository when ready for a new release. GitHub Actions will fail if making changes to the charts in this repository directly, as Chart Releaser will not attempt to override old chart releases.
 
+## Example
+
+Refer the [release a chart and bump to upstream](./release-a-chart-and-bump-to-upstream.md) for more details.
