@@ -978,6 +978,18 @@ entries:
     version: 0.1.1
   harvester-network-controller:
   - apiVersion: v2
+    appVersion: v0.4.0
+    created: "2024-06-04T11:52:41.561354208Z"
+    description: A Helm chart for Harvester Network Controller
+    digest: 0b557aee44dcdcb39835f714186bf3519bd615033fd3661c38a710cb446d3632
+    maintainers:
+    - name: harvester
+    name: harvester-network-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-network-controller-0.4.0/harvester-network-controller-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     appVersion: v0.3.3
     created: "2023-06-13T08:18:08.999168605Z"
     description: A Helm chart for Harvester Network Controller
@@ -2045,4 +2057,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2024-04-15T07:49:36.317502971Z"
+generated: "2024-06-04T11:52:41.561992278Z"
