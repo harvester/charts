@@ -1813,6 +1813,18 @@ entries:
     version: 0.2.0-rc1
   harvester-seeder:
   - apiVersion: v2
+    appVersion: v0.3.0
+    created: "2024-06-05T05:24:32.084086927Z"
+    description: A Helm chart for Harvester Seeder
+    digest: 5be9fb5cfd34245c7608d87dfef14583346c1b3fd8d829dad1a35b5716e93a7e
+    maintainers:
+    - name: harvester
+    name: harvester-seeder
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-seeder-0.3.0/harvester-seeder-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     appVersion: v0.1.1
     created: "2024-01-23T00:51:37.074932279Z"
     description: A Helm chart for Harvester Seeder
@@ -1910,6 +1922,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-vm-dhcp-controller-0.1.0/harvester-vm-dhcp-controller-0.1.0.tgz
     version: 0.1.0
   harvester-vm-import-controller:
+  - apiVersion: v2
+    appVersion: v0.3.0
+    created: "2024-06-05T05:24:32.241417548Z"
+    description: A Helm chart for Kubernetes
+    digest: 5a75b398a8304bf3957c81e43b2e696e5c213ab68887ec6f66cec52ddb532f52
+    maintainers:
+    - name: harvester
+    name: harvester-vm-import-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.3.0/harvester-vm-import-controller-0.3.0.tgz
+    version: 0.3.0
   - apiVersion: v2
     appVersion: v0.1.8
     created: "2024-04-15T07:49:36.316901309Z"
@@ -2072,4 +2096,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2024-06-04T14:47:09.288058995Z"
+generated: "2024-06-05T05:24:32.241959425Z"
