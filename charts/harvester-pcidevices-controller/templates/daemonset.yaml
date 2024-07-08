@@ -45,12 +45,14 @@ spec:
               name: host-lib
             - mountPath: /host/usr/bin/file
               name: host-file
-              readOnly: true     
+              readOnly: true
+            - mountPath: /dev/bus
+              name: dev-bus
           env:
           {{- if .Values.debug }}
             - name: DEBUG_LOGGING
               value: "true"
-          {{- end }}    
+          {{- end }}
             - name: GHW_DISABLE_WARNINGS
               value: "1"
             - name: NODE_NAME
@@ -97,3 +99,7 @@ spec:
             path: /usr/bin/file
             type: File
           name: host-file
+        - hostPath:
+            path: /dev/bus
+            type: Directory
+          name: dev-bus
