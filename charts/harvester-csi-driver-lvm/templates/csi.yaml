@@ -1,0 +1,164 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: harvester-csi-driver-lvm-plugin
+  labels:
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: harvester-csi-driver-lvm-plugin
+  template:
+    metadata:
+      labels:
+        app: harvester-csi-driver-lvm-plugin
+    spec:
+      serviceAccountName: harvester-csi-driver-lvm
+{{- if .Values.tolerations.plugin }}
+      tolerations:
+{{ toYaml .Values.tolerations.plugin | indent 8 }}
+{{- end }}
+{{- if .Values.nodeSelector.plugin }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector.plugin | indent 8 }}
+{{- end }}
+      containers:
+      - name: node-driver-registrar
+        args:
+        - --v=5
+        - --csi-address=/csi/csi.sock
+        - --kubelet-registration-path={{ .Values.kubernetes.kubeletPath }}/plugins/{{ .Values.lvm.driverName }}/csi.sock
+        env:
+        - name: KUBE_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        image: {{ template "externalImages.csiNodeDriverRegistrar" . }}
+        imagePullPolicy: IfNotPresent
+        resources: {}
+        securityContext:
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /csi
+          name: socket-dir
+        - mountPath: /registration
+          name: registration-dir
+      - name: harvester-csi-driver-lvm-plugin
+        args:
+        - --drivername={{ .Values.lvm.driverName }}
+        - --endpoint=unix:///csi/csi.sock
+        - --hostwritepath={{ .Values.lvm.hostWritePath }}
+        - --nodeid=$(KUBE_NODE_NAME)
+        - --namespace={{ .Release.Namespace }}
+        - --provisionerimage={{ .Values.provisionerImage.repository }}:{{ .Values.provisionerImage.tag }}
+        - --pullpolicy={{ .Values.provisionerImage.pullPolicy }}
+        env:
+        - name: KUBE_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        image: "{{ .Values.pluginImage.repository }}:{{ .Values.pluginImage.tag }}"
+        imagePullPolicy: {{ .Values.pluginImage.pullPolicy }}
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /healthz
+            port: healthz
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 3
+        ports:
+        - containerPort: 9898
+          name: healthz
+          protocol: TCP
+        resources: {}
+        securityContext:
+          privileged: true
+        terminationMessagePath: /termination.log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /csi
+          name: socket-dir
+        - mountPath: {{ .Values.kubernetes.kubeletPath }}/pods
+          mountPropagation: Bidirectional
+          name: mountpoint-dir
+        - mountPath: {{ .Values.kubernetes.kubeletPath }}/plugins
+          mountPropagation: Bidirectional
+          name: plugins-dir
+        - mountPath: /dev
+          name: dev-dir
+          mountPropagation: Bidirectional
+        - mountPath: /lib/modules
+          name: mod-dir
+        - mountPath: /etc/lvm/backup
+          name: lvmbackup
+          mountPropagation: Bidirectional
+        - mountPath: /etc/lvm/cache
+          name: lvmcache
+          mountPropagation: Bidirectional
+        - mountPath: /run/lock/lvm
+          name: lvmlock
+          mountPropagation: Bidirectional
+      - name: liveness-probe
+        args:
+        - --csi-address=/csi/csi.sock
+        - --health-port=9898
+        image: {{ template "externalImages.csiLivenessprobe" . }}
+        imagePullPolicy: IfNotPresent
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /csi
+          name: socket-dir
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: {{ .Values.kubernetes.kubeletPath }}/plugins/{{ .Values.lvm.driverName }}
+          type: DirectoryOrCreate
+        name: socket-dir
+      - hostPath:
+          path: {{ .Values.kubernetes.kubeletPath }}/pods
+          type: DirectoryOrCreate
+        name: mountpoint-dir
+      - hostPath:
+          path: {{ .Values.kubernetes.kubeletPath }}/plugins_registry
+          type: Directory
+        name: registration-dir
+      - hostPath:
+          path: {{ .Values.kubernetes.kubeletPath }}/plugins
+          type: Directory
+        name: plugins-dir
+      - hostPath:
+          path: /dev
+          type: Directory
+        name: dev-dir
+      - hostPath:
+          path: /lib/modules
+        name: mod-dir
+      - hostPath:
+          path: {{ .Values.lvm.hostWritePath }}/backup
+          type: DirectoryOrCreate
+        name: lvmbackup
+      - hostPath:
+          path: {{ .Values.lvm.hostWritePath }}/cache
+          type: DirectoryOrCreate
+        name: lvmcache
+      - hostPath:
+          path: {{ .Values.lvm.hostWritePath }}/lock
+          type: DirectoryOrCreate
+        name: lvmlock
+---

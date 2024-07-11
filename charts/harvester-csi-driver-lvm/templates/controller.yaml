@@ -1,0 +1,79 @@
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: harvester-csi-driver-lvm-controller
+  labels:
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  serviceName: harvester-csi-driver-lvm-controller
+  replicas: 1
+  selector:
+    matchLabels:
+      app: harvester-csi-driver-lvm-controller
+  template:
+    metadata:
+      labels:
+        app: harvester-csi-driver-lvm-controller
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - harvester-csi-driver-lvm-plugin
+            topologyKey: kubernetes.io/hostname
+{{- if .Values.nodeSelector.provisioner }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector.provisioner | indent 8 }}
+{{- end }}
+{{- if .Values.tolerations.provisioner }}
+      tolerations:
+{{ toYaml .Values.tolerations.provisioner | indent 8 }}
+{{- end }}
+      serviceAccountName: harvester-csi-driver-lvm
+      containers:
+        - name: csi-attacher
+          image: {{ template "externalImages.csiAttacher" . }}
+          imagePullPolicy: IfNotPresent
+          args:
+            - --v=5
+            - --csi-address=/csi/csi.sock
+          securityContext:
+            privileged: true
+          volumeMounts:
+          - mountPath: /csi
+            name: socket-dir
+        - name: csi-provisioner
+          image: {{ template "externalImages.csiProvisioner" . }}
+          imagePullPolicy: IfNotPresent
+          args:
+            - -v=5
+            - --csi-address=/csi/csi.sock
+            - --feature-gates=Topology=true
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /csi
+              name: socket-dir
+        - name: csi-resizer
+          image: {{ template "externalImages.csiResizer" . }}
+          imagePullPolicy: IfNotPresent
+          args:
+            - -v=5
+            - -csi-address=/csi/csi.sock
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /csi
+              name: socket-dir
+      volumes:
+        - hostPath:
+            path: {{ .Values.kubernetes.kubeletPath }}/plugins/{{ .Values.lvm.driverName }}
+            type: DirectoryOrCreate
+          name: socket-dir
+---
