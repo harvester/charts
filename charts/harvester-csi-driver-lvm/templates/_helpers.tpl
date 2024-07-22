@@ -30,6 +30,14 @@
 {{- end -}}
 {{- end -}}
 
+{{- define "externalImages.csiSnapshotter" -}}
+{{- if .Values.customCSISidecars.enabled -}}
+{{- print .Values.customCSISidecars.snapshotter -}}
+{{- else -}}
+{{- print "registry.k8s.io/sig-storage/csi-snapshotter:v6.3.4" -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "externalImages.csiNodeDriverRegistrar" -}}
 {{- if .Values.customCSISidecars.enabled -}}
 {{- print .Values.customCSISidecars.registrar -}}
