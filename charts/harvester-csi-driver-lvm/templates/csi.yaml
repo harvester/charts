@@ -42,7 +42,7 @@ spec:
         resources: {}
         securityContext:
           privileged: true
-        terminationMessagePath: /dev/termination-log
+        terminationMessagePath: /termination.log
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /csi
@@ -115,7 +115,7 @@ spec:
         image: {{ template "externalImages.csiLivenessprobe" . }}
         imagePullPolicy: IfNotPresent
         resources: {}
-        terminationMessagePath: /dev/termination-log
+        terminationMessagePath: /termination.log
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /csi
