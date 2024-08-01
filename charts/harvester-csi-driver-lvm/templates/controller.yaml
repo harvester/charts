@@ -71,6 +71,17 @@ spec:
           volumeMounts:
             - mountPath: /csi
               name: socket-dir
+        - name: csi-snapshotter
+          image: {{ template "externalImages.csiSnapshotter" . }}
+          imagePullPolicy: IfNotPresent
+          args:
+            - -v=5
+            - -csi-address=/csi/csi.sock
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /csi
+              name: socket-dir
       volumes:
         - hostPath:
             path: {{ .Values.kubernetes.kubeletPath }}/plugins/{{ .Values.lvm.driverName }}
