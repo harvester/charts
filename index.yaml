@@ -1663,6 +1663,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-pcidevices-controller-0.4.0/harvester-pcidevices-controller-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v2
+    appVersion: v0.3.3
+    created: "2024-08-09T01:47:49.87274353Z"
+    description: A Helm chart for Harvester PCI devices controller
+    digest: a2235dd0d47ddb24748853d2981728c2c379286f562c33edb11c77ad4ce14f1b
+    maintainers:
+    - name: harvester
+    name: harvester-pcidevices-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-pcidevices-controller-0.3.3/harvester-pcidevices-controller-0.3.3.tgz
+    version: 0.3.3
+  - apiVersion: v2
     appVersion: v0.3.2
     created: "2024-02-14T22:29:23.646554197Z"
     description: A Helm chart for Harvester PCI devices controller
@@ -2026,6 +2038,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.4.0/harvester-vm-import-controller-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v2
+    appVersion: v0.3.2
+    created: "2024-08-09T01:47:49.994800723Z"
+    description: A Helm chart for Kubernetes
+    digest: c1dbd0b3d0f9cfab30971e7cc162fbd32bb2e268922d864be21dea893d9958bd
+    maintainers:
+    - name: harvester
+    name: harvester-vm-import-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.3.2/harvester-vm-import-controller-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
     appVersion: v0.3.0
     created: "2024-06-05T05:24:32.241417548Z"
     description: A Helm chart for Kubernetes
@@ -2199,4 +2223,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2024-08-05T10:44:22.712811302Z"
+generated: "2024-08-09T01:47:49.995377922Z"
