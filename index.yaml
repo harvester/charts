@@ -1559,6 +1559,18 @@ entries:
     version: 0.1.0
   harvester-node-manager:
   - apiVersion: v2
+    appVersion: v0.3.0
+    created: "2024-08-20T23:44:12.013274986Z"
+    description: A Helm chart for Harvester Node Manager
+    digest: 1df76d70f6f771b506c61a992073de4cf0adeaee0d2bedf80a1b7a245d129fe2
+    maintainers:
+    - name: harvester
+    name: harvester-node-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-node-manager-0.3.0/harvester-node-manager-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     appVersion: v0.2.1
     created: "2024-02-27T20:03:14.200573873Z"
     description: A Helm chart for Harvester Node Manager
@@ -2276,4 +2288,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2024-08-16T07:19:37.246419735Z"
+generated: "2024-08-20T23:44:12.01381798Z"
