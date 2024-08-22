@@ -8,7 +8,7 @@ image:
   repository: rancher/harvester-load-balancer
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v0.3.0
+  tag: v0.4.0
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -46,7 +46,7 @@ webhook:
   image:
     repository: rancher/harvester-load-balancer-webhook
     pullPolicy: IfNotPresent
-    tag: v0.3.0
+    tag: v0.4.0
   httpsPort: 8443
   resources:
     limits:
