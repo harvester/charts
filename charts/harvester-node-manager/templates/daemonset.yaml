@@ -37,9 +37,12 @@ spec:
           securityContext:
             privileged: true
           volumeMounts:
-            - mountPath: /sys/kernel/mm/ksm
-              name: ksm
+            - mountPath: /sys/kernel/mm
+              name: mm
               readOnly: false
+            - mountPath: /lib/modules
+              name: modules
+              readOnly: true
             - mountPath: /host/proc
               name: proc
               readOnly: true
@@ -57,9 +60,12 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: ksm
+        - name: mm
           hostPath:
-            path: /sys/kernel/mm/ksm
+            path: /sys/kernel/mm
+        - name: modules
+          hostPath:
+            path: /lib/modules
         - name: proc
           hostPath:
             path: /proc
