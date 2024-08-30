@@ -1,0 +1,19 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: cluster
+description: "Harvester ResourceQuotas Read Only can view resourcequotas.harvesterhci.io on downstream Harvester cluster"
+displayName: Harvester ResourceQuotas Read Role
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  name: harvester-resourcequotas-read-only
+rules:
+- apiGroups:
+  - harvesterhci.io
+  resources:
+  - resourcequotas
+  verbs:
+  - get
+  - list
+  - watch
