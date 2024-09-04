@@ -1,0 +1,147 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    {}
+  name: networkfilesystems.harvesterhci.io
+spec:
+  group: harvesterhci.io
+  names:
+    kind: NetworkFilesystem
+    listKind: NetworkFilesystemList
+    plural: networkfilesystems
+    shortNames:
+    - netfilesystem
+    - netfilesystems
+    singular: networkfilesystem
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.desiredState
+      name: DesiredState
+      type: string
+    - jsonPath: .status.endpoint
+      name: Endpoint
+      type: string
+    - jsonPath: .status.status
+      name: EndpointStatus
+      type: string
+    - jsonPath: .status.state
+      name: State
+      type: string
+    - jsonPath: .status.type
+      name: Type
+      type: string
+    name: v1beta1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              desiredState:
+                description: desired state of the networkFS endpoint, options are
+                  "Disabled", "Enabling", "Enabled", "Disabling", or "Unknown"
+                type: string
+              networkFSName:
+                description: name of the networkFS to which the endpoint is exported
+                type: string
+              perferredNodes:
+                description: perferred nodes to which the networkFS endpoint is exported
+                type: string
+              provisioner:
+                description: the provider of this networkfilesystem
+                type: string
+            required:
+            - desiredState
+            - networkFSName
+            type: object
+          status:
+            properties:
+              conditions:
+                default: []
+                description: the conditions of the networkFS
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    reason:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              endpoint:
+                default: ""
+                description: the current Endpoint of the networkFS
+                type: string
+              mountOpts:
+                description: the recommend mount options for the networkFS endpoint
+                type: string
+              state:
+                default: Disabled
+                description: the current state of the networkFS endpoint, options
+                  are "Enabled", "Enabling", "Disabling", "Disabled", or "Unknown"
+                enum:
+                - Enabled
+                - Enabling
+                - Disabling
+                - Disabled
+                - Unknown
+                type: string
+              status:
+                default: NotReady
+                description: the status of the endpoint
+                enum:
+                - Ready
+                - NotReady
+                - Reconciling
+                - Unknown
+                type: string
+              type:
+                default: NFS
+                description: the type of the networkFS endpoint, options are "NFS",
+                  or "Unknown"
+                enum:
+                - NFS
+                - Unknown
+                type: string
+            required:
+            - endpoint
+            - state
+            - status
+            - type
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
