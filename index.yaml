@@ -1355,6 +1355,19 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-network-controller-0.1.0/harvester-network-controller-0.1.0.tgz
     version: 0.1.0
+  harvester-networkfs-manager:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-09-04T06:48:33.333003515Z"
+    description: A Helm chart for Harvester Network Filesystem Manager
+    digest: 1b01249d02e2114cc46d55dc0c8b2d9ce35b8fe056d4a30620fde694eccb7390
+    maintainers:
+    - name: harvester
+    name: harvester-networkfs-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-networkfs-manager-0.1.0/harvester-networkfs-manager-0.1.0.tgz
+    version: 0.1.0
   harvester-node-disk-manager:
   - apiVersion: v2
     appVersion: v0.7.1
@@ -2339,4 +2352,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2024-08-29T02:38:30.361790496Z"
+generated: "2024-09-04T06:48:33.333550405Z"
