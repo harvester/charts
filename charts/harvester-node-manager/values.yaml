@@ -28,4 +28,4 @@ webhook:
   image:
     repository: rancher/harvester-node-manager-webhook
     pullPolicy: Always
-    tag: "v0.3.1"
+    tag: "v0.3.2"
