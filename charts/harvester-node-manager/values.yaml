@@ -27,5 +27,5 @@ webhook:
   replicas: 3
   image:
     repository: rancher/harvester-node-manager-webhook
-    pullPolicy: Always
-    tag: "master-head"
+    pullPolicy: IfNotPresent
+    tag: "v0.2.1"
