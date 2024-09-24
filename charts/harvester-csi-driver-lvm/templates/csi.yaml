@@ -4,17 +4,16 @@ kind: DaemonSet
 metadata:
   name: harvester-csi-driver-lvm-plugin
   labels:
-    heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
+    {{- include "harvester-csi-driver-lvm.labels" . | nindent 4 }}
 spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: harvester-csi-driver-lvm-plugin
+      {{- include "harvester-csi-driver-lvm.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: harvester-csi-driver-lvm-plugin
+        {{- include "harvester-csi-driver-lvm.labels" . | nindent 8 }}
     spec:
       serviceAccountName: harvester-csi-driver-lvm
 {{- if .Values.tolerations.plugin }}

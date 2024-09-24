@@ -4,28 +4,27 @@ apiVersion: apps/v1
 metadata:
   name: harvester-csi-driver-lvm-controller
   labels:
-    heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
+     {{- include "harvester-csi-driver-lvm-controller.labels" . | nindent 4 }}
 spec:
   serviceName: harvester-csi-driver-lvm-controller
   replicas: 1
   selector:
     matchLabels:
-      app: harvester-csi-driver-lvm-controller
+      {{- include "harvester-csi-driver-lvm-controller.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: harvester-csi-driver-lvm-controller
+        {{- include "harvester-csi-driver-lvm-controller.labels" . | nindent 8 }}
     spec:
       affinity:
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchExpressions:
-              - key: app
+              - key: app.kubernetes.io/name
                 operator: In
                 values:
-                - harvester-csi-driver-lvm-plugin
+                - harvester-csi-driver-lvm
             topologyKey: kubernetes.io/hostname
 {{- if .Values.nodeSelector.provisioner }}
       nodeSelector:

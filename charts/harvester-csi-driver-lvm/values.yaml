@@ -6,13 +6,15 @@ pluginImage:
   repository: rancher/harvester-lvm-csi-plugin
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "main-head"
+  tag: "v0.1.2"
 
 provisionerImage:
   repository: rancher/harvester-lvm-provisioner
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "main-head"
+  tag: "v0.1.2"
+
+nameOverride: ""
 
 lvm:
   # You will want to change this for read-only filesystems
@@ -20,6 +22,15 @@ lvm:
   hostWritePath: /etc/lvm
 
   driverName: lvm.driver.harvesterhci.io
+
+webhook:
+  replicas: 1
+  image:
+    repository: rancher/harvester-lvm-csi-driver-webhook
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "v0.1.2"
+  httpsPort: 8443
 
 rbac:
   create: true
@@ -81,6 +92,13 @@ tolerations:
   #   operator: Exists
   #   effect: NoSchedule
   provisioner:
+  # - key: node-role.kubernetes.io/master
+  #   operator: Exists
+  #   effect: NoSchedule
+  # - key: node-role.kubernetes.io/control-plane
+  #   operator: Exists
+  #   effect: NoSchedule
+  webhook:
   # - key: node-role.kubernetes.io/master
   #   operator: Exists
   #   effect: NoSchedule
