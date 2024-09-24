@@ -14,12 +14,23 @@ provisionerImage:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "main-head"
 
+nameOverride: ""
+
 lvm:
   # You will want to change this for read-only filesystems
   # For example, in Talos OS, set this to "/var/etc/lvm"
   hostWritePath: /etc/lvm
 
   driverName: lvm.driver.harvesterhci.io
+
+webhook:
+  replicas: 1
+  image:
+    repository: rancher/harvester-lvm-csi-driver-webhook
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "main-head"
+  httpsPort: 8443
 
 rbac:
   create: true
@@ -48,11 +59,12 @@ customCSISidecars:
 
   ## uncomment and set these if enabled=true
 
-  # attacher: k8s.gcr.io/sig-storage/csi-attacher:v3.5.0
-  # livenessprobe: k8s.gcr.io/sig-storage/livenessprobe:v2.7.0
-  # provisioner: k8s.gcr.io/sig-storage/csi-provisioner:v3.2.1
-  # registrar: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.5.1
-  # resizer: k8s.gcr.io/sig-storage/csi-resizer:v1.6.0
+  # attacher: registry.k8s.io/sig-storage/csi-attacher:v4.4.2
+  # livenessprobe: registry.k8s.io/sig-storage/livenessprobe:v2.12.0
+  # provisioner: registry.k8s.io/sig-storage/csi-provisioner:v3.6.2
+  # registrar: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.9.2
+  # resizer: registry.k8s.io/sig-storage/csi-resizer:v1.9.2
+  # snapshotter: registry.k8s.io/sig-storage/csi-snapshotter:v6.3.4
 
 nodeSelector:
   # The plugin daemonset will run on all nodes if it has a toleration,
@@ -80,6 +92,13 @@ tolerations:
   #   operator: Exists
   #   effect: NoSchedule
   provisioner:
+  # - key: node-role.kubernetes.io/master
+  #   operator: Exists
+  #   effect: NoSchedule
+  # - key: node-role.kubernetes.io/control-plane
+  #   operator: Exists
+  #   effect: NoSchedule
+  webhook:
   # - key: node-role.kubernetes.io/master
   #   operator: Exists
   #   effect: NoSchedule

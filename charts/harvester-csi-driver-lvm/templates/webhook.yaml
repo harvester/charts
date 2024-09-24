@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "harvester-csi-driver-lvm-webhook.labels" . | nindent 4 }}
+  name: harvester-csi-driver-lvm-webhook
+spec:
+  replicas: {{ .Values.webhook.replicas }}
+  selector:
+    matchLabels:
+      {{- include "harvester-csi-driver-lvm-webhook.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "harvester-csi-driver-lvm-webhook.labels" . | nindent 8 }}
+    spec:
+      serviceAccountName: harvester-csi-driver-lvm-webhook
+{{- if .Values.tolerations.webhook }}
+      tolerations:
+{{ toYaml .Values.tolerations.webhook | indent 8 }}
+{{- end }}
+      containers:
+        - name: harvester-csi-driver-lvm-webhook
+          image: "{{ .Values.webhook.image.repository }}:{{ .Values.webhook.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          command:
+            - csi-driver-lvm-webhook
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: harvester-csi-driver-lvm-webhook
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "harvester-csi-driver-lvm-webhook.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: {{ .Values.webhook.httpsPort }}
