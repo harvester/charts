@@ -6,7 +6,7 @@ image:
   repository: rancher/harvester-networkfs-manager
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "main-head"
+  tag: "v0.1.1"
 
 imagePullSecrets: []
 nameOverride: ""
