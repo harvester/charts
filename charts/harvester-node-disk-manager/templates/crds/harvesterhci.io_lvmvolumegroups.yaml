@@ -50,7 +50,7 @@ spec:
             type: object
           spec:
             properties:
-              desireState:
+              desiredState:
                 description: |-
                   DesiredState is the desired state of the volume group
                   enabled means we will keep this vg active, disabled means we will keep this vg inactive
@@ -64,6 +64,7 @@ spec:
                 description: |-
                   The devices of the volume group
                   format: map[<bd Name>]=devPath"
+                  e.g. map[087fc9702c450bfca5ba56b06ba7d7f2] = /dev/sda
                 type: object
               nodeName:
                 description: NodeName is the name of the node where the volume group
@@ -77,7 +78,7 @@ spec:
                 description: VGName is the name of the volume group
                 type: string
             required:
-            - desireState
+            - desiredState
             - nodeName
             - vgName
             type: object
@@ -121,6 +122,10 @@ spec:
                 - Active
                 - Inactive
                 - Unknown
+                type: string
+              vgTargetType:
+                description: VGTargetType is the target type of the volume group,
+                  now only support stripe/dm-thin
                 type: string
             type: object
         required:
