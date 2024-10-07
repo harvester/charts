@@ -46,9 +46,7 @@ spec:
               readOnly: true
             - name: host-sys
               mountPath: /sys
-            - name: firmware-search-path
-              mountPath: /sys/module/firmware_class/parameters/path
-            - name: nv-firmware
+            - name: lib-firmware
               mountPath: /lib/firmware
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -70,10 +68,7 @@ spec:
           hostPath:
             path: /sys
             type: Directory
-        - name: firmware-search-path
+        - name: lib-firmware
           hostPath:
-            path: /sys/module/firmware_class/parameters/path
-        - name: nv-firmware
-          hostPath:
-            path: /run/nvidia/driver/lib/firmware
-            type: DirectoryOrCreate
+            path: /lib/firmware
+            type: Directory
