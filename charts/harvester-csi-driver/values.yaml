@@ -25,6 +25,8 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
+# This field can be used to specify the corresponding StorageClass on the host cluster.
+hostStorageClass: ""
 kubeletRootDir: /var/lib/kubelet
 cloudConfig:
   secretName: ""

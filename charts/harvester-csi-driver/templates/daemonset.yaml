@@ -46,6 +46,9 @@ spec:
             - --nodeid=$(NODE_ID)
             - --endpoint=$(CSI_ENDPOINT)
             - --kubeconfig=/var/lib/harvester/cloud-provider-config
+            {{- if .Values.hostStorageClass }}
+            - --host-storage-class={{ .Values.hostStorageClass }}
+            {{- end }}
           env:
             - name: NODE_ID
               valueFrom:
