@@ -1,0 +1,17 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: cluster
+description: "Harvester ResourceQuotas Admin can manage all resourcequotas.harvesterhci.io on downstream Harvester cluster"
+displayName: Harvester ResourceQuotas Admin Role
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  name: harvester-resourcequotas-admin
+rules:
+- apiGroups:
+  - harvesterhci.io
+  resources:
+  - resourcequotas
+  verbs:
+  - '*'
