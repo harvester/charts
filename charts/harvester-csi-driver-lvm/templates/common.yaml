@@ -10,3 +10,10 @@ spec:
   - Persistent
   podInfoOnMount: true
   attachRequired: false
+---
+apiVersion: snapshot.storage.k8s.io/v1
+deletionPolicy: Delete
+driver: {{ .Values.lvm.driverName }}
+kind: VolumeSnapshotClass
+metadata:
+  name: lvm-snapshot
