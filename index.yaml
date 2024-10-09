@@ -526,6 +526,31 @@ entries:
       catalog.cattle.io/release-name: harvester-csi-driver
       catalog.cattle.io/ui-component: harvester-csi-driver
     apiVersion: v2
+    appVersion: v0.2.0
+    created: "2024-10-09T16:07:37.663749557Z"
+    description: A Helm chart for Harvester CSI driver
+    digest: 92b50efbb217af33cddf87b853b9efbac6e9fa1803b0497168ea19f81f0805b5
+    keywords:
+    - infrastructure
+    - harvester
+    maintainers:
+    - name: harvester
+    name: harvester-csi-driver
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-csi-driver-0.1.19/harvester-csi-driver-0.1.19.tgz
+    version: 0.1.19
+  - annotations:
+      catalog.cattle.io/certified: rancher
+      catalog.cattle.io/display-name: Harvester CSI Driver
+      catalog.cattle.io/kube-version: '>= 1.18.0-0 < 1.26.0-0'
+      catalog.cattle.io/namespace: kube-system
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/permits-os: linux
+      catalog.cattle.io/rancher-version: '>= 2.6.1-0 < 2.8.0-0'
+      catalog.cattle.io/release-name: harvester-csi-driver
+      catalog.cattle.io/ui-component: harvester-csi-driver
+    apiVersion: v2
     appVersion: v0.1.7
     created: "2024-07-23T04:58:30.236302355Z"
     description: A Helm chart for Harvester CSI driver
@@ -924,6 +949,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-csi-driver-0.1.0/harvester-csi-driver-0.1.0.tgz
     version: 0.1.0
   harvester-csi-driver-lvm:
+  - apiVersion: v2
+    appVersion: v0.1.2
+    created: "2024-10-09T16:07:37.824415372Z"
+    description: A Helm chart for Harvester LVM CSI Driver
+    digest: 0df1350aca20d4ea1abff708b67d2586d83a52bbb7898224214b4ca7bb92b8ce
+    maintainers:
+    - name: harvester
+    name: harvester-csi-driver-lvm
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-csi-driver-lvm-0.1.4/harvester-csi-driver-lvm-0.1.4.tgz
+    version: 0.1.4
   - apiVersion: v2
     appVersion: v0.1.2
     created: "2024-09-30T02:49:28.51723442Z"
@@ -2484,4 +2521,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2024-10-07T03:25:41.53823181Z"
+generated: "2024-10-09T16:07:37.825138507Z"
