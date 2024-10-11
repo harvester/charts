@@ -8,6 +8,15 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v0.7.3"
 
+webhook:
+  replicas: 1
+  image:
+    repository: rancher/harvester-node-disk-manager-webhook
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "master-head"
+  httpsPort: 8443
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -67,9 +76,6 @@ autoProvisionFilter: []
   # - /dev/sda?
   # - /dev/nvme0n1p1
 
-# Specify the interval of device rescanning of the node (in seconds)
-rescanInterval:
-
 # Sepcify how many concurrent ops we could execute at the same time
 maxConcurrentOps:
 
@@ -77,5 +83,5 @@ maxConcurrentOps:
 # Default to false.
 autoGPTGenerate:
 
-# Enable debug logging, default to false
+# Enable debug logging
 debug: false
