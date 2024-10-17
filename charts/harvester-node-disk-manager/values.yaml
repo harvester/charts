@@ -6,7 +6,7 @@ image:
   repository: rancher/harvester-node-disk-manager
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.7.3"
+  tag: "v0.7.5"
 
 webhook:
   replicas: 1
@@ -14,7 +14,7 @@ webhook:
     repository: rancher/harvester-node-disk-manager-webhook
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "master-head"
+    tag: "v0.7.5"
   httpsPort: 8443
 
 imagePullSecrets: []
