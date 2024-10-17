@@ -45,3 +45,4 @@ dependencies:
   - name: kube-vip
     version: 0.4.2
     repository: file://dependency_charts/kube-vip
+    condition: kube-vip.enabled
