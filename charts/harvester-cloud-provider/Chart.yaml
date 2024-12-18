@@ -23,15 +23,15 @@ version: 0.0.0-dev
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
-appVersion: v0.2.0
+appVersion: v0.2.3
 
 annotations:
   catalog.cattle.io/certified: rancher
   catalog.cattle.io/namespace: kube-system
-  catalog.cattle.io/kube-version: '>= 1.23.0-0 < 1.27.0-0'
+  catalog.cattle.io/kube-version: '>= 1.23.0-0 < 1.29.0-0'
   catalog.cattle.io/release-name: harvester-cloud-provider
   catalog.cattle.io/os: linux
-  catalog.cattle.io/rancher-version: '>= 2.7.0-0 < 2.8.0-0'
+  catalog.cattle.io/rancher-version: '>= 2.7.0-0 < 2.10.0-0'
   catalog.cattle.io/ui-component: harvester-cloud-provider
   catalog.cattle.io/display-name: Harvester Cloud Provider
   # The version of the upstream chart or app. It prevents the unexpected "downgrade"
@@ -43,5 +43,5 @@ maintainers:
 
 dependencies:
   - name: kube-vip
-    version: 0.4.2
+    version: 0.6.4
     repository: file://dependency_charts/kube-vip
