@@ -63,12 +63,18 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Global system default registry
+Convert string to boolean
 */}}
-{{- define "system_default_registry" -}}
-{{- if .Values.global.cattle.systemDefaultRegistry -}}
-{{- printf "%s/" .Values.global.cattle.systemDefaultRegistry -}}
+{{- define "kube-vip.toBool" -}}
+{{- if eq (lower (toString .)) "true" -}}
+{{- true -}}
+{{- else if eq (lower (toString .)) "false" -}}
+{{- false -}}
+{{- else if eq (lower (toString .)) "1" -}}
+{{- true -}}
+{{- else if eq (lower (toString .)) "0" -}}
+{{- false -}}
 {{- else -}}
-{{- "" -}}
+{{- default . false -}}
 {{- end -}}
 {{- end -}}
