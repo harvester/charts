@@ -8,7 +8,7 @@ image:
   repository: rancher/harvester-cloud-provider
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v0.2.2
+  tag: v0.2.4
 
 cloudConfigPath: "/etc/kubernetes/cloud-config"
 
@@ -81,7 +81,7 @@ kube-vip:
     operator: Exists
   image:
     repository: rancher/mirrored-kube-vip-kube-vip-iptables
-    tag: v0.6.0
+    tag: v0.8.7
   env:
     vip_interface: ""
     vip_arp: "true"
