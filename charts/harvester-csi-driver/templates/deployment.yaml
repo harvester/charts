@@ -88,6 +88,31 @@ spec:
       tolerations:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            # For RKE1
+            - matchExpressions:
+              - key: node-role.kubernetes.io/controlplane
+                operator: Exists
+            # For RKE2
+            - matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: Exists
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: [harvester-csi-driver]
+                - key: component
+                  operator: In
+                  values: [csi-controllers]
+              topologyKey: kubernetes.io/hostname
       volumes:
         - hostPath:
             path: {{ .Values.kubeletRootDir }}/harvester-plugins/driver.harvesterhci.io
