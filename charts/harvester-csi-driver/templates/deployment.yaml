@@ -88,6 +88,36 @@ spec:
       tolerations:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.harvesterhci.io/worker
+                operator: DoesNotExist
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: In
+                values: ["true"]
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: node-role.harvesterhci.io/management
+                operator: In
+                values: ["true"]
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 90
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: [{{ template "harvester-csi-driver.name" . }}]
+              topologyKey: kubernetes.io/hostname
       volumes:
         - hostPath:
             path: {{ .Values.kubeletRootDir }}/harvester-plugins/driver.harvesterhci.io
