@@ -110,13 +110,16 @@ spec:
                 values: ["true"]
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 90
+          - weight: 100
             podAffinityTerm:
               labelSelector:
                 matchExpressions:
                 - key: app.kubernetes.io/name
                   operator: In
                   values: [{{ template "harvester-csi-driver.name" . }}]
+                - key: component
+                  operator: In
+                  values: [csi-controllers]
               topologyKey: kubernetes.io/hostname
       volumes:
         - hostPath:
