@@ -78,3 +78,14 @@ Convert string to boolean
 {{- default . false -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Global system default registry
+*/}}
+{{- define "system_default_registry" -}}
+{{- if .Values.global.cattle.systemDefaultRegistry -}}
+{{- printf "%s/" .Values.global.cattle.systemDefaultRegistry -}}
+{{- else -}}
+{{- "" -}}
+{{- end -}}
+{{- end -}}
