@@ -92,22 +92,14 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
+            # For RKE1
             - matchExpressions:
-              - key: node-role.harvesterhci.io/worker
-                operator: DoesNotExist
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            preference:
-              matchExpressions:
+              - key: node-role.kubernetes.io/controlplane
+                operator: Exists
+            # For RKE2
+            - matchExpressions:
               - key: node-role.kubernetes.io/control-plane
-                operator: In
-                values: ["true"]
-          - weight: 100
-            preference:
-              matchExpressions:
-              - key: node-role.harvesterhci.io/management
-                operator: In
-                values: ["true"]
+                operator: Exists
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
@@ -116,7 +108,7 @@ spec:
                 matchExpressions:
                 - key: app.kubernetes.io/name
                   operator: In
-                  values: [{{ template "harvester-csi-driver.name" . }}]
+                  values: [harvester-csi-driver]
                 - key: component
                   operator: In
                   values: [csi-controllers]
