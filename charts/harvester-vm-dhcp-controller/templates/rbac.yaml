@@ -11,7 +11,7 @@ rules:
   verbs: [ "*" ]
 - apiGroups: [ "k8s.cni.cncf.io" ]
   resources: [ "network-attachment-definitions" ]
-  verbs: [ "get", "watch", "list" ]
+  verbs: [ "get", "watch", "list", "update" ]
 - apiGroups: [ "" ]
   resources: [ "nodes" ]
   verbs: [ "get", "watch", "list" ]
