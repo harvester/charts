@@ -24,6 +24,12 @@ spec:
     - jsonPath: .status.conditions[?(@.type=='Allocated')].status
       name: ALLOCATED
       type: string
+    - jsonPath: .status.conditions[?(@.type=='Disabled')].status
+      name: DISABLED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='InSynced')].status
+      name: INSYNCED
+      type: string
     - jsonPath: .metadata.creationTimestamp
       name: AGE
       type: date
@@ -68,9 +74,6 @@ spec:
                   type: object
                 maxItems: 4
                 type: array
-                x-kubernetes-validations:
-                - message: NetworkConfig may only be added
-                  rule: oldSelf.all(x, x in self)
               paused:
                 type: boolean
               vmName:
