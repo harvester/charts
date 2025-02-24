@@ -1635,6 +1635,18 @@ entries:
     version: 0.1.0
   harvester-networkfs-manager:
   - apiVersion: v2
+    appVersion: v1.5.0-dev.0
+    created: "2025-02-24T07:17:38.953596798Z"
+    description: A Helm chart for Harvester Network Filesystem Manager
+    digest: 461bfa4443735a39d501b09c243a2b598e4850760df82007c70eb4586bcab343
+    maintainers:
+    - name: harvester
+    name: harvester-networkfs-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-networkfs-manager-1.5.0-dev.0/harvester-networkfs-manager-1.5.0-dev.0.tgz
+    version: 1.5.0-dev.0
+  - apiVersion: v2
     appVersion: 0.1.0
     created: "2024-09-04T06:48:33.333003515Z"
     description: A Helm chart for Harvester Network Filesystem Manager
@@ -2870,4 +2882,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2025-02-24T05:34:09.077351276Z"
+generated: "2025-02-24T07:17:38.954622011Z"
