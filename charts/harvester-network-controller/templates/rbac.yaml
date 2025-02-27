@@ -121,7 +121,7 @@ rules:
     resources: [ "validatingwebhookconfigurations", "mutatingwebhookconfigurations" ]
     verbs: [ "*" ]
   - apiGroups: [ "kubevirt.io" ]
-    resources: [ "virtualmachineinstances" ]
+    resources: [ "virtualmachineinstances", "virtualmachines" ]
     verbs: [ "get", "watch", "list" ]
   - apiGroups: [ "network.harvesterhci.io" ]
     resources: [ "vlanconfigs", "vlanstatuses", "clusternetworks" ]
