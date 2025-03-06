@@ -1371,6 +1371,18 @@ entries:
   harvester-network-controller:
   - apiVersion: v2
     appVersion: v1.5.0-dev.0
+    created: "2025-03-06T09:56:49.26697572Z"
+    description: A Helm chart for Harvester Network Controller
+    digest: 0b833714124517813df4ff01bf8b7e17aadcabb3efbc0943d395b14252994afd
+    maintainers:
+    - name: harvester
+    name: harvester-network-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-network-controller-1.5.0-dev.1/harvester-network-controller-1.5.0-dev.1.tgz
+    version: 1.5.0-dev.1
+  - apiVersion: v2
+    appVersion: v1.5.0-dev.0
     created: "2025-02-24T05:34:09.074954425Z"
     description: A Helm chart for Harvester Network Controller
     digest: bd0bb16ec18b361f373eedeed51ec43da8a073c7397f72e0a33cbae07608a922
@@ -1659,6 +1671,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-networkfs-manager-0.1.0/harvester-networkfs-manager-0.1.0.tgz
     version: 0.1.0
   harvester-node-disk-manager:
+  - apiVersion: v2
+    appVersion: v1.5.0-dev.2
+    created: "2025-03-06T09:56:49.399579862Z"
+    description: A Helm chart for Harvester Node Disk Manager
+    digest: 5ea9c08a1af528801b498896edd43df333996b5edce65f4acecee94b950e6b66
+    maintainers:
+    - name: harvester
+    name: harvester-node-disk-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-node-disk-manager-1.5.0-dev.2/harvester-node-disk-manager-1.5.0-dev.2.tgz
+    version: 1.5.0-dev.2
   - apiVersion: v2
     appVersion: v1.5.0-dev.1
     created: "2025-01-16T11:25:52.309884219Z"
@@ -2906,4 +2930,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2025-03-03T08:07:56.779719535Z"
+generated: "2025-03-06T09:56:49.400357551Z"
