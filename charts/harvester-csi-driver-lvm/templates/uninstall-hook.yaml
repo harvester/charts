@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: delete-harvester-csi-driver-lvm-webhook
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: delete-harvester-csi-driver-lvm-webhook
+    spec:
+      serviceAccountName: harvester
+      restartPolicy: Never
+      containers:
+      - name: delete-lvm-validator-webhook
+        image: {{ .Values.hookImage.repository }}:{{ .Values.hookImage.tag }}
+        args:
+          - delete
+          - validatingwebhookconfiguration
+          - harvester-csi-driver-lvm-webhook
+          - --ignore-not-found
