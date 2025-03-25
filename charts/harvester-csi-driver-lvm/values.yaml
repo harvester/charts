@@ -14,6 +14,12 @@ provisionerImage:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "main-head"
 
+hookImage:
+  repository: rancher/kubectl
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "v1.29.2"
+
 nameOverride: ""
 
 lvm:
