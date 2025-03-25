@@ -10,7 +10,7 @@ spec:
     metadata:
       name: delete-harvester-csi-driver-lvm-webhook
     spec:
-      serviceAccountName: harvester
+      serviceAccountName: harvester-csi-driver-lvm-webhook
       restartPolicy: Never
       containers:
       - name: delete-lvm-validator-webhook
