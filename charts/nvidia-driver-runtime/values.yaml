@@ -4,7 +4,7 @@
 
 image:
   repository: rancher/harvester-nvidia-driver-toolkit
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: sle-micro-head
 
