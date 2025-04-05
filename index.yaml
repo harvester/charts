@@ -3076,6 +3076,18 @@ entries:
     version: 0.1.0
   nvidia-driver-runtime:
   - apiVersion: v2
+    appVersion: v1.5.0-dev.1
+    created: "2025-04-05T17:19:15.529793431Z"
+    description: A Helm chart for Kubernetes
+    digest: f68a12eccfd3b1c692c7b19f0e7824d8c4d970cc581c3198d2d84efc2c378600
+    maintainers:
+    - name: harvester
+    name: nvidia-driver-runtime
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/nvidia-driver-runtime-1.5.0-dev.1/nvidia-driver-runtime-1.5.0-dev.1.tgz
+    version: 1.5.0-dev.1
+  - apiVersion: v2
     appVersion: v1.5.0-dev.0
     created: "2025-03-03T08:07:56.778985559Z"
     description: A Helm chart for Kubernetes
@@ -3152,4 +3164,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2025-03-31T07:27:38.326290274Z"
+generated: "2025-04-05T17:19:15.531423985Z"
