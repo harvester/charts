@@ -18,7 +18,7 @@ hookImage:
   repository: rancher/kubectl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.29.2"
+  tag: "v1.32.3"
 
 nameOverride: ""
 

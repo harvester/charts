@@ -15,6 +15,7 @@ spec:
       containers:
       - name: delete-lvm-validator-webhook
         image: {{ .Values.hookImage.repository }}:{{ .Values.hookImage.tag }}
+        imagePullPolicy: {{ .Values.hookImage.pullPolicy }}
         args:
           - delete
           - validatingwebhookconfiguration
