@@ -126,6 +126,9 @@ rules:
   - apiGroups: [ "network.harvesterhci.io" ]
     resources: [ "vlanconfigs", "vlanstatuses", "clusternetworks" ]
     verbs: [ "get", "watch", "list" ]
+  - apiGroups: [ "kubeovn.io" ]
+    resources: [ "subnets", "vpcs" ]
+    verbs: [ "get", "watch", "list" ]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
