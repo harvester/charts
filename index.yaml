@@ -1141,6 +1141,18 @@ entries:
   harvester-csi-driver-lvm:
   - apiVersion: v2
     appVersion: v0.1.2
+    created: "2025-05-05T22:32:49.327253542Z"
+    description: A Helm chart for Harvester LVM CSI Driver
+    digest: 7c64957b56d2d7460960189c1d0839114de13f20a1ec73541b9d76fab504543a
+    maintainers:
+    - name: harvester
+    name: harvester-csi-driver-lvm
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-csi-driver-lvm-0.1.5/harvester-csi-driver-lvm-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: v0.1.2
     created: "2024-10-09T16:07:37.824415372Z"
     description: A Helm chart for Harvester LVM CSI Driver
     digest: 0df1350aca20d4ea1abff708b67d2586d83a52bbb7898224214b4ca7bb92b8ce
@@ -3533,4 +3545,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2025-05-05T05:41:35.428223959Z"
+generated: "2025-05-05T22:32:49.328963037Z"
