@@ -60,8 +60,11 @@ jobs:
         run: "kubectl create -f tests/snapshotter_volumesnapshotclass.yaml"
         if: steps.list-changed.outputs.changed == 'true'
 
-      - name: Run chart-testing (install)
-        run: ct install --config tests/ct.yaml
+      - name: Run chart-testing (install-generic)
+        run: ct install --config tests/ct.yaml --excluded-charts harvester-csi-driver-lvm
+      
+      - name: Run chart-testing (install-lvm)
+        run: ct install --config tests/ct.yaml --charts charts/harvester-csi-driver-lvm
 
   release:
     runs-on: ubuntu-latest
