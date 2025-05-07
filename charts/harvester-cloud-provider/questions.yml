@@ -8,4 +8,4 @@ questions:
   description: "Specify the path of the cloud config."
   group: "Default"
   type: string
-  default: "/etc/kubernetes/cloud-config"
+  default: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
