@@ -10,7 +10,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "master-head"
 
-cloudConfigPath: "/etc/kubernetes/cloud-config"
+cloudConfigPath: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
 
 imagePullSecrets: []
 nameOverride: ""
