@@ -2658,6 +2658,18 @@ entries:
     version: 0.1.0
   harvester-pcidevices-controller:
   - apiVersion: v2
+    appVersion: v1.5.1-dev.0
+    created: "2025-05-28T03:05:05.636330019Z"
+    description: A Helm chart for Harvester PCI devices controller
+    digest: 6469b83a5141f850e69007f58932250f558123690f401f25659c9c7e99ee8d1e
+    maintainers:
+    - name: harvester
+    name: harvester-pcidevices-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-pcidevices-controller-1.5.1-dev.0/harvester-pcidevices-controller-1.5.1-dev.0.tgz
+    version: 1.5.1-dev.0
+  - apiVersion: v2
     appVersion: v1.5.0
     created: "2025-04-25T00:05:55.889754484Z"
     description: A Helm chart for Harvester PCI devices controller
@@ -3550,6 +3562,18 @@ entries:
     version: 0.1.0
   nvidia-driver-runtime:
   - apiVersion: v2
+    appVersion: v1.5.1-dev.0
+    created: "2025-05-28T03:05:05.77164998Z"
+    description: A Helm chart for Kubernetes
+    digest: d204e318d86c403c7a278cd846a7417437ebdb1dc185ddb42e880daa1d0f20e7
+    maintainers:
+    - name: harvester
+    name: nvidia-driver-runtime
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/nvidia-driver-runtime-1.5.1-dev.0/nvidia-driver-runtime-1.5.1-dev.0.tgz
+    version: 1.5.1-dev.0
+  - apiVersion: v2
     appVersion: v1.5.0
     created: "2025-04-25T00:05:56.383405067Z"
     description: A Helm chart for Kubernetes
@@ -3674,4 +3698,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2025-05-28T03:02:38.214196527Z"
+generated: "2025-05-28T03:05:05.774111097Z"
