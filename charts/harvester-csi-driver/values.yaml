@@ -16,10 +16,13 @@ image:
       tag: v1.2.0
     provisioner:
       repository: rancher/mirrored-longhornio-csi-provisioner
-      tag: v2.1.2
+      tag: v5.3.0-20250709
     attacher:
       repository: rancher/mirrored-longhornio-csi-attacher
       tag: v3.2.1
+    snapshotter:
+      repository: rancher/mirrored-longhornio-csi-snapshotter
+      tag: v8.3.0-20250709
   pullPolicy: IfNotPresent
 
 nameOverride: ""
