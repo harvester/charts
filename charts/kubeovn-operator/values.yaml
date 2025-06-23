@@ -6,9 +6,9 @@ replicaCount: 3
 
 image:
   repository: rancher/harvester-kubeovn-operator
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: main-head
+  # tag: main-head
 
 imagePullSecrets: []
 nameOverride: ""
