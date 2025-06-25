@@ -3968,6 +3968,19 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-0.1.0/harvester-vm-import-controller-0.1.0.tgz
     version: 0.1.0
+  kubeovn-operator:
+  - apiVersion: v2
+    appVersion: v1.13.13-rc1
+    created: "2025-06-25T02:47:27.674120478Z"
+    description: A Helm chart for kubeovn-operator
+    digest: c810449d759d2870282551de45e2a7740f6035fc57ce35f38e3b31c09846e1cf
+    maintainers:
+    - name: harvester
+    name: kubeovn-operator
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/kubeovn-operator-1.13.13-rc1/kubeovn-operator-1.13.13-rc1.tgz
+    version: 1.13.13-rc1
   nvidia-driver-runtime:
   - apiVersion: v2
     appVersion: v1.5.1-rc4
@@ -4154,4 +4167,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2025-06-18T03:24:39.083983902Z"
+generated: "2025-06-25T02:47:27.676493654Z"
