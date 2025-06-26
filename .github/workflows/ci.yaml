@@ -27,6 +27,13 @@ jobs:
         with:
           version: v3.4.0
 
+      - name: check the version format before chart linter
+        run: |
+          if find ./charts -maxdepth 2 -name "Chart.yaml" -exec grep -E "^version:[[:space:]]*[a-zA-Z]" {} +; then
+            echo "Error: The above chart(s) contains invalid versions in Chart.yaml (version should not start with an English character)."
+            exit 1
+          fi
+
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.1.0
 
