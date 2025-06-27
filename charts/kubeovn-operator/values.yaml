@@ -57,7 +57,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
+enableConfiguration: false
 configurationSpec:
   components:
     OVSDBConTimeout: 3
