@@ -1,3 +1,4 @@
+{{- if .Values.enableConfiguration }}
 apiVersion: kubeovn.io/v1
 kind: Configuration
 metadata:
@@ -148,3 +149,4 @@ spec:
     gcInterval: {{ .Values.configurationSpec.performance.gcInterval | default "360" }}
     inspectInterval: {{ .Values.configurationSpec.performance.inspectInterval | default "20" }}
     ovsVSCtlConcurrency: {{ .Values.configurationSpec.performance.ovsVSCtlConcurrency | default "100" }}
+{{- end }}
