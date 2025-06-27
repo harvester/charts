@@ -4180,6 +4180,18 @@ entries:
     version: 0.1.0
   kubeovn-operator:
   - apiVersion: v2
+    appVersion: v1.13.13-rc2
+    created: "2025-06-27T05:26:38.446978902Z"
+    description: A Helm chart for kubeovn-operator
+    digest: 31cc34ee2d9d93ec39fd26151e8fa11416beb28c9b7e500e42e39cce7a99ef62
+    maintainers:
+    - name: harvester
+    name: kubeovn-operator
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/kubeovn-operator-1.13.13-rc2/kubeovn-operator-1.13.13-rc2.tgz
+    version: 1.13.13-rc2
+  - apiVersion: v2
     appVersion: v1.13.13-rc1
     created: "2025-06-25T02:47:27.674120478Z"
     description: A Helm chart for kubeovn-operator
@@ -4191,6 +4203,19 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/kubeovn-operator-1.13.13-rc1/kubeovn-operator-1.13.13-rc1.tgz
     version: 1.13.13-rc1
+  kubeovn-operator-crd:
+  - apiVersion: v2
+    appVersion: v1.13.13-rc2
+    created: "2025-06-27T05:26:38.612743567Z"
+    description: A Helm chart for kubeovn-operator crds
+    digest: 297c01337d034d09aad572eb477f0266a322241ca176a22a7ce5503070824277
+    maintainers:
+    - name: harvester
+    name: kubeovn-operator-crd
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/kubeovn-operator-crd-1.13.13-rc2/kubeovn-operator-crd-1.13.13-rc2.tgz
+    version: 1.13.13-rc2
   nvidia-driver-runtime:
   - apiVersion: v2
     appVersion: v1.6.0-dev.0
@@ -4401,4 +4426,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2025-06-26T03:15:09.620754154Z"
+generated: "2025-06-27T05:26:38.615130034Z"
