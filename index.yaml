@@ -2953,16 +2953,16 @@ entries:
     version: 1.6.0-rc1
   - apiVersion: v2
     appVersion: v1.6-head
-    created: "2025-06-25T09:03:56.091541484Z"
+    created: "2025-08-04T03:53:23.032812712Z"
     description: A Helm chart for Harvester Node Manager
-    digest: 9855e74a5deb919822b6200d442630119dd3b4006e76b65554b980fdb2e5c65e
+    digest: d227ab9ea96ddc299219eda5d255d948125379a5a41bd01b554477b11d19e469
     maintainers:
     - name: harvester
     name: harvester-node-manager
     type: application
     urls:
-    - https://github.com/harvester/charts/releases/download/harvester-node-manager-v1.6.0-dev.0/harvester-node-manager-v1.6.0-dev.0.tgz
-    version: v1.6.0-dev.0
+    - https://github.com/harvester/charts/releases/download/harvester-node-manager-1.6.0-dev.1/harvester-node-manager-1.6.0-dev.1.tgz
+    version: 1.6.0-dev.1
   - apiVersion: v2
     appVersion: v1.6-head
     created: "2025-06-26T03:15:09.61911306Z"
@@ -2975,6 +2975,18 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-node-manager-1.6.0-dev.0/harvester-node-manager-1.6.0-dev.0.tgz
     version: 1.6.0-dev.0
+  - apiVersion: v2
+    appVersion: v1.6-head
+    created: "2025-06-25T09:03:56.091541484Z"
+    description: A Helm chart for Harvester Node Manager
+    digest: 9855e74a5deb919822b6200d442630119dd3b4006e76b65554b980fdb2e5c65e
+    maintainers:
+    - name: harvester
+    name: harvester-node-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-node-manager-v1.6.0-dev.0/harvester-node-manager-v1.6.0-dev.0.tgz
+    version: v1.6.0-dev.0
   - apiVersion: v2
     appVersion: v1.5.1
     created: "2025-06-25T06:54:18.336449852Z"
@@ -4955,4 +4967,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2025-07-30T07:22:24.019530217Z"
+generated: "2025-08-04T03:53:23.034822292Z"
