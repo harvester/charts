@@ -4724,6 +4724,18 @@ entries:
     version: 0.1.0
   kubeovn-operator:
   - apiVersion: v2
+    appVersion: v1.13.13-rc5
+    created: "2025-08-11T08:47:59.95910182Z"
+    description: A Helm chart for kubeovn-operator
+    digest: b25a123f239f52be0d79ae975e1050f168762364df1ccb0537304e12c894c608
+    maintainers:
+    - name: harvester
+    name: kubeovn-operator
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/kubeovn-operator-1.13.13-rc5/kubeovn-operator-1.13.13-rc5.tgz
+    version: 1.13.13-rc5
+  - apiVersion: v2
     appVersion: v1.13.13-rc4
     created: "2025-07-16T09:58:34.417948864Z"
     description: A Helm chart for kubeovn-operator
@@ -5078,4 +5090,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.15.2/vcluster-0.15.2.tgz
     version: 0.15.2
-generated: "2025-08-04T10:43:48.480187275Z"
+generated: "2025-08-11T08:47:59.960966002Z"
