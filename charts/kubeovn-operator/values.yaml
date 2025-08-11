@@ -104,9 +104,9 @@ configurationSpec:
     joinCIDR: 100.64.0.0/16
     pingerExternalAddress: 1.1.1.1
     pingerExternalDomain: google.com.
-    podCIDR: 10.52.0.0/16
-    podGateway: 10.52.0.1
-    serviceCIDR: 10.53.0.0/16
+    podCIDR: 10.54.0.0/16
+    podGateway: 10.54.0.1
+    serviceCIDR: 10.55.0.0/16
   kubeOvnCNI:
     requests:
       cpu: "100m"
