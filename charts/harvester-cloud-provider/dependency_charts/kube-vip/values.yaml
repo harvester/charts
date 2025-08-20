@@ -16,11 +16,12 @@ env:
   vip_arp: "true"
   lb_enable: "true"
   lb_port: "6443"
-  vip_cidr: "32"
+  vip_subnet: "32"
   cp_enable: "false"
   svc_enable: "true"
   svc_election: "false"
   vip_leaderelection: "false"
+  # prometheus_server: ":2112"
 
 extraArgs: {}
   # Specify additional arguments to kube-vip
@@ -55,6 +56,8 @@ extraLabels: {}
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+# Custom namespace to override the namespace for the deployed resources.
+namespaceOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -75,6 +78,8 @@ securityContext:
     add:
       - NET_ADMIN
       - NET_RAW
+    drop:
+      - ALL
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -122,5 +127,10 @@ affinity: {}
   #     - matchExpressions:
   #       - key: node-role.kubernetes.io/control-plane
   #         operator: Exists
+
+podMonitor:
+  enabled: false
+  labels: {}
+  annotations: {}
 
 priorityClassName: ""
