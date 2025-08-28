@@ -43,3 +43,9 @@ Then, I need to update the same manifest changes and chart version in the `relea
 
 ## Harvester-Cloud-Provider and Harvester-CSI-Driver
 These two charts are out-of-band charts for Harvester. They are used for the rancher integration. We use the `release` branch to release these two charts.
+
+### Bump kube-vip Images
+
+The `kube-vip` is used by Harvester-cloud-provider and it's image is pulled from `https://hub.docker.com/r/rancher/mirrored-kube-vip-kube-vip-iptables` by default.
+
+When upstream `kube-vip` has released new images, the repo `https://github.com/rancher/image-mirror` will file automatic PR to mirror the image, but sometimes the PR is not reviewed and merged on time. In this case, refer [manual pr](https://github.com/rancher/image-mirror/pull/1075) to sync the related images.
