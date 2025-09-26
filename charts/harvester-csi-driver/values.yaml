@@ -7,7 +7,7 @@ image:
     csiDriver:
       repository: rancher/harvester-csi-driver
       # Overrides the image tag whose default is the chart appVersion.
-      tag: "v0.2.3"
+      tag: "v0.2.4"
   csi:
     nodeDriverRegistrar:
       repository: rancher/mirrored-longhornio-csi-node-driver-registrar
@@ -17,10 +17,13 @@ image:
       tag: v1.2.0
     provisioner:
       repository: rancher/mirrored-longhornio-csi-provisioner
-      tag: v2.1.2
+      tag: v5.3.0-20250709
     attacher:
       repository: rancher/mirrored-longhornio-csi-attacher
       tag: v3.2.1
+    snapshotter:
+      repository: rancher/mirrored-longhornio-csi-snapshotter
+      tag: v8.3.0-20250709
   pullPolicy: IfNotPresent
 
 nameOverride: ""

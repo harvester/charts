@@ -79,6 +79,18 @@ spec:
           volumeMounts:
             - mountPath: /csi/
               name: socket-dir
+        - args:
+            - --v=5
+            - --csi-address=$(ADDRESS)
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+          image: {{ template "system_default_registry" . }}{{ .Values.image.csi.snapshotter.repository }}:{{ .Values.image.csi.snapshotter.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: csi-snapshotter
+          volumeMounts:
+            - mountPath: /csi/
+              name: socket-dir
       serviceAccountName: {{ include "harvester-csi-driver.name" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
