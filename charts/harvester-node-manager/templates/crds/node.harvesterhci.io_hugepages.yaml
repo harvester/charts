@@ -1,0 +1,141 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    {}
+  name: hugepages.node.harvesterhci.io
+spec:
+  group: node.harvesterhci.io
+  names:
+    kind: Hugepage
+    listKind: HugepageList
+    plural: hugepages
+    shortNames:
+    - hugetlb
+    singular: hugepage
+  scope: Cluster
+  versions:
+  - name: v1beta1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              transparent:
+                properties:
+                  defrag:
+                    default: defer
+                    enum:
+                    - always
+                    - defer
+                    - defer+madvise
+                    - madvise
+                    - never
+                    type: string
+                  enabled:
+                    default: always
+                    enum:
+                    - always
+                    - madvise
+                    - never
+                    type: string
+                  shmemEnabled:
+                    default: never
+                    enum:
+                    - always
+                    - within_size
+                    - advise
+                    - never
+                    - deny
+                    - force
+                    type: string
+                type: object
+            type: object
+          status:
+            properties:
+              meminfo:
+                properties:
+                  anonHugePages:
+                    default: 0
+                    format: int64
+                    type: integer
+                  hugePagesFree:
+                    default: 0
+                    format: int64
+                    type: integer
+                  hugePagesRsvd:
+                    default: 0
+                    format: int64
+                    type: integer
+                  hugePagesSurp:
+                    default: 0
+                    format: int64
+                    type: integer
+                  hugePagesTotal:
+                    default: 0
+                    format: int64
+                    type: integer
+                  hugepageSize:
+                    default: 0
+                    format: int64
+                    type: integer
+                  shmemHugePages:
+                    default: 0
+                    format: int64
+                    type: integer
+                type: object
+              transparent:
+                properties:
+                  defrag:
+                    default: defer
+                    enum:
+                    - always
+                    - defer
+                    - defer+madvise
+                    - madvise
+                    - never
+                    type: string
+                  enabled:
+                    default: always
+                    enum:
+                    - always
+                    - madvise
+                    - never
+                    type: string
+                  shmemEnabled:
+                    default: never
+                    enum:
+                    - always
+                    - within_size
+                    - advise
+                    - never
+                    - deny
+                    - force
+                    type: string
+                type: object
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
