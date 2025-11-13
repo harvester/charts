@@ -49,8 +49,15 @@ resources:
   #   cpu: 100m
   #   memory: 128Mi
 
-nodeSelector:
-  sriovgpu.harvesterhci.io/driver-needed: "true"
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: sriovgpu.harvesterhci.io/driver-needed
+          operator: In
+          values:
+          - "true"
 # http endpoint where nvidia kvm driver is hosted
 # this will be pulled and installed by the daemonset on runtime
 driverLocation: "HTTPENDPOINT/NVIDIA-Linux-x86_64-525.60.12-vgpu-kvm.run"
