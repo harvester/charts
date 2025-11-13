@@ -54,8 +54,8 @@ spec:
               mountPath: /lib/firmware
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
+      {{- with .Values.affinity }}
+      affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
