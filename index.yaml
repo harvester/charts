@@ -2070,6 +2070,18 @@ entries:
   harvester-network-controller:
   - apiVersion: v2
     appVersion: master-head
+    created: "2025-12-12T02:32:06.138832315Z"
+    description: A Helm chart for Harvester Network Controller
+    digest: 96486ed288029122f07d2609f217814300fe9cd48d80364ab396a7ea2d038139
+    maintainers:
+    - name: harvester
+    name: harvester-network-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-network-controller-1.8.0-dev.1/harvester-network-controller-1.8.0-dev.1.tgz
+    version: 1.8.0-dev.1
+  - apiVersion: v2
+    appVersion: master-head
     created: "2025-11-12T10:50:08.443892961Z"
     description: A Helm chart for Harvester Network Controller
     digest: 8475326c7a72aa7b18714ae307b1cab8f1de5aa27473b515d378b3ef9453a3c4
@@ -5377,6 +5389,18 @@ entries:
   harvester-seeder:
   - apiVersion: v2
     appVersion: main-head
+    created: "2025-12-12T02:32:06.281802499Z"
+    description: A Helm chart for Harvester Seeder
+    digest: f65cf14f2cbf2d332e856dc1d99c79c8db5747a29d60bfee5e0a19d1e3811c7f
+    maintainers:
+    - name: harvester
+    name: harvester-seeder
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-seeder-1.8.0-dev.1/harvester-seeder-1.8.0-dev.1.tgz
+    version: 1.8.0-dev.1
+  - apiVersion: v2
+    appVersion: main-head
     created: "2025-11-12T10:50:09.415001756Z"
     description: A Helm chart for Harvester Seeder
     digest: acf4b6378186cec905db7fc4a00db5dab45dde1ddd43ce36884ae967cd296ea3
@@ -7321,4 +7345,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2025-12-04T08:19:10.189474918Z"
+generated: "2025-12-12T02:32:06.285325089Z"
