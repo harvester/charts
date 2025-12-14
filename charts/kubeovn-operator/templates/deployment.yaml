@@ -7,16 +7,15 @@ metadata:
   name: kubeovn-operator-controller-manager
   namespace: {{ .Release.Namespace }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "kubeovn-operator.labels" . | nindent 6 }}
+      {{- include "kubeovn-operator.selectorLabels" . | nindent 6 }}
       control-plane: controller-manager
   template:
     metadata:
       labels:
-        kubectl.kubernetes.io/default-container: manager
-        {{- include "kubeovn-operator.labels" . | nindent 8 }}
+        {{- include "kubeovn-operator.selectorLabels" . | nindent 8 }}
         control-plane: controller-manager
     spec:
       containers:
