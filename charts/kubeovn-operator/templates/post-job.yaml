@@ -1,0 +1,43 @@
+{{- if .Values.enableConfiguration }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "kubeovn-operator.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "5"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  template:
+    metadata:
+      namespace: {{ .Release.Namespace }}
+      name: {{ .Release.Name }}
+      labels:
+        {{- include "kubeovn-operator.labels" . | nindent 8 }}
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: post-job
+        image: {{ .Values.hookImage.repository }}:{{ .Values.hookImage.tag }}
+        imagePullPolicy: {{ .Values.hookImage.pullPolicy }}
+        args:
+        - apply
+        - -f
+        - /opt/kubeovn-operator/config.yaml
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: config-volume
+          mountPath: /opt/kubeovn-operator
+      serviceAccountName: {{ include "kubeovn-operator.serviceAccountName" . }}
+      volumes:
+      - name: config-volume
+        configMap:
+          name: kubeovn-operator-config
+{{- end }}

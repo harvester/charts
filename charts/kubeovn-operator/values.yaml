@@ -10,6 +10,11 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: main-head
 
+hookImage:
+  repository: rancher/kubectl
+  pullPolicy: IfNotPresent
+  tag: "v1.34.0"
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -38,7 +43,6 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
-
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
