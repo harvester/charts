@@ -1,0 +1,98 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    {}
+  creationTimestamp: null
+  name: hostnetworkconfigs.network.harvesterhci.io
+spec:
+  group: network.harvesterhci.io
+  names:
+    kind: HostNetworkConfig
+    listKind: HostNetworkConfigList
+    plural: hostnetworkconfigs
+    shortNames:
+    - hnc
+    singular: hostnetworkconfig
+  scope: Cluster
+  versions:
+  - name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: |
+          HostNetworkConfig defines node-level network configuration for Harvester.
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              clusterNetwork:
+                description: Name of the cluster network
+                type: string
+              ips:
+                additionalProperties:
+                  description: CIDR-formatted IP address assigned to the node
+                  type: string
+                description: Static IP assignments per node (used when mode is static)
+                type: object
+              mode:
+                description: IP assignment mode
+                enum:
+                - static
+                - dhcp
+                type: string
+              underlay:
+                default: false
+                description: |
+                  Indicates whether this configuration represents the underlay network.
+                  Default is false. Only one HostNetworkConfig per node may set this to true.
+                type: boolean
+              vlanID:
+                description: VLAN ID associated with the host network
+                format: int32
+                maximum: 4094
+                minimum: 2
+                type: integer
+            required:
+            - clusterNetwork
+            - mode
+            type: object
+          status:
+            description: Observed state of the HostNetworkConfig
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      description: Last time the condition transitioned from one status
+                        to another.
+                      type: string
+                    lastUpdateTime:
+                      description: The last time this condition was updated.
+                      type: string
+                    message:
+                      description: Human-readable message indicating details about
+                        last transition
+                      type: string
+                    reason:
+                      description: The reason for the condition's last transition.
+                      type: string
+                    status:
+                      description: Status of the condition, one of True, False, Unknown.
+                      type: string
+                    type:
+                      description: Type of the condition.
+                      type: string
+                  required:
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        type: object
+    served: true
+    storage: true
