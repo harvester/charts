@@ -7070,6 +7070,18 @@ entries:
   kubeovn-operator-crd:
   - apiVersion: v2
     appVersion: v1.14.10-dev.1
+    created: "2026-01-16T09:24:35.674525092Z"
+    description: A Helm chart for kubeovn-operator crds
+    digest: d658f72c01f441d7f1838988768bb3195f71538e2fec93a8b1d9f2d26cfb845e
+    maintainers:
+    - name: harvester
+    name: kubeovn-operator-crd
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/kubeovn-operator-crd-1.14.10-dev.2/kubeovn-operator-crd-1.14.10-dev.2.tgz
+    version: 1.14.10-dev.2
+  - apiVersion: v2
+    appVersion: v1.14.10-dev.1
     created: "2025-12-15T08:25:54.806980195Z"
     description: A Helm chart for kubeovn-operator crds
     digest: b10b592c08ce856efdd7ad16f5e44ff48fdd0d2f243dd31cdf8587a19c3b8eb6
@@ -7726,4 +7738,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2026-01-16T04:00:24.895432283Z"
+generated: "2026-01-16T09:24:35.677901778Z"
