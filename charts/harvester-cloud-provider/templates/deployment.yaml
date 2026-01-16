@@ -36,8 +36,13 @@ spec:
           resources:
           {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /etc/kubernetes/cloud-config
-              name: cloud-config
+            - name: cloud-config
+              readOnly: true
+              {{- if or .Values.cloudConfig.secretName .Values.cloudConfig.hostPath }}
+              mountPath: /etc/kubernetes/
+              {{- else }}
+              mountPath: /etc/kubernetes/cloud-config
+              {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
       {{- toYaml . | nindent 8 }}
@@ -52,6 +57,15 @@ spec:
       {{- end }}
       volumes:
         - name: cloud-config
+        {{- if .Values.cloudConfig.secretName }}
+          secret:
+            secretName: {{ .Values.cloudConfig.secretName }}
+        {{- else if .Values.cloudConfig.hostPath }}
           hostPath:
-            path: {{ required "A valid cloudConfigPath is required!" .Values.cloudConfigPath }}
+            path: {{ .Values.cloudConfig.hostPath }}
             type: File
+        {{- else }}
+          hostPath:
+            path: {{ required "A valid cloudConfigPath, cloudConfig.secretName or cloudConfig.hostPath is required!" .Values.cloudConfigPath }}
+            type: DirectoryOrCreate
+        {{- end }}
