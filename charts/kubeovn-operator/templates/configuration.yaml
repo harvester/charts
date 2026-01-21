@@ -11,8 +11,9 @@ spec:
     cniConfigDir: /etc/cni/net.d
     cniConfigPriority: "90"
     localBinDir: /usr/local/bin
+    nonPrimaryCNI: {{ .Values.configurationSpec.cniConf.nonPrimaryCNI | default true }}
   components:
-    OVSDBConTimeout: {{ .Values.configurationSpec.components.OVSDBInactivityTimeout | default 3 }}
+    OVSDBConTimeout: {{ .Values.configurationSpec.components.OVSDBConTimeout | default 3 }}
     OVSDBInactivityTimeout: {{ .Values.configurationSpec.components.OVSDBInactivityTimeout | default 10 }}
     checkGateway: {{ .Values.configurationSpec.components.checkGateway | default true }}
     enableANP: {{ .Values.configurationSpec.components.enableANP  | default false }}
@@ -34,6 +35,9 @@ spec:
     secureServing: {{ .Values.configurationSpec.components.secureServing | default false }}
     setVLANTxOff:  {{ .Values.configurationSpec.components.setVLANTxOff | default false }}
     u2oInterconnection:  {{ .Values.configurationSpec.components.u2oInterconnection | default false }}
+    enableDNSNameResolver: {{ .Values.configurationSpec.components.enableDNSNameResolver | default false }}
+    enableOVNLBPreferLocal: {{ .Values.configurationSpec.components.enableOVNLBPreferLocal | default false }}
+    npEnforcement: {{ .Values.configurationSpec.components.npEnforcement | default "standard" }}
   debug:
     mirrorInterface: {{.Values.configurationSpec.debug.mirrorInterface | default "mirror0"}}
   dpdkCPU:  {{.Values.configurationSpec.dpdkCPU | default "0" | quote}}
@@ -51,8 +55,6 @@ spec:
       kubeovn:
         dpdkRepository: {{ .Values.configurationSpec.global.images.kubeovn.dpdkRepository | default "kube-ovn-dpdk" }}
         repository: {{ .Values.configurationSpec.global.images.kubeovn.repository | default "kube-ovn" }}
-        supportArm: {{ .Values.configurationSpec.global.images.kubeovn.supportArm | default "true" }}
-        thirdParty:  {{ .Values.configurationSpec.global.images.kubeovn.thirdParty | default "true" }}
         vpcRepository: {{ .Values.configurationSpec.global.images.kubeovn.vpcRepository | default "vpc-nat-gateway" }}
     registry:
       address: {{ .Values.configurationSpec.global.registry.address | default "docker.io/kubeovn" }}
@@ -121,6 +123,7 @@ spec:
     ovnNorthdProbeInterval: {{ .Values.configurationSpec.networking.ovnNorthdProbeInterval | default "5000" }} 
     ovnRemoteOpenflowInterval: {{ .Values.configurationSpec.networking.ovnRemoteOpenflowInterval | default "10" }} 
     ovnRemoteProbeInterval: {{ .Values.configurationSpec.networking.ovnRemoteProbeInterval | default "10000" }} 
+    skipConnTrackDstCIDRs: {{ .Values.configurationSpec.networking.skipConnTrackDstCIDRs | default "" }}
     podNicType: veth-pair
     probeInterval:  {{ .Values.configurationSpec.networking.probeInterval | default "180000" }} 
     tunnelType: vxlan
