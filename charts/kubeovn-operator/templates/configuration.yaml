@@ -1,4 +1,7 @@
 {{- if .Values.enableConfiguration }}
+{{- $cfg := lookup "kubeovn.io/v1" "Configuration" "kube-system" "kubeovn" }}
+{{- $labels := (($cfg | default dict).metadata | default dict).labels | default dict }}
+{{- if eq (index $labels "app.kubernetes.io/managed-by" | default "") "Helm" }}
 apiVersion: kubeovn.io/v1
 kind: Configuration
 metadata:
@@ -151,4 +154,5 @@ spec:
     gcInterval: {{ .Values.configurationSpec.performance.gcInterval | default "360" }}
     inspectInterval: {{ .Values.configurationSpec.performance.inspectInterval | default "20" }}
     ovsVSCtlConcurrency: {{ .Values.configurationSpec.performance.ovsVSCtlConcurrency | default "100" }}
+{{- end }}
 {{- end }}
