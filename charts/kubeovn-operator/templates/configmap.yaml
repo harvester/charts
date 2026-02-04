@@ -1,0 +1,156 @@
+{{- if .Values.enableConfiguration }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubeovn-configuration-bootstrap
+  namespace: {{ .Release.Namespace }}
+data:
+  configuration.yaml: |
+    cniConf:
+      cniBinDir: /opt/cni/bin
+      cniConfFile: /kube-ovn/01-kube-ovn.conflist
+      cniConfigDir: /etc/cni/net.d
+      cniConfigPriority: "90"
+      localBinDir: /usr/local/bin
+      nonPrimaryCNI: {{ .Values.configurationSpec.cniConf.nonPrimaryCNI | default true }}
+    components:
+      OVSDBConTimeout: {{ .Values.configurationSpec.components.OVSDBConTimeout | default 3 }}
+      OVSDBInactivityTimeout: {{ .Values.configurationSpec.components.OVSDBInactivityTimeout | default 10 }}
+      checkGateway: {{ .Values.configurationSpec.components.checkGateway | default true }}
+      enableANP: {{ .Values.configurationSpec.components.enableANP  | default false }}
+      enableBindLocalIP: {{ .Values.configurationSpec.components.enableBindLocalIP | default true }}
+      enableExternalVPC: {{ .Values.configurationSpec.components.enableExternalVPC  | default true }}
+      enableIC: {{ .Values.configurationSpec.components.enableIC  | default false }}
+      enableKeepVMIP: {{ .Values.configurationSpec.components.enableKeepVMIP | default true }}
+      enableLB: {{ .Values.configurationSpec.components.enableLB  | default true }}
+      enableLBSVC: {{ .Values.configurationSpec.components.enableLBSVC | default false }}
+      enableLiveMigrationOptimize: {{ .Values.configurationSpec.components.enableLiveMigrationOptimize | default true }}
+      enableNATGateway:  {{ .Values.configurationSpec.components.enableNATGateway | default true }}
+      enableNP: {{ .Values.configurationSpec.components.enableNP | default true }}
+      enableOVNIPSec: {{ .Values.configurationSpec.components.enableOVNIPSec | default false }}
+      enableTProxy: {{ .Values.configurationSpec.components.enableTProxy | default false }}
+      hardwareOffload: {{ .Values.configurationSpec.components.hardwareOffload | default false }}
+      logicalGateway: {{ .Values.configurationSpec.components.logicalGateway | default false }}
+      lsCtSkipOstLportIPS: {{ .Values.configurationSpec.components.lsCtSkipOstLportIPS | default false }}
+      lsDnatModDlDst: {{ .Values.configurationSpec.components.lsDnatModDlDst | default true }}
+      secureServing: {{ .Values.configurationSpec.components.secureServing | default false }}
+      setVLANTxOff:  {{ .Values.configurationSpec.components.setVLANTxOff | default false }}
+      u2oInterconnection:  {{ .Values.configurationSpec.components.u2oInterconnection | default false }}
+      enableDNSNameResolver: {{ .Values.configurationSpec.components.enableDNSNameResolver | default false }}
+      enableOVNLBPreferLocal: {{ .Values.configurationSpec.components.enableOVNLBPreferLocal | default false }}
+      npEnforcement: {{ .Values.configurationSpec.components.npEnforcement | default "standard" }}
+    debug:
+      mirrorInterface: {{.Values.configurationSpec.debug.mirrorInterface | default "mirror0"}}
+    dpdkCPU:  {{.Values.configurationSpec.dpdkCPU | default "0" | quote}}
+    dpdkMEMORY: {{.Values.configurationSpec.dpdkMEMORY | default "0" | quote}}
+    dpdkVersion: {{.Values.configurationSpec.dpdkVersion | default "19.11" | quote}}
+    dualStack:
+      joinCIDR: fd00:100:64::/112
+      pingerExternalAddress: 2606:4700:4700::1111
+      pingerExternalDomain: google.com.
+      podCIDR: fd00:10:16::/112
+      podGateway: fd00:10:16::1
+      serviceCIDR: fd00:10:96::/112
+    global:
+      images:
+        kubeovn:
+          dpdkRepository: {{ .Values.configurationSpec.global.images.kubeovn.dpdkRepository | default "kube-ovn-dpdk" }}
+          repository: {{ .Values.configurationSpec.global.images.kubeovn.repository | default "kube-ovn" }}
+          vpcRepository: {{ .Values.configurationSpec.global.images.kubeovn.vpcRepository | default "vpc-nat-gateway" }}
+      registry:
+        address: {{ .Values.configurationSpec.global.registry.address | default "docker.io/kubeovn" }}
+    hugePages: {{ .Values.configurationSpec.hugePages | default "0" | quote }}
+    hugepageSizeType:  {{ .Values.configurationSpec.hugepageSizeType | default "hugepages-2Mi" }}
+    imagePullPolicy: {{ .Values.configurationSpec.imagePullPolicy | default "IfNotPresent" }}
+    ipv4:
+      joinCIDR: {{ .Values.configurationSpec.ipv4.joinCIDR | default "100.64.0.0/16" }}
+      pingerExternalAddress: {{ .Values.configurationSpec.ipv4.pingerExternalAddress | default "1.1.1.1" }}
+      pingerExternalDomain: {{ .Values.configurationSpec.ipv4.pingerExternalDomain | default "google.com" }}
+      podCIDR: {{ .Values.configurationSpec.ipv4.podCIDR | default "10.52.0.0/16" }}
+      podGateway: {{ .Values.configurationSpec.ipv4.podGateway | default "10.52.0.1" }}
+      serviceCIDR: {{ .Values.configurationSpec.ipv4.serviceCIDR | default "10.53.0.1" }}
+    ipv6:
+      joinCIDR: fd00:100:64::/112
+      pingerExternalAddress: 2606:4700:4700::1111
+      pingerExternalDomain: google.com.
+      podCIDR: fd00:10:16::/112
+      podGateway: fd00:10:16::1
+      serviceCIDR: fd00:10:96::/112
+    kubeOvnCNI:
+      requests:
+        cpu: {{ .Values.configurationSpec.kubeOvnCNI.requests.cpu | default "100m" | quote }}
+        memory: {{ .Values.configurationSpec.kubeOvnCNI.requests.memory | default "100Mi" | quote }}
+      limits:
+        cpu: {{ .Values.configurationSpec.kubeOvnCNI.limits.cpu | default "1" | quote }}
+        memory:  {{ .Values.configurationSpec.kubeOvnCNI.limits.memory | default "1Gi" | quote }}
+    kubeOvnController:
+      requests:
+        cpu: {{ .Values.configurationSpec.kubeOvnController.requests.cpu | default "200m" | quote }}
+        memory: {{ .Values.configurationSpec.kubeOvnController.requests.memory | default "200Mi" | quote }}
+      limits:
+        cpu: {{ .Values.configurationSpec.kubeOvnController.limits.cpu | default "1" | quote }}
+        memory: {{ .Values.configurationSpec.kubeOvnController.limits.memory | default "1Gi" | quote }}
+    kubeOvnMonitor:
+      requests:
+        cpu: {{ .Values.configurationSpec.kubeOvnMonitor.requests.cpu | default "200m" | quote }}
+        memory: {{ .Values.configurationSpec.kubeOvnMonitor.requests.memory | default "200Mi" | quote }}
+      limits:
+        cpu: {{ .Values.configurationSpec.kubeOvnMonitor.limits.cpu | default "200m" | quote }}
+        memory: {{ .Values.configurationSpec.kubeOvnMonitor.limits.memory | default "200Mi" | quote }}
+    kubeOvnPinger:
+      requests:
+        cpu: {{ .Values.configurationSpec.kubeOvnPinger.requests.cpu | default "100m" | quote }}
+        memory: {{ .Values.configurationSpec.kubeOvnPinger.requests.memory | default "100Mi" | quote }}
+      limits:
+        cpu: {{ .Values.configurationSpec.kubeOvnPinger.limits.cpu | default "200m" | quote }}
+        memory: {{ .Values.configurationSpec.kubeOvnPinger.limits.memory | default "400Mi" | quote }}
+    kubeletConfig:
+      kubeletDir: /var/lib/kubelet
+    logConfig:
+      logDir: /var/log
+    masterNodesLabel: node-role.kubernetes.io/control-plane=true
+    networking:
+      defaultSubnet: {{ .Values.configurationSpec.networking.defaultSubnet | default "ovn-default" }}
+      defaultVPC: {{ .Values.configurationSpec.networking.defaultVPC | default "ovn-cluster" }}
+      enableECMP: {{ .Values.configurationSpec.networking.enableECMP | default "false" }}
+      enableEIPSNAT: {{ .Values.configurationSpec.networking.enableEIPSNAT | default "true" }}
+      enableMetrics:  {{ .Values.configurationSpec.networking.enableMetrics | default "true" }}
+      enableSSL: {{ .Values.configurationSpec.networking.enableSSL | default "false" }}
+      netStack: ipv4
+      networkType: {{ .Values.configurationSpec.networking.networkType | default "geneve" }}
+      nodeSubnet: {{ .Values.configurationSpec.networking.nodeSubnet | default "join" }}
+      ovnLeaderProbeInterval: {{ .Values.configurationSpec.networking.ovnLeaderProbeInterval | default "5" }}
+      ovnNorthdNThreads: {{ .Values.configurationSpec.networking.ovnNorthdNThreads | default "1" }}
+      ovnNorthdProbeInterval: {{ .Values.configurationSpec.networking.ovnNorthdProbeInterval | default "5000" }}
+      ovnRemoteOpenflowInterval: {{ .Values.configurationSpec.networking.ovnRemoteOpenflowInterval | default "10" }}
+      ovnRemoteProbeInterval: {{ .Values.configurationSpec.networking.ovnRemoteProbeInterval | default "10000" }}
+      skipConnTrackDstCIDRs: {{ .Values.configurationSpec.networking.skipConnTrackDstCIDRs | default "" }}
+      podNicType: veth-pair
+      probeInterval:  {{ .Values.configurationSpec.networking.probeInterval | default "180000" }}
+      tunnelType: vxlan
+      nodeLocalDNSIPS: ""
+      vlan:
+        providerName: {{ .Values.configurationSpec.vlan.providerName | default "provider" }}
+        vlanId: {{ .Values.configurationSpec.vlan.vlanId | default "1" }}
+        vlanName: {{ .Values.configurationSpec.vlan.vlanName | default "ovn-vlan" }}
+    openVSwitchDir: /var/lib/rancher/origin/openvswitch
+    ovnCentral:
+      requests:
+        cpu: {{ .Values.configurationSpec.ovnCentral.requests.cpu | default "300m" }}
+        memory: {{ .Values.configurationSpec.ovnCentral.requests.memory | default "200Mi" }}
+      limits:
+        cpu: {{ .Values.configurationSpec.ovnCentral.limits.cpu | default "3" }}
+        memory: {{ .Values.configurationSpec.ovnCentral.limits.memory | default "4Gi" }}
+    ovnDir: {{ .Values.configurationSpec.ovnDir | default "/etc/origin/ovn" }}
+    ovsOVN:
+      limits:
+        cpu:  {{ .Values.configurationSpec.ovsOVN.limits.cpu | default "2" }}
+        memory: {{ .Values.configurationSpec.ovsOVN.limits.memory | default "1000Mi" }}
+      requests:
+        cpu: {{ .Values.configurationSpec.ovsOVN.requests.cpu | default "200m" }}
+        memory: {{ .Values.configurationSpec.ovsOVN.requests.memory | default "200Mi" }}
+    performance:
+      gcInterval: {{ .Values.configurationSpec.performance.gcInterval | default "360" }}
+      inspectInterval: {{ .Values.configurationSpec.performance.inspectInterval | default "20" }}
+      ovsVSCtlConcurrency: {{ .Values.configurationSpec.performance.ovsVSCtlConcurrency | default "100" }}
+{{- end }}
