@@ -59,6 +59,8 @@ tolerations: []
 affinity: {}
 enableConfiguration: false
 configurationSpec:
+  cniConf:
+    nonPrimaryCNI: true
   components:
     OVSDBConTimeout: 3
     OVSDBInactivityTimeout: 10
@@ -82,6 +84,9 @@ configurationSpec:
     secureServing: false
     setVLANTxOff: false
     u2oInterconnection: false
+    enableDNSNameResolver: false
+    enableOVNLBPreferLocal: false
+    npEnforcement: standard
   debug:
     mirrorInterface: mirror0
   dpdkCPU: "0"
@@ -92,8 +97,6 @@ configurationSpec:
       kubeovn:
         dpdkRepository: kube-ovn-dpdk
         repository: kube-ovn
-        supportArm: true
-        thirdParty: true
         vpcRepository: vpc-nat-gateway
     registry:
       address: docker.io/kubeovn
@@ -151,6 +154,7 @@ configurationSpec:
     ovnRemoteProbeInterval: 10000
     probeInterval: 180000
     nodeLocalDNSIPS: ""
+    skipConnTrackDstCIDRs: ""
   vlan:
     providerName: {}
     vlanId: {}
