@@ -1,0 +1,4 @@
+Harvester/Rancher integration RBAC resources have been installed.
+
+To see the list of RBAC resources created, run this command:
+  kubectl get roletemplates -l "app.kubernetes.io/name={{ include "harvester-rbac.name" . }}"
