@@ -1379,6 +1379,21 @@ entries:
   harvester-load-balancer:
   - apiVersion: v2
     appVersion: master-head
+    created: "2026-02-16T09:57:49.619662046Z"
+    description: A load balancer implementation for Harvester
+    digest: 68d149a597a14bdea20889a23ff51bd624c6efc298f43dc88a937127b7095781
+    home: https://github.com/harvester/harvester-load-balancer
+    maintainers:
+    - name: harvester
+    name: harvester-load-balancer
+    sources:
+    - https://github.com/harvester/harvester-load-balancer
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-load-balancer-1.8.0-dev.1/harvester-load-balancer-1.8.0-dev.1.tgz
+    version: 1.8.0-dev.1
+  - apiVersion: v2
+    appVersion: master-head
     created: "2025-11-12T10:50:08.202749802Z"
     description: A load balancer implementation for Harvester
     digest: 075dec5dbbdc557e63dbf7f66c57fdf0208d67fd36be73f463be1d3133250b15
@@ -8401,4 +8416,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2026-02-12T05:20:09.197251922Z"
+generated: "2026-02-16T09:57:49.625159284Z"
