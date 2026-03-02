@@ -1,0 +1,7 @@
+remote: upstream
+target-branch: master
+chart-dirs:
+  - charts
+excluded-charts:
+  - forklift-operator
+  - harvester-csi-driver-lvm

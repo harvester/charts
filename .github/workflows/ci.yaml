@@ -72,7 +72,7 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install-generic)
-        run: ct install --config tests/ct.yaml --excluded-charts harvester-csi-driver-lvm
+        run: ct install --config tests/ct-install.yaml
 
       - name: Run chart-testing (install-lvm)
         run: ct install --config tests/ct.yaml --charts charts/harvester-csi-driver-lvm
