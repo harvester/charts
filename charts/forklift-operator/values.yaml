@@ -1,0 +1,38 @@
+forkliftOperatorAnsible:
+  forkliftOperator:
+    repo: registry.rancher.com/harvester
+    tag: main-head
+    operatorImage: harvester-forklift-operator
+    args:
+    - --health-probe-bind-address=:6789
+    - --metrics-bind-address=127.0.0.1:8080
+    - --leader-elect
+    - --leader-election-id=forklift-operator
+    env:
+      ansibleGathering: explicit
+      blockOverhead: ""
+      cdiExportTokenTtl: ""
+      cleanupRetries: ""
+      filesystemOverhead: ""
+      ovirtOsMap: ""
+      snapshotRemovalTimeout: ""
+      snapshotStatusCheckRate: ""
+      virtCustomizeMap: ""
+      virtV2VDontRequestKvm: ""
+      vsphereOsMap: ""
+      vsphereXcopyVolumePopulatorImage: ""
+    imagePullPolicy: Always
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+  nodeSelector: {}
+  replicas: 1
+  tolerations: []
+  topologySpreadConstraints: []
+kubernetesClusterDomain: cluster.local
+serviceAccount:
+  annotations: {}
+  automount: true
+  create: true
+  name: ""

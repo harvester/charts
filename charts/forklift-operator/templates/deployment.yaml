@@ -1,0 +1,96 @@
+{{- $repo := .Values.forkliftOperatorAnsible.forkliftOperator.repo -}}
+{{- $tag := .Values.forkliftOperatorAnsible.forkliftOperator.tag -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "forklift-operator.fullname" . }}-forklift-operator-ansible
+  labels:
+    control-plane: controller-manager
+  {{- include "forklift-operator.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.forkliftOperatorAnsible.replicas }}
+  selector:
+    matchLabels:
+      app: forklift
+      name: controller-manager
+    {{- include "forklift-operator.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: forklift
+        name: controller-manager
+      {{- include "forklift-operator.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - args: {{- toYaml .Values.forkliftOperatorAnsible.forkliftOperator.args | nindent 8 }}
+        env:
+        - name: WATCH_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: ANSIBLE_GATHERING
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.ansibleGathering }}
+        - name: CONTROLLER_IMAGE
+          value: "{{$repo}}/harvester-forklift-controller:{{$tag}}"
+        - name: API_IMAGE
+          value: "{{$repo}}/harvester-forklift-api:{{$tag}}"
+        - name: MUST_GATHER_IMAGE
+          value: "{{$repo}}/harvester-forklift-must-gather:{{$tag}}"
+        - name: UI_PLUGIN_IMAGE
+          value: ""
+        - name: VALIDATION_IMAGE
+          value: "{{$repo}}/harvester-validation:{{$tag}}"
+        - name: VIRT_V2V_IMAGE
+          value: "{{$repo}}/harvester-virt-v2v:{{$tag}}"
+        - name: VIRT_V2V_DONT_REQUEST_KVM
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.virtV2VDontRequestKvm }}
+        - name: SNAPSHOT_REMOVAL_TIMEOUT
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.snapshotRemovalTimeout }}
+        - name: SNAPSHOT_STATUS_CHECK_RATE
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.snapshotStatusCheckRate }}
+        - name: CLEANUP_RETRIES
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.cleanupRetries }}
+        - name: CDI_EXPORT_TOKEN_TTL
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.cdiExportTokenTtl }}
+        - name: FILESYSTEM_OVERHEAD
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.filesystemOverhead }}
+        - name: BLOCK_OVERHEAD
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.blockOverhead }}
+        - name: POPULATOR_CONTROLLER_IMAGE
+          value: "{{$repo}}/harvester-populator-controller:{{$tag}}"
+        - name: OVIRT_POPULATOR_IMAGE
+          value: "{{$repo}}/harvester-forklift-ovirt-populator:{{$tag}}"
+        - name: OPENSTACK_POPULATOR_IMAGE
+          value: "{{$repo}}/harvester-forklift-openstack-populator:{{$tag}}"
+        - name: OVA_PROVIDER_SERVER_IMAGE
+          value: "{{$repo}}/harvester-forklift-ova-provider-server:{{$tag}}"
+        - name: OVIRT_OS_MAP
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.ovirtOsMap }}
+        - name: VSPHERE_OS_MAP
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.vsphereOsMap }}
+        - name: VIRT_CUSTOMIZE_MAP
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.virtCustomizeMap }}
+        - name: VSPHERE_XCOPY_VOLUME_POPULATOR_IMAGE
+          value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.vsphereXcopyVolumePopulatorImage }}
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: "{{ .Values.forkliftOperatorAnsible.forkliftOperator.repo }}/{{ .Values.forkliftOperatorAnsible.forkliftOperator.operatorImage }}:{{ .Values.forkliftOperatorAnsible.forkliftOperator.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.forkliftOperatorAnsible.forkliftOperator.imagePullPolicy }}
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 6789
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        name: forklift-operator
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 6789
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources: {{- toYaml .Values.forkliftOperatorAnsible.forkliftOperator.resources | nindent 10 }}
+      nodeSelector: {{- toYaml .Values.forkliftOperatorAnsible.nodeSelector | nindent 8 }}
+      serviceAccountName: {{ include "forklift-operator.serviceAccountName" . }}
+      tolerations: {{- toYaml .Values.forkliftOperatorAnsible.tolerations | nindent 8 }}
+      topologySpreadConstraints: {{- toYaml .Values.forkliftOperatorAnsible.topologySpreadConstraints | nindent 8 }}
