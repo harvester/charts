@@ -50,16 +50,3 @@ app.kubernetes.io/name: {{ include "forklift-operator.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "forklift-operator.serviceAccountName" -}}
-{{- $default := (include "forklift-operator.fullname" .) }}
-{{- with .Values.serviceAccount }}
-{{- if .create }}
-{{- default $default .name }}
-{{- else }}
-{{- default "default" .name }}
-{{- end }}
-{{- end }}
-{{- end }}

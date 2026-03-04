@@ -31,8 +31,5 @@ forkliftOperatorAnsible:
   tolerations: []
   topologySpreadConstraints: []
 kubernetesClusterDomain: cluster.local
-serviceAccount:
-  annotations: {}
-  automount: true
-  create: true
-  name: ""
+nameOverride: ""
+fullnameOverride: ""

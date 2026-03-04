@@ -91,6 +91,6 @@ spec:
           periodSeconds: 10
         resources: {{- toYaml .Values.forkliftOperatorAnsible.forkliftOperator.resources | nindent 10 }}
       nodeSelector: {{- toYaml .Values.forkliftOperatorAnsible.nodeSelector | nindent 8 }}
-      serviceAccountName: {{ include "forklift-operator.serviceAccountName" . }}
+      serviceAccountName: forklift-operator
       tolerations: {{- toYaml .Values.forkliftOperatorAnsible.tolerations | nindent 8 }}
       topologySpreadConstraints: {{- toYaml .Values.forkliftOperatorAnsible.topologySpreadConstraints | nindent 8 }}
