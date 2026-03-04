@@ -1,7 +1,12 @@
 {{- if .Values.enableConfiguration }}
+{{- $cfg := lookup "kubeovn.io/v1" "Configuration" "kube-system" "kubeovn" }}
+{{- $labels := (($cfg | default dict).metadata | default dict).labels | default dict }}
+{{- if eq (index $labels "app.kubernetes.io/managed-by" | default "") "Helm" }}
 apiVersion: kubeovn.io/v1
 kind: Configuration
 metadata:
+  annotations:
+    helm.sh/resource-policy: keep
   name: kubeovn
   namespace: kube-system
 spec:
@@ -11,8 +16,9 @@ spec:
     cniConfigDir: /etc/cni/net.d
     cniConfigPriority: "90"
     localBinDir: /usr/local/bin
+    nonPrimaryCNI: {{ .Values.configurationSpec.cniConf.nonPrimaryCNI | default true }}
   components:
-    OVSDBConTimeout: {{ .Values.configurationSpec.components.OVSDBInactivityTimeout | default 3 }}
+    OVSDBConTimeout: {{ .Values.configurationSpec.components.OVSDBConTimeout | default 3 }}
     OVSDBInactivityTimeout: {{ .Values.configurationSpec.components.OVSDBInactivityTimeout | default 10 }}
     checkGateway: {{ .Values.configurationSpec.components.checkGateway | default true }}
     enableANP: {{ .Values.configurationSpec.components.enableANP  | default false }}
@@ -34,6 +40,9 @@ spec:
     secureServing: {{ .Values.configurationSpec.components.secureServing | default false }}
     setVLANTxOff:  {{ .Values.configurationSpec.components.setVLANTxOff | default false }}
     u2oInterconnection:  {{ .Values.configurationSpec.components.u2oInterconnection | default false }}
+    enableDNSNameResolver: {{ .Values.configurationSpec.components.enableDNSNameResolver | default false }}
+    enableOVNLBPreferLocal: {{ .Values.configurationSpec.components.enableOVNLBPreferLocal | default false }}
+    npEnforcement: {{ .Values.configurationSpec.components.npEnforcement | default "standard" }}
   debug:
     mirrorInterface: {{.Values.configurationSpec.debug.mirrorInterface | default "mirror0"}}
   dpdkCPU:  {{.Values.configurationSpec.dpdkCPU | default "0" | quote}}
@@ -51,8 +60,6 @@ spec:
       kubeovn:
         dpdkRepository: {{ .Values.configurationSpec.global.images.kubeovn.dpdkRepository | default "kube-ovn-dpdk" }}
         repository: {{ .Values.configurationSpec.global.images.kubeovn.repository | default "kube-ovn" }}
-        supportArm: {{ .Values.configurationSpec.global.images.kubeovn.supportArm | default "true" }}
-        thirdParty:  {{ .Values.configurationSpec.global.images.kubeovn.thirdParty | default "true" }}
         vpcRepository: {{ .Values.configurationSpec.global.images.kubeovn.vpcRepository | default "vpc-nat-gateway" }}
     registry:
       address: {{ .Values.configurationSpec.global.registry.address | default "docker.io/kubeovn" }}
@@ -65,7 +72,7 @@ spec:
     pingerExternalDomain: {{ .Values.configurationSpec.ipv4.pingerExternalDomain | default "google.com" }} 
     podCIDR: {{ .Values.configurationSpec.ipv4.podCIDR | default "10.52.0.0/16" }}
     podGateway: {{ .Values.configurationSpec.ipv4.podGateway | default "10.52.0.1" }}
-    serviceCIDR: {{ .Values.configurationSpec.ipv4.podGateway | default "10.53.0.1" }}
+    serviceCIDR: {{ .Values.configurationSpec.ipv4.serviceCIDR | default "10.53.0.1" }}
   ipv6:
     joinCIDR: fd00:100:64::/112
     pingerExternalAddress: 2606:4700:4700::1111
@@ -121,6 +128,7 @@ spec:
     ovnNorthdProbeInterval: {{ .Values.configurationSpec.networking.ovnNorthdProbeInterval | default "5000" }} 
     ovnRemoteOpenflowInterval: {{ .Values.configurationSpec.networking.ovnRemoteOpenflowInterval | default "10" }} 
     ovnRemoteProbeInterval: {{ .Values.configurationSpec.networking.ovnRemoteProbeInterval | default "10000" }} 
+    skipConnTrackDstCIDRs: {{ .Values.configurationSpec.networking.skipConnTrackDstCIDRs | default "" }}
     podNicType: veth-pair
     probeInterval:  {{ .Values.configurationSpec.networking.probeInterval | default "180000" }} 
     tunnelType: vxlan
@@ -149,4 +157,5 @@ spec:
     gcInterval: {{ .Values.configurationSpec.performance.gcInterval | default "360" }}
     inspectInterval: {{ .Values.configurationSpec.performance.inspectInterval | default "20" }}
     ovsVSCtlConcurrency: {{ .Values.configurationSpec.performance.ovsVSCtlConcurrency | default "100" }}
+{{- end }}
 {{- end }}
