@@ -1,4 +1,10 @@
-Harvester/Rancher integration RBAC resources have been installed.
+The following Harvester/Rancher integration RBAC role template resources have been installed:
 
-To see the list of RBAC resources created, run this command:
-  kubectl get roletemplates -l "app.kubernetes.io/name={{ include "harvester-rbac.name" . }}"
+* Manage Virtualization Resources (cluster scope)
+* View Virtualization Resources (cluster scope)
+* Manage Virtualization Resources (namespaced scope)
+* View Virtualization Resources (namespaced scope)
+
+They can be found in the "Cluster" and "Project/Namespace" sections of the "Role Template" page.
+
+For more information, see https://docs.harvesterhci.io/latest/rancher/rancher-rbac
