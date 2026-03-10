@@ -1,8 +1,8 @@
 forkliftOperatorAnsible:
   forkliftOperator:
-    repo: registry.rancher.com/harvester
-    tag: main-head
-    operatorImage: harvester-forklift-operator
+    repo: rancher
+    tag: latest
+    operatorImage: nginx
     args:
     - --health-probe-bind-address=:6789
     - --metrics-bind-address=127.0.0.1:8080
