@@ -6000,6 +6000,27 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-pcidevices-roles-0.1.0/harvester-pcidevices-roles-0.1.0.tgz
     version: 0.1.0
+  harvester-rbac:
+  - annotations:
+      catalog.cattle.io/certified: rancher
+      catalog.cattle.io/display-name: Harvester RBAC
+      catalog.cattle.io/kube-version: '>= 1.31.0-0'
+      catalog.cattle.io/rancher-version: '>= 2.13.0-0'
+      catalog.cattle.io/release-name: harvester-rbac
+      catalog.cattle.io/ui-component: harvester-rbac
+    apiVersion: v2
+    appVersion: v0.1.0
+    created: "2026-03-11T00:47:17.49420596Z"
+    description: A Helm chart for Harvester/Rancher integration RBAC
+    digest: 63f71b83a2eb8785aa23697ea693aa0e4906ee47ac50d595ac8a6f2921bbcff4
+    kubeVersion: '>=1.31.0-0'
+    maintainers:
+    - name: harvester
+    name: harvester-rbac
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-rbac-0.1.0/harvester-rbac-0.1.0.tgz
+    version: 0.1.0
   harvester-resourcequotas-roles:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -8428,4 +8449,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2026-03-06T17:13:51.785995246Z"
+generated: "2026-03-11T00:47:17.500139292Z"
