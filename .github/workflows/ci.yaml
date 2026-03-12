@@ -66,6 +66,10 @@ jobs:
       - name: Create Snapshotter volumesnapshotclass crd
         run: "kubectl create -f tests/snapshotter_volumesnapshotclass.yaml"
         if: steps.list-changed.outputs.changed == 'true'
+        
+      - name: Create harvester-upgrade external stub CRDs
+        run: "kubectl create -f tests/harvester-upgrade-external-stub-crds.yaml"
+        if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install-generic)
         run: ct install --config tests/ct.yaml --excluded-charts harvester-csi-driver-lvm
