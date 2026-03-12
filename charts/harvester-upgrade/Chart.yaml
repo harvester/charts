@@ -12,3 +12,6 @@ keywords:
 
 annotations:
   kubebuilder.io/generated-by: kubebuilder
+
+maintainers:
+  - name: harvester
