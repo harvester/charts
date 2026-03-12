@@ -1,0 +1,94 @@
+{{- if .Values.webhook.enable }}
+{{- $secretName := "webhook-server-cert" }}
+{{- $svcName := include "upgrade-toolkit.resourceName" (dict "suffix" "webhook-service" "context" $) }}
+{{- $cn := printf "%s.%s.svc" $svcName .Release.Namespace }}
+{{- $altNames := list (printf "%s.%s.svc" $svcName .Release.Namespace) (printf "%s.%s.svc.cluster.local" $svcName .Release.Namespace) }}
+
+{{- $ca := "" }}
+{{- $cert := "" }}
+{{- $key := "" }}
+
+{{- $existingSecret := lookup "v1" "Secret" .Release.Namespace $secretName }}
+{{- if and $existingSecret $existingSecret.data }}
+  {{- $ca = index $existingSecret.data "ca.crt" }}
+  {{- $cert = index $existingSecret.data "tls.crt" }}
+  {{- $key = index $existingSecret.data "tls.key" }}
+{{- else }}
+  {{- $genCA := genCA "upgrade-toolkit-webhook-ca" 3650 }}
+  {{- $genCert := genSignedCert $cn nil $altNames 365 $genCA }}
+  {{- $ca = $genCA.Cert | b64enc }}
+  {{- $cert = $genCert.Cert | b64enc }}
+  {{- $key = $genCert.Key | b64enc }}
+{{- end }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "upgrade-toolkit.name" . }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  name: {{ $secretName }}
+  namespace: {{ .Release.Namespace }}
+type: kubernetes.io/tls
+data:
+  ca.crt: {{ $ca }}
+  tls.crt: {{ $cert }}
+  tls.key: {{ $key }}
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: {{ include "upgrade-toolkit.resourceName" (dict "suffix" "mutating-webhook-configuration" "context" $) }}
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: {{ $ca }}
+    service:
+      name: {{ $svcName }}
+      namespace: {{ .Release.Namespace }}
+      path: /mutate-management-harvesterhci-io-v1beta1-upgradeplan
+  failurePolicy: Fail
+  name: mupgradeplan-v1beta1.kb.io
+  rules:
+  - apiGroups:
+    - management.harvesterhci.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - upgradeplans
+  sideEffects: None
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: {{ include "upgrade-toolkit.resourceName" (dict "suffix" "validating-webhook-configuration" "context" $) }}
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: {{ $ca }}
+    service:
+      name: {{ $svcName }}
+      namespace: {{ .Release.Namespace }}
+      path: /validate-management-harvesterhci-io-v1beta1-upgradeplan
+  failurePolicy: Fail
+  name: vupgradeplan-v1beta1.kb.io
+  rules:
+  - apiGroups:
+    - management.harvesterhci.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    - DELETE
+    resources:
+    - upgradeplans
+  sideEffects: None
+{{- end }}
