@@ -1,0 +1,24 @@
+{{- if .Values.rbacHelpers.enable }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+    labels:
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        app.kubernetes.io/name: {{ include "upgrade-toolkit.name" . }}
+        helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    name: {{ include "upgrade-toolkit.resourceName" (dict "suffix" "upgradeplan-admin-role" "context" $) }}
+rules:
+    - apiGroups:
+        - management.harvesterhci.io
+      resources:
+        - upgradeplans
+      verbs:
+        - '*'
+    - apiGroups:
+        - management.harvesterhci.io
+      resources:
+        - upgradeplans/status
+      verbs:
+        - get
+{{- end }}
