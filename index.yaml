@@ -1,5 +1,18 @@
 apiVersion: v1
 entries:
+  forklift-operator:
+  - apiVersion: v2
+    appVersion: main-head
+    created: "2026-03-13T00:10:13.152836984Z"
+    description: A Helm chart for Kubernetes
+    digest: d1ad8b341b44e92c507efd69ae70e9af614c1b9040638b161af7dc03c4688360
+    maintainers:
+    - name: harvester
+    name: forklift-operator
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/forklift-operator-1.8.0-dev.1/forklift-operator-1.8.0-dev.1.tgz
+    version: 1.8.0-dev.1
   harvester-cloud-provider:
   - annotations:
       catalog.cattle.io/certified: rancher
@@ -8683,4 +8696,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2026-03-12T08:41:19.495452212Z"
+generated: "2026-03-13T00:10:13.158018931Z"
