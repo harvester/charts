@@ -19,15 +19,15 @@ manager:
   ## Arguments
   ##
   args:
-    - --leader-elect
+  - --leader-elect
 
   ## Environment variables
   ##
   env:
-    - name: UPGRADE_JOB_SERVICE_ACCOUNT
-      value: harvester
-    - name: UPGRADE_PLAN_SERVICE_ACCOUNT
-      value: system-upgrade-controller
+  - name: UPGRADE_JOB_SERVICE_ACCOUNT
+    value: harvester
+  - name: UPGRADE_PLAN_SERVICE_ACCOUNT
+    value: system-upgrade-controller
 
   ## Image pull secrets
   ##
@@ -48,7 +48,7 @@ manager:
     allowPrivilegeEscalation: false
     capabilities:
       drop:
-        - ALL
+      - ALL
     readOnlyRootFilesystem: true
 
   ## Resource limits and requests
