@@ -36,6 +36,9 @@ spec:
             - jsonPath: .status.conditions[?(@.type=='Degraded')].status
               name: DEGRADED
               type: string
+            - jsonPath: .metadata.creationTimestamp
+              name: AGE
+              type: date
           name: v1beta1
           schema:
             openAPIV3Schema:
