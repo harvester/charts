@@ -98,6 +98,9 @@ configurationSpec:
         dpdkRepository: kube-ovn-dpdk
         repository: kube-ovn
         vpcRepository: vpc-nat-gateway
+      natgateway:
+        repository: vpc-nat-gateway
+        tag: ""
     registry:
       address: docker.io/kubeovn
   hugePages: "0"
@@ -167,6 +170,7 @@ configurationSpec:
       cpu: "3"
       memory: "4Gi"
   ovnDir: /etc/origin/ovn
+  ovnIPSecKeysDir: /etc/origin/ovs_ipsec_keys
   ovsOVN:
     limits:
       cpu: "2"
