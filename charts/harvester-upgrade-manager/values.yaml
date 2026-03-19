@@ -4,7 +4,7 @@
 
 ## String to fully override chart.fullname template
 ##
-fullnameOverride: "harvester-upgrade-toolkit"
+# fullnameOverride: ""
 
 ## Configure the controller manager deployment
 ##
@@ -19,15 +19,20 @@ manager:
   ## Arguments
   ##
   args:
-  - --leader-elect
+    - --leader-elect
 
   ## Environment variables
   ##
   env:
-  - name: UPGRADE_JOB_SERVICE_ACCOUNT
-    value: harvester
-  - name: UPGRADE_PLAN_SERVICE_ACCOUNT
-    value: system-upgrade-controller
+    - name: UPGRADE_JOB_SERVICE_ACCOUNT
+      value: harvester
+    - name: UPGRADE_PLAN_SERVICE_ACCOUNT
+      value: system-upgrade-controller
+
+  ## Env overrides (--set manager.envOverrides.VAR=value)
+  ## Same name in env above: this value takes precedence.
+  ##
+  envOverrides: {}
 
   ## Image pull secrets
   ##
@@ -48,7 +53,7 @@ manager:
     allowPrivilegeEscalation: false
     capabilities:
       drop:
-      - ALL
+        - ALL
     readOnlyRootFilesystem: true
 
   ## Resource limits and requests
