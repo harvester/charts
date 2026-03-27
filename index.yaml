@@ -6491,6 +6491,26 @@ entries:
       catalog.cattle.io/certified: rancher
       catalog.cattle.io/display-name: Harvester RBAC
       catalog.cattle.io/kube-version: '>= 1.31.0-0'
+      catalog.cattle.io/rancher-version: '>= 2.14.0-0 < 2.15.0-0'
+      catalog.cattle.io/release-name: harvester-rbac
+      catalog.cattle.io/ui-component: harvester-rbac
+    apiVersion: v2
+    appVersion: v0.1.1
+    created: "2026-03-27T19:49:02.114756613Z"
+    description: A Helm chart for Harvester/Rancher integration RBAC
+    digest: 345626e7036808eb5ccd24a6c53bf3ecf3b552b573d62be77086b2ac4dece977
+    kubeVersion: '>=1.31.0-0'
+    maintainers:
+    - name: harvester
+    name: harvester-rbac
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-rbac-0.1.1/harvester-rbac-0.1.1.tgz
+    version: 0.1.1
+  - annotations:
+      catalog.cattle.io/certified: rancher
+      catalog.cattle.io/display-name: Harvester RBAC
+      catalog.cattle.io/kube-version: '>= 1.31.0-0'
       catalog.cattle.io/rancher-version: '>= 2.13.0-0'
       catalog.cattle.io/release-name: harvester-rbac
       catalog.cattle.io/ui-component: harvester-rbac
@@ -9157,4 +9177,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2026-03-27T10:06:29.013674593Z"
+generated: "2026-03-27T19:49:02.122531693Z"
