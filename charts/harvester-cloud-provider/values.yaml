@@ -11,6 +11,9 @@ image:
   tag: "master-head"
 
 cloudConfigPath: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
+cloudConfig:
+  secretName: ""
+  hostPath: ""
 
 imagePullSecrets: []
 nameOverride: ""
