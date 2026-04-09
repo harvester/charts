@@ -10,9 +10,16 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "master-head"
 
+# Configuration Precedence:
+# The system looks for cloud configuration in the following order:
+#  cloudConfigPath (Highest priority)
+#  cloudConfig.secretName
+#  cloudConfig.hostPath (Fallback)
 cloudConfigPath: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
 cloudConfig:
   secretName: ""
+  # Default key
+  secretKey: "cloud-config"
   hostPath: ""
 
 imagePullSecrets: []
