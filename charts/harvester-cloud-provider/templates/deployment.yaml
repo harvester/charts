@@ -39,12 +39,8 @@ spec:
             - name: cloud-config
               mountPath: /etc/kubernetes/cloud-config
               readOnly: true
-              {{- if .Values.cloudConfigPath }}
-              subPath: {{ base .Values.cloudConfigPath }}
-              {{- else if .Values.cloudConfig.secretName }}
-              subPath: {{ .Values.cloudConfig.secretKey | default "cloud-config" }}
-              {{- else if .Values.cloudConfig.hostPath }}
-              subPath: {{ base .Values.cloudConfig.hostPath }}
+              {{- if and (not .Values.cloudConfigPath) .Values.cloudConfig.secretName }}
+              subPath: cloud-config
               {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -75,5 +71,5 @@ spec:
             path: {{ .Values.cloudConfig.hostPath }}
             type: File
         {{- else }}
-          {{- fail "A valid cloudConfigPath, secretName, or hostPath is required." -}}
+          {{- fail "A valid cloudConfigPath, cloudConfig.secretName, or cloudConfig.hostPath is required." -}}
         {{- end }}

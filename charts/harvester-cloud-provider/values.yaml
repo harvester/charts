@@ -11,16 +11,28 @@ image:
   tag: "master-head"
 
 # Configuration Precedence:
-# The system looks for cloud configuration in the following order:
-#  cloudConfigPath (Highest priority)
-#  cloudConfig.secretName
-#  cloudConfig.hostPath (Fallback)
+# 1. cloudConfigPath (Primary): Used by most existing systems.
+#    This field takes absolute priority and MUST point to a valid file on the host.
+#    To use the 'cloudConfig' block below, this field must be empty ("").
+# 2. cloudConfig.secretName: Modern method using a Kubernetes Secret.
+#    - cloudConfig.secretKey: The key within the Secret containing the config file data.
+#      Defaults to "cloud-config".
+# 3. cloudConfig.hostPath: Final fallback. MUST point to a valid file on the host.
+
+# Absolute path to the cloud provider config file (Primary method)
+# Note: If this is set, it must be a file; directories will cause the pod to fail.
 cloudConfigPath: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
+
 cloudConfig:
+  # Name of the Secret containing the config (Active only if cloudConfigPath is empty)
   secretName: ""
-  # Default key
+
+  # The key within the Secret to retrieve. Defaults to "cloud-config".
   secretKey: "cloud-config"
-  hostPath: ""
+
+  # Fallback host file path (Used only if cloudConfigPath is empty and secretName is missing)
+  # Must be a direct path to a file.
+  hostPath: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
 
 imagePullSecrets: []
 nameOverride: ""

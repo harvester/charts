@@ -5,7 +5,28 @@ namespace: kube-system
 questions:
 - variable: cloudConfigPath
   label: Cloud config file path
-  description: "Specify the path of the cloud config."
+  description: "Specify the absolute path to the cloud-config file on the host. This field takes absolute priority; if set, it MUST point to a valid file. To use the Secret or fallback options below, this field must be left empty."
   group: "Default"
+  type: string
+  default: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
+
+- variable: cloudConfig.secretName
+  label: Cloud Config Secret Name
+  description: "The name of the Kubernetes Secret containing the cloud provider configuration. Active only if 'Cloud config file path' is empty."
+  group: "Cloud Config"
+  type: string
+  default: ""
+
+- variable: cloudConfig.secretKey
+  label: Cloud Config Secret Key
+  description: "The key within the Secret that holds the configuration data. Defaults to 'cloud-config'."
+  group: "Cloud Config"
+  type: string
+  default: "cloud-config"
+
+- variable: cloudConfig.hostPath
+  label: Cloud Config Fallback Host Path
+  description: "The host file path used if 'Cloud config file path' is empty and no Secret is provided. Must be a direct path to a file."
+  group: "Cloud Config"
   type: string
   default: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
