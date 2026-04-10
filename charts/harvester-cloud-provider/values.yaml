@@ -2,7 +2,47 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# -- Number of replicas for the cloud provider.
 replicasCount: 1
+
+# -- Additional command line arguments to pass to the harvester-cloud-provider deployment container.
+# Arguments must be provided as a YAML list of strings.
+#
+# Use these to configure both the Cloud Provider framework and Harvester-specific logic.
+#
+# 1. Framework & Controller Flags:
+#    - --controllers: List of controllers to enable. Omit a controller to disable it.
+#    - --v: Verbosity level for logging (e.g., "--v=5" for debug).
+#
+# 2. Harvester-specific Flags (Networking & IP Selection):
+#    - --management-network: Defines the network name to bypass "first-hit" selection
+#      logic in multi-NIC environments.
+#    - --node-ip-cidr: CIDR range to ensure precise IP selection in multi-IP setups.
+#    - --node-exclude-ip-ranges: Blacklist specific IPs or subnets (comma-separated).
+#      Any IP on this list will NOT be reported as an InternalIP or ExternalIP.
+#    - --disable-annotation-alpha-provided-ip-addr: (bool) Set to true to disable legacy
+#      alpha annotations and force modern CIDR-based selection.
+#    - --loadbalancer-network: (Experimental) Restricts LoadBalancers to a specific network.
+#    - --show-full-help-on-error: (bool) Set to true to automatically display the
+#      comprehensive help menu if a flag-related error occurs during startup.
+#
+# Example 1 (Recommended for Multi-NIC / Multi-IP setups with exclusions):
+# extraArgs:
+#   - "--management-network=default/vlan-100"
+#   - "--node-ip-cidr=192.168.1.0/24"
+#   - "--node-exclude-ip-ranges=192.168.1.1,192.168.1.254"
+#   - "--disable-annotation-alpha-provided-ip-addr=true"
+#   - "--show-full-help-on-error=true"
+#
+# Example 2 (Disable the LoadBalancer controller from harvester-cloud-provider):
+# extraArgs:
+#   - "--controllers=cloud-node-controller,cloud-node-lifecycle-controller,node-route-controller"
+#
+# NOTE: Avoid using internal quotes for values. The runtime passes these strings directly.
+#
+# Bad:  - "--cluster-name=\"my-cluster\""
+# Good: - "--cluster-name=my-cluster"
+extraArgs: []
 
 image:
   repository: rancher/harvester-cloud-provider
