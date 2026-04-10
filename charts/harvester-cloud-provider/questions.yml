@@ -30,3 +30,10 @@ questions:
   group: "Cloud Config"
   type: string
   default: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
+
+- variable: extraArgs
+  label: Extra Arguments
+  description: "Additional CLI flags for the harvester-cloud-provider (e.g., --v=5 or --controllers=...). Click 'Add' to define multiple flags."
+  group: "Advanced"
+  type: array
+  default: []

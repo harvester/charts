@@ -2,7 +2,15 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# -- Number of replicas for the cloud provider.
 replicasCount: 1
+
+# -- Additional command line arguments to pass to the harvester-cloud-provider binary.
+# Must be provided as a YAML list of strings.
+# Example:
+# extraArgs:
+#   - "--controllers=cloud-node-controller,cloud-node-lifecycle-controller,node-route-controller"
+extraArgs: []
 
 image:
   repository: rancher/harvester-cloud-provider

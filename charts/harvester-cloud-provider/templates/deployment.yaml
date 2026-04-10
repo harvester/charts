@@ -7,7 +7,7 @@ metadata:
   {{- include "harvester-cloud-provider.labels" . | nindent 4 }}
   name: {{ include "harvester-cloud-provider.name" . }}
 spec:
-  replicas: {{ .Values.replicasCount}}
+  replicas: {{ .Values.replicasCount }}
   selector:
     matchLabels:
   {{- include "harvester-cloud-provider.selectorLabels" . | nindent 6 }}
@@ -30,7 +30,11 @@ spec:
             - --cloud-config=/etc/kubernetes/cloud-config
             {{- if ne .Values.global.cattle.clusterName "" }}
             - --cluster-name={{ .Values.global.cattle.clusterName }}
-          {{- end }}
+            {{- end }}
+            {{- /* Inject additional user-defined CLI arguments */ -}}
+            {{- with .Values.extraArgs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           command:
             - harvester-cloud-provider
           resources:
