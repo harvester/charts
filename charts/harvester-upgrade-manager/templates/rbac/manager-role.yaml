@@ -133,6 +133,14 @@ rules:
 - apiGroups:
   - kubevirt.io
   resources:
+  - kubevirts
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - kubevirt.io
+  resources:
   - virtualmachineinstances
   verbs:
   - get
@@ -163,6 +171,8 @@ rules:
   verbs:
   - get
   - list
+  - patch
+  - update
   - watch
 - apiGroups:
   - management.harvesterhci.io
