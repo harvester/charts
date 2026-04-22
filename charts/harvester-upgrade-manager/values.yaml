@@ -13,7 +13,7 @@ manager:
 
   image:
     repository: rancher/harvester-upgrade-toolkit
-    tag: "v1.8.0-rc6.r2"
+    tag: ""
     pullPolicy: IfNotPresent
 
   ## Arguments
