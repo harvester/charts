@@ -3,8 +3,8 @@ name: harvester-upgrade-manager
 description: A Helm chart to distribute harvester-upgrade-manager
 type: application
 
-version: 1.8.0-rc6.r2
-appVersion: "v1.8.0-rc6.r2"
+version: 1.9.0-dev.0
+appVersion: "main-head"
 
 keywords:
   - kubernetes
