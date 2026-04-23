@@ -2,7 +2,15 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# -- Number of replicas for the cloud provider.
 replicasCount: 1
+
+# -- Additional command line arguments to pass to the harvester-cloud-provider binary.
+# Must be provided as a YAML list of strings.
+# Example:
+# extraArgs:
+#   - "--controllers=cloud-node-controller,cloud-node-lifecycle-controller,node-route-controller"
+extraArgs: []
 
 image:
   repository: rancher/harvester-cloud-provider
@@ -10,7 +18,29 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "master-head"
 
+# Configuration Precedence:
+# 1. cloudConfigPath (Primary): Used by most existing systems.
+#    This field takes absolute priority and MUST point to a valid file on the host.
+#    To use the 'cloudConfig' block below, this field must be empty ("").
+# 2. cloudConfig.secretName: Modern method using a Kubernetes Secret.
+#    - cloudConfig.secretKey: The key within the Secret containing the config file data.
+#      Defaults to "cloud-config".
+# 3. cloudConfig.hostPath: Final fallback. MUST point to a valid file on the host.
+
+# Absolute path to the cloud provider config file (Primary method)
+# Note: If this is set, it must be a file; directories will cause the pod to fail.
 cloudConfigPath: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
+
+cloudConfig:
+  # Name of the Secret containing the config (Active only if cloudConfigPath is empty)
+  secretName: ""
+
+  # The key within the Secret to retrieve. Defaults to "cloud-config".
+  secretKey: "cloud-config"
+
+  # Fallback host file path (Used only if cloudConfigPath is empty and secretName is missing)
+  # Must be a direct path to a file.
+  hostPath: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
 
 imagePullSecrets: []
 nameOverride: ""

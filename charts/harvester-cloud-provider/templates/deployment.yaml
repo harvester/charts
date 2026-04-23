@@ -7,7 +7,7 @@ metadata:
   {{- include "harvester-cloud-provider.labels" . | nindent 4 }}
   name: {{ include "harvester-cloud-provider.name" . }}
 spec:
-  replicas: {{ .Values.replicasCount}}
+  replicas: {{ .Values.replicasCount }}
   selector:
     matchLabels:
   {{- include "harvester-cloud-provider.selectorLabels" . | nindent 6 }}
@@ -30,14 +30,22 @@ spec:
             - --cloud-config=/etc/kubernetes/cloud-config
             {{- if ne .Values.global.cattle.clusterName "" }}
             - --cluster-name={{ .Values.global.cattle.clusterName }}
-          {{- end }}
+            {{- end }}
+            {{- /* Inject additional user-defined CLI arguments */ -}}
+            {{- with .Values.extraArgs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           command:
             - harvester-cloud-provider
           resources:
           {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /etc/kubernetes/cloud-config
-              name: cloud-config
+            - name: cloud-config
+              mountPath: /etc/kubernetes/cloud-config
+              readOnly: true
+              {{- if and (not .Values.cloudConfigPath) .Values.cloudConfig.secretName }}
+              subPath: cloud-config
+              {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
       {{- toYaml . | nindent 8 }}
@@ -52,6 +60,20 @@ spec:
       {{- end }}
       volumes:
         - name: cloud-config
+        {{- if .Values.cloudConfigPath }}
           hostPath:
-            path: {{ required "A valid cloudConfigPath is required!" .Values.cloudConfigPath }}
+            path: {{ .Values.cloudConfigPath }}
             type: File
+        {{- else if .Values.cloudConfig.secretName }}
+          secret:
+            secretName: {{ .Values.cloudConfig.secretName }}
+            items:
+              - key: {{ .Values.cloudConfig.secretKey | default "cloud-config" }}
+                path: cloud-config
+        {{- else if .Values.cloudConfig.hostPath }}
+          hostPath:
+            path: {{ .Values.cloudConfig.hostPath }}
+            type: File
+        {{- else }}
+          {{- fail "A valid cloudConfigPath, cloudConfig.secretName, or cloudConfig.hostPath is required." -}}
+        {{- end }}
