@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "scrutiny.fullname" . }}-web
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "scrutiny.labels" . | nindent 4 }}
+    app.kubernetes.io/component: web
+spec:
+  replicas: {{ .Values.web.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "scrutiny.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: web
+  template:
+    metadata:
+      labels:
+        {{- include "scrutiny.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: web
+    spec:
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      containers:
+        - name: web
+          image: {{ .Values.web.image }}
+          ports:
+            - containerPort: {{ .Values.web.service.port }}
+          env:
+            - name: SCRUTINY_WEB_INFLUXDB_HOST
+              value: {{ include "scrutiny.fullname" . }}-influxdb
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: {{ .Values.web.service.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: {{ .Values.web.service.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          volumeMounts:
+            - name: config
+              mountPath: /opt/scrutiny/config
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: {{ include "scrutiny.fullname" . }}-config-pvc
