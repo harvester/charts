@@ -7,6 +7,10 @@ spec:
   selector:
     matchLabels:
       {{- include "kube-vip.selectorLabels" . | nindent 6 }}
+  {{- with .Values.updateStrategy }}
+  updateStrategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
       labels:
@@ -27,7 +31,7 @@ spec:
           {{- end }}
           {{- end }}
           {{- end }}
-        {{- if and .Values.podMonitor.enabled (hasKey .Values.env "prometheus_server") (regexMatch "^:\\d+$" .Values.env.prometheus_server) }}
+        {{- if and .Values.podMonitor.enabled (regexMatch "^:\\d+$" .Values.env.prometheus_server) }}
         ports:
         - containerPort: {{ trimPrefix ":" .Values.env.prometheus_server }}
           name: monitoring
@@ -36,7 +40,7 @@ spec:
         env:
           {{- if eq (include "kube-vip.toBool" .Values.env.cp_enable) "true" }}
           - name: vip_address
-            value: {{ required "A valid config.address required!" .Values.config.address}}
+            value: {{ required "A valid config.address required!" .Values.config.address | quote }}
           {{- end }}
         {{- with .Values.env }}
           {{- range $k, $v := . }}
@@ -80,6 +84,10 @@ spec:
       {{- end }}
       hostNetwork: true
       serviceAccountName: {{ include "kube-vip.name" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

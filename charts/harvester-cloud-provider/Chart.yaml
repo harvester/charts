@@ -44,5 +44,5 @@ maintainers:
 dependencies:
   - name: kube-vip
     condition: kube-vip.enabled
-    version: 0.8.0
+    version: 0.9.8
     repository: file://dependency_charts/kube-vip
