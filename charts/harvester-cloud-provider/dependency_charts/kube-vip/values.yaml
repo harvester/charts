@@ -21,7 +21,7 @@ env:
   svc_enable: "true"
   svc_election: "false"
   vip_leaderelection: "false"
-  # prometheus_server: ":2112"
+  prometheus_server: ":2112"
 
 extraArgs: {}
   # Specify additional arguments to kube-vip
@@ -80,6 +80,11 @@ securityContext:
       - NET_RAW
     drop:
       - ALL
+
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
