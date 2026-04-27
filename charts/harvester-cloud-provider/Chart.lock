@@ -1,6 +1,6 @@
 dependencies:
 - name: kube-vip
   repository: file://dependency_charts/kube-vip
-  version: 0.8.0
-digest: sha256:113043bfffa29b7b5abc3bd261c7e8b35d13da5a2a553127f5b67f53fea4e431
-generated: "2025-08-27T16:57:21.811958167+02:00"
+  version: 0.9.8
+digest: sha256:c8c1342a2a1e7bddb652b3175279cd3f8c3e3744915fb78196b8d85095a1f2e0
+generated: "2026-04-27T09:48:44.075700723+02:00"
