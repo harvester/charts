@@ -7556,6 +7556,23 @@ entries:
   - annotations:
       kubebuilder.io/generated-by: kubebuilder
     apiVersion: v2
+    appVersion: v1.8.0
+    created: "2026-04-27T07:20:21.810864484Z"
+    description: A Helm chart to distribute harvester-upgrade-manager
+    digest: 8a7e53d19cfedc53ddba6f45b1a8dcf1ad417284086629e959c6e78054339681
+    keywords:
+    - kubernetes
+    - operator
+    maintainers:
+    - name: harvester
+    name: harvester-upgrade-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-upgrade-manager-1.8.0/harvester-upgrade-manager-1.8.0.tgz
+    version: 1.8.0
+  - annotations:
+      kubebuilder.io/generated-by: kubebuilder
+    apiVersion: v2
     appVersion: v1.8.0-rc6.r3
     created: "2026-04-23T08:53:23.931050815Z"
     description: A Helm chart to distribute harvester-upgrade-manager
@@ -9740,4 +9757,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2026-04-24T08:54:26.887406926Z"
+generated: "2026-04-27T07:20:21.812686037Z"
