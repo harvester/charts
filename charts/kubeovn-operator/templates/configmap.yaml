@@ -43,7 +43,7 @@ data:
     debug:
       mirrorInterface: {{.Values.configurationSpec.debug.mirrorInterface | default "mirror0"}}
     dpdkCPU:  {{.Values.configurationSpec.dpdkCPU | default "0" | quote}}
-    dpdkImageTag: {{.Values.configurationSpec.dpdkImageTag | default "v1.15.0-dpdk" | quote}}
+    dpdkImageTag: {{.Values.configurationSpec.dpdkImageTag | default "v1.16.1-dpdk" | quote}}
     dpdkMEMORY: {{.Values.configurationSpec.dpdkMEMORY | default "0" | quote}}
     dualStack:
       joinCIDR: fd00:100:64::/112
@@ -129,6 +129,7 @@ data:
       ovnRemoteOpenflowInterval: {{ .Values.configurationSpec.networking.ovnRemoteOpenflowInterval | default "10" }}
       ovnRemoteProbeInterval: {{ .Values.configurationSpec.networking.ovnRemoteProbeInterval | default "10000" }}
       skipConnTrackDstCIDRs: {{ .Values.configurationSpec.networking.skipConnTrackDstCIDRs | default "" }}
+      externalGatewayConfigNS: {{ .Values.configurationSpec.networking.externalGatewayConfigNS | default "" }}
       podNicType: veth-pair
       probeInterval:  {{ .Values.configurationSpec.networking.probeInterval | default "180000" }}
       tunnelType: vxlan

@@ -158,6 +158,7 @@ configurationSpec:
     probeInterval: 180000
     nodeLocalDNSIPS: ""
     skipConnTrackDstCIDRs: ""
+    externalGatewayConfigNS: ""
   vlan:
     providerName: {}
     vlanId: {}
