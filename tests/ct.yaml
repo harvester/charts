@@ -2,3 +2,5 @@ remote: upstream
 target-branch: master
 chart-dirs:
   - charts
+chart-repos:
+  - k3k=https://rancher.github.io/k3k
