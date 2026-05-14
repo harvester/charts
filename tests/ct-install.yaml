@@ -4,3 +4,5 @@ chart-dirs:
   - charts
 excluded-charts:
   - forklift-operator
+chart-repos:
+  - k3k=https://rancher.github.io/k3k  
