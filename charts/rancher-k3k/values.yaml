@@ -1,0 +1,11 @@
+certManagerVersion: "v1.5.1"
+rancher:
+  hostname: "demo.rancher.com"
+  replicas: 1
+  bootstrapPassword: "password"
+  version: "v2.14.0"
+k3kCluster:
+  servers: 1
+  agents: 0
+  version: v1.35.4-k3s1
+  storageClassName: "harvester-longhorn"
