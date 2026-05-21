@@ -4,4 +4,4 @@ chart-dirs:
   - charts
 excluded-charts:
   - forklift-operator
-  - harvester-csi-driver-lvm
+  - rancher-k3k
