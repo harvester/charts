@@ -51,6 +51,7 @@ spec:
   mode: shared
   servers: {{ .Values.k3kCluster.servers }}
   agents: {{ .Values.k3kCluster.agents }}
+  version: {{ .Values.k3kCluster.version }}
   sync:
     ingresses:
       enabled: true
