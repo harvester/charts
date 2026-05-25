@@ -55,7 +55,7 @@ spec:
         - --hostwritepath={{ .Values.lvm.hostWritePath }}
         - --nodeid=$(KUBE_NODE_NAME)
         - --namespace={{ .Release.Namespace }}
-        - --provisionerimage={{ .Values.provisionerImage.repository }}:{{ .Values.provisionerImage.tag }}
+        - --provisionerimage={{ .Values.provisionerImage.repository }}:{{ .Values.provisionerImage.tag | default .Chart.AppVersion }}
         - --pullpolicy={{ .Values.provisionerImage.pullPolicy }}
         env:
         - name: KUBE_NODE_NAME
@@ -63,7 +63,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: spec.nodeName
-        image: "{{ .Values.pluginImage.repository }}:{{ .Values.pluginImage.tag }}"
+        image: "{{ .Values.pluginImage.repository }}:{{ .Values.pluginImage.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.pluginImage.pullPolicy }}
         livenessProbe:
           failureThreshold: 5
