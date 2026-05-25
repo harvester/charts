@@ -6,13 +6,13 @@ pluginImage:
   repository: rancher/harvester-lvm-csi-plugin
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.1.2"
+  tag: "v1.8.0"
 
 provisionerImage:
   repository: rancher/harvester-lvm-provisioner
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.1.2"
+  tag: "v1.8.0"
 
 hookImage:
   repository: rancher/kubectl
@@ -35,7 +35,7 @@ webhook:
     repository: rancher/harvester-lvm-csi-driver-webhook
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v0.1.2"
+    tag: "v1.8.0"
   httpsPort: 8443
 
 rbac:
