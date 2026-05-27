@@ -10013,6 +10013,18 @@ entries:
     version: 0.1.0
   rancher-k3k:
   - apiVersion: v2
+    appVersion: v1.9.0-dev.1
+    created: "2026-05-27T03:58:14.03298924Z"
+    description: A Helm chart for installing rancher using k3k
+    digest: afa9e7658bf0188dd935487bd07bd30d2dd28091d36d509a77faa161ef6d9447
+    maintainers:
+    - name: harvester
+    name: rancher-k3k
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/rancher-k3k-1.9.0-dev.1/rancher-k3k-1.9.0-dev.1.tgz
+    version: 1.9.0-dev.1
+  - apiVersion: v2
     appVersion: v1.9.0-dev.0
     created: "2026-05-25T02:07:25.653636125Z"
     description: A Helm chart for installing rancher using k3k
@@ -10081,4 +10093,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2026-05-25T02:07:25.655211545Z"
+generated: "2026-05-27T03:58:14.034403189Z"
