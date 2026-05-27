@@ -28,7 +28,7 @@ stringData:
     spec:
       createNamespace: true
       targetNamespace: cattle-system
-      repo: https://releases.rancher.com/server-charts/latest
+      repo: {{ .Values.rancher.repo }}
       chart: rancher
       version: {{ .Values.rancher.version }}
       set:
