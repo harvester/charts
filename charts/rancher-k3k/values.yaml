@@ -4,6 +4,7 @@ rancher:
   replicas: 1
   bootstrapPassword: "password"
   version: "v2.14.0"
+  repo: "https://releases.rancher.com/server-charts/latest"
 k3kCluster:
   servers: 1
   agents: 0
