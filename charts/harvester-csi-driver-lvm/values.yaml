@@ -15,9 +15,9 @@ provisionerImage:
   tag: ""
 
 hookImage:
-  repository: rancher/kubectl
+  repository: rancher/kuberlr-kubectl  # v1.32.13
   pullPolicy: IfNotPresent
-  tag: "v1.32.3"
+  tag: "v4.0.7"
 
 nameOverride: ""
 
