@@ -40,6 +40,8 @@ spec:
                 properties:
                   enableV2DataEngine:
                     type: boolean
+                  hugepagesToAllocate:
+                    type: integer
                 type: object
               ntpConfigs:
                 properties:
