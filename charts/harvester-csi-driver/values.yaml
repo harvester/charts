@@ -11,19 +11,19 @@ image:
   csi:
     nodeDriverRegistrar:
       repository: rancher/mirrored-longhornio-csi-node-driver-registrar
-      tag: v2.3.0
+      tag: v2.16.0-20260428
     resizer:
       repository: rancher/mirrored-longhornio-csi-resizer
-      tag: v1.2.0
+      tag: v2.1.0-20260428
     provisioner:
       repository: rancher/mirrored-longhornio-csi-provisioner
-      tag: v5.3.0-20250709
+      tag: v5.3.0-20260428
     attacher:
       repository: rancher/mirrored-longhornio-csi-attacher
-      tag: v3.2.1
+      tag: v4.11.0-20260428
     snapshotter:
       repository: rancher/mirrored-longhornio-csi-snapshotter
-      tag: v8.3.0-20250709
+      tag: v8.5.0-20260428
   pullPolicy: IfNotPresent
 
 nameOverride: ""
