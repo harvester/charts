@@ -50,27 +50,23 @@ image:
   tag: "master-head"
 
 # Configuration Precedence:
-# 1. cloudConfigPath (Primary): Used by most existing systems.
-#    This field takes absolute priority and MUST point to a valid file on the host.
-#    To use the 'cloudConfig' block below, this field must be empty ("").
-# 2. cloudConfig.secretName: Modern method using a Kubernetes Secret.
+# 1. cloudConfig.secretName: Primary priority for new deployments. If explicitly set,
+#    this takes absolute precedence over all other options and mounts a Kubernetes Secret.
 #    - cloudConfig.secretKey: The key within the Secret containing the config file data.
 #      Defaults to "cloud-config".
-# 3. cloudConfig.hostPath: Final fallback. MUST point to a valid file on the host.
+# 2. cloudConfigPath (Legacy/Default): Used for backward compatibility with existing systems.
+#    If no secretName is set, this field takes priority.
+# 3. cloudConfig.hostPath: Final fallback / Deprecation Placeholder. Hidden from the UI to avoid confusion.
+#    Only evaluated if secretName is empty AND cloudConfigPath is manually cleared out ("") in the raw values.yaml.
+#    This serves as a structural placeholder to safely transition from root-level 'cloudConfigPath'
+#    to a nested 'cloudConfig.hostPath' structure in future major releases.
 
-# Absolute path to the cloud provider config file (Primary method)
-# Note: If this is set, it must be a file; directories will cause the pod to fail.
+# Note: Any host path used below must be a direct path to a file; directories will cause pod failure.
 cloudConfigPath: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
 
 cloudConfig:
-  # Name of the Secret containing the config (Active only if cloudConfigPath is empty)
   secretName: ""
-
-  # The key within the Secret to retrieve. Defaults to "cloud-config".
   secretKey: "cloud-config"
-
-  # Fallback host file path (Used only if cloudConfigPath is empty and secretName is missing)
-  # Must be a direct path to a file.
   hostPath: "/var/lib/rancher/rke2/etc/config-files/cloud-provider-config"
 
 imagePullSecrets: []
