@@ -750,6 +750,31 @@ entries:
       catalog.cattle.io/ui-component: harvester-csi-driver
     apiVersion: v2
     appVersion: v0.2.9
+    created: "2026-06-22T02:34:46.039600499Z"
+    description: A Helm chart for Harvester CSI driver
+    digest: d3aad83fe25740e678a3c2b7d9d8f101c4d9f92080e6cbfefc35191cc2355349
+    keywords:
+    - infrastructure
+    - harvester
+    maintainers:
+    - name: harvester
+    name: harvester-csi-driver
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-csi-driver-0.1.30/harvester-csi-driver-0.1.30.tgz
+    version: 0.1.30
+  - annotations:
+      catalog.cattle.io/certified: rancher
+      catalog.cattle.io/display-name: Harvester CSI Driver
+      catalog.cattle.io/kube-version: '>= 1.18.0-0'
+      catalog.cattle.io/namespace: kube-system
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/permits-os: linux
+      catalog.cattle.io/rancher-version: '>= 2.6.1-0 < 2.8.0-0'
+      catalog.cattle.io/release-name: harvester-csi-driver
+      catalog.cattle.io/ui-component: harvester-csi-driver
+    apiVersion: v2
+    appVersion: v0.2.9
     created: "2026-06-10T08:40:44.676429593Z"
     description: A Helm chart for Harvester CSI driver
     digest: 2bd6461a6117d48b3073456dde5ca89b7843dcd47f51fbb0d5b2096481a69913
@@ -10555,4 +10580,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2026-06-17T10:09:14.114874102Z"
+generated: "2026-06-22T02:34:46.042135608Z"
