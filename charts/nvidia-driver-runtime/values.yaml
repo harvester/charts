@@ -58,6 +58,10 @@ affinity:
           operator: In
           values:
           - "true"
+        - key: harvesterhci.io/gpu-baremetal-workloads
+          operator: NotIn
+          values:
+          - "true"
 # http endpoint where nvidia kvm driver is hosted
 # this will be pulled and installed by the daemonset on runtime
 driverLocation: "HTTPENDPOINT/NVIDIA-Linux-x86_64-525.60.12-vgpu-kvm.run"
