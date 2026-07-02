@@ -1,0 +1,9 @@
+apiVersion: v2
+name: scrutiny
+description: A Helm chart for Scrutiny (web, collector and InfluxDB)
+home: https://github.com/analogj/scrutiny
+type: application
+version: 0.1.0
+appVersion: "master"
+maintainers:
+  - name: harvester
