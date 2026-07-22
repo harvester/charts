@@ -28,6 +28,11 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
+# Pod-level securityContext for the csi-controllers Deployment. On guest clusters
+# with SELinux enforcing, set seLinuxOptions.type: spc_t to match the DaemonSet
+# pods that create the CSI socket (see harvester/harvester#10786).
+podSecurityContext: {}
+
 # This field can be used to specify the corresponding StorageClass on the host cluster.
 hostStorageClass: ""
 kubeletRootDir: /var/lib/kubelet
