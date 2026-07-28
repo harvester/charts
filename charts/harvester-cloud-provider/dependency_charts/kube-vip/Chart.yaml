@@ -6,4 +6,4 @@ maintainers:
 - name: kube-vip
 name: kube-vip
 type: application
-version: 0.9.8
+version: 0.9.9
