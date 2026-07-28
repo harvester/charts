@@ -138,7 +138,7 @@ kube-vip:
     operator: Exists
   image:
     repository: rancher/mirrored-kube-vip-kube-vip-iptables
-    tag: v1.1.2
+    tag: v1.2.1
   env:
     vip_interface: ""
     vip_arp: "true"
