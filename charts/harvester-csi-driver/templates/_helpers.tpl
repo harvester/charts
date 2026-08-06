@@ -60,3 +60,25 @@ Global system default registry
 {{- "" -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Render imagePullSecrets, accepting either strings or object references.
+*/}}
+{{- define "harvester-csi-driver.imagePullSecrets" -}}
+{{- $pullSecrets := list -}}
+{{- range .Values.global.cattle.imagePullSecrets -}}
+  {{- if kindIs "map" . -}}
+    {{- if .name -}}
+      {{- $pullSecrets = append $pullSecrets .name -}}
+    {{- end -}}
+  {{- else if not (empty .) -}}
+    {{- $pullSecrets = append $pullSecrets . -}}
+  {{- end -}}
+{{- end -}}
+{{- if not (empty $pullSecrets) -}}
+imagePullSecrets:
+  {{- range $pullSecrets | uniq }}
+  - name: {{ . | quote }}
+  {{- end }}
+{{- end -}}
+{{- end -}}

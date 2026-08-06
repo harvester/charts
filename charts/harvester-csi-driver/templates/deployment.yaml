@@ -17,6 +17,7 @@ spec:
         component: csi-controllers
         {{- include "harvester-csi-driver.selectorLabels" . | nindent 8 }}
     spec:
+      {{- include "harvester-csi-driver.imagePullSecrets" . | nindent 6 }}
       containers:
         - args:
             - --v=5
