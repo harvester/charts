@@ -1827,6 +1827,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-csi-driver-lvm-1.8.0-rc1/harvester-csi-driver-lvm-1.8.0-rc1.tgz
     version: 1.8.0-rc1
   - apiVersion: v2
+    appVersion: v1.7.3
+    created: "2026-08-07T03:46:48.271197534Z"
+    description: A Helm chart for Harvester LVM CSI Driver
+    digest: 89bc3937d93a865ef11efb2cf63a81e1ecf7a0457b36d301ba3f7a1fa7f5ca8a
+    maintainers:
+    - name: harvester
+    name: harvester-csi-driver-lvm
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-csi-driver-lvm-1.7.3/harvester-csi-driver-lvm-1.7.3.tgz
+    version: 1.7.3
+  - apiVersion: v2
     appVersion: v1.7.3-rc1
     created: "2026-07-22T05:58:39.43797068Z"
     description: A Helm chart for Harvester LVM CSI Driver
@@ -2274,6 +2286,21 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-load-balancer-1.8.0-dev.0/harvester-load-balancer-1.8.0-dev.0.tgz
     version: 1.8.0-dev.0
+  - apiVersion: v2
+    appVersion: v1.7.3
+    created: "2026-08-07T03:46:48.3895213Z"
+    description: A load balancer implementation for Harvester
+    digest: 43c5dbf5e324c10d36c42f2a2758e406ce5ab043a308d1b8de335ff51b985f96
+    home: https://github.com/harvester/harvester-load-balancer
+    maintainers:
+    - name: harvester
+    name: harvester-load-balancer
+    sources:
+    - https://github.com/harvester/harvester-load-balancer
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-load-balancer-1.7.3/harvester-load-balancer-1.7.3.tgz
+    version: 1.7.3
   - apiVersion: v2
     appVersion: v1.7.3-rc1
     created: "2026-07-22T05:58:39.599429128Z"
@@ -3410,6 +3437,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-network-controller-1.8.0-dev.0/harvester-network-controller-1.8.0-dev.0.tgz
     version: 1.8.0-dev.0
   - apiVersion: v2
+    appVersion: v1.7.3
+    created: "2026-08-07T03:46:48.647085372Z"
+    description: A Helm chart for Harvester Network Controller
+    digest: 09d228ce84e3022ca0f4d64639e6ef5983042bf96186385fbadd85828f0cab2a
+    maintainers:
+    - name: harvester
+    name: harvester-network-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-network-controller-1.7.3/harvester-network-controller-1.7.3.tgz
+    version: 1.7.3
+  - apiVersion: v2
     appVersion: v1.7.3-rc1
     created: "2026-07-22T05:58:39.753181743Z"
     description: A Helm chart for Harvester Network Controller
@@ -4479,6 +4518,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-networkfs-manager-1.8.0-dev.0/harvester-networkfs-manager-1.8.0-dev.0.tgz
     version: 1.8.0-dev.0
   - apiVersion: v2
+    appVersion: v1.7.3
+    created: "2026-08-07T03:46:48.775380515Z"
+    description: A Helm chart for Harvester Network Filesystem Manager
+    digest: 1abd87b650fb723630a389b0ec15a5d8aebeee778d98ba0bc782cee445c8acfb
+    maintainers:
+    - name: harvester
+    name: harvester-networkfs-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-networkfs-manager-1.7.3/harvester-networkfs-manager-1.7.3.tgz
+    version: 1.7.3
+  - apiVersion: v2
     appVersion: v1.7.3-rc1
     created: "2026-07-22T05:58:39.920607672Z"
     description: A Helm chart for Harvester Network Filesystem Manager
@@ -5307,6 +5358,18 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-node-disk-manager-1.8.0-dev.0/harvester-node-disk-manager-1.8.0-dev.0.tgz
     version: 1.8.0-dev.0
+  - apiVersion: v2
+    appVersion: v1.7.3
+    created: "2026-08-07T03:46:48.887104741Z"
+    description: A Helm chart for Harvester Node Disk Manager
+    digest: e160e024c9508539165997202c434bf64f936d53e52e030f1c5115a327124035
+    maintainers:
+    - name: harvester
+    name: harvester-node-disk-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-node-disk-manager-1.7.3/harvester-node-disk-manager-1.7.3.tgz
+    version: 1.7.3
   - apiVersion: v2
     appVersion: v1.7.3-rc1
     created: "2026-07-22T05:58:40.075046324Z"
@@ -6473,6 +6536,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-node-manager-1.8.0-dev.0/harvester-node-manager-1.8.0-dev.0.tgz
     version: 1.8.0-dev.0
   - apiVersion: v2
+    appVersion: v1.7.3
+    created: "2026-08-07T03:46:49.000344398Z"
+    description: A Helm chart for Harvester Node Manager
+    digest: 823d5c48621c257fba67affe66c6749bbfa61f7e703068a7921b945a17258444
+    maintainers:
+    - name: harvester
+    name: harvester-node-manager
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-node-manager-1.7.3/harvester-node-manager-1.7.3.tgz
+    version: 1.7.3
+  - apiVersion: v2
     appVersion: v1.7.3-rc1
     created: "2026-07-22T05:58:40.237234066Z"
     description: A Helm chart for Harvester Node Manager
@@ -7517,6 +7592,18 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-pcidevices-controller-1.8.0-dev.0/harvester-pcidevices-controller-1.8.0-dev.0.tgz
     version: 1.8.0-dev.0
+  - apiVersion: v2
+    appVersion: v1.7.3
+    created: "2026-08-07T03:46:51.215872429Z"
+    description: A Helm chart for Harvester PCI devices controller
+    digest: d9a5d982eb8d667c161184c65d38a310eab86b90a620c8824493ca99b54e7d97
+    maintainers:
+    - name: harvester
+    name: harvester-pcidevices-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-pcidevices-controller-1.7.3/harvester-pcidevices-controller-1.7.3.tgz
+    version: 1.7.3
   - apiVersion: v2
     appVersion: v1.7.3-rc1
     created: "2026-07-22T05:58:40.356916064Z"
@@ -8714,6 +8801,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-seeder-1.8.0-dev.0/harvester-seeder-1.8.0-dev.0.tgz
     version: 1.8.0-dev.0
   - apiVersion: v2
+    appVersion: v1.7.3
+    created: "2026-08-07T03:46:51.408764782Z"
+    description: A Helm chart for Harvester Seeder
+    digest: cfdafb8597e9ea71680f8002b95950a36bda014d1bc135f394427118fdde18b7
+    maintainers:
+    - name: harvester
+    name: harvester-seeder
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-seeder-1.7.3/harvester-seeder-1.7.3.tgz
+    version: 1.7.3
+  - apiVersion: v2
     appVersion: v1.7.3-rc1
     created: "2026-07-22T05:58:40.509560744Z"
     description: A Helm chart for Harvester Seeder
@@ -9850,6 +9949,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/harvester-vm-dhcp-controller-1.8.0-rc5/harvester-vm-dhcp-controller-1.8.0-rc5.tgz
     version: 1.8.0-rc5
   - apiVersion: v2
+    appVersion: v1.7.3
+    created: "2026-08-07T03:46:51.635036097Z"
+    description: A Helm chart for Harvester VM DHCP Controller
+    digest: 0949d8dd55dbdba990247eab87c9b7bc9cfba5028693b64fc3edb1afcde9ce25
+    maintainers:
+    - name: harvester
+    name: harvester-vm-dhcp-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-vm-dhcp-controller-1.7.3/harvester-vm-dhcp-controller-1.7.3.tgz
+    version: 1.7.3
+  - apiVersion: v2
     appVersion: v1.7.3-rc1
     created: "2026-07-22T05:58:40.649949646Z"
     description: A Helm chart for Harvester VM DHCP Controller
@@ -10330,6 +10441,18 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-1.8.0-dev.0/harvester-vm-import-controller-1.8.0-dev.0.tgz
     version: 1.8.0-dev.0
+  - apiVersion: v2
+    appVersion: v1.7.3
+    created: "2026-08-07T03:46:51.867318897Z"
+    description: A Helm chart for Kubernetes
+    digest: 4e8743505ce63e403b460486696864d7fb77b73ca23fb7e1430ad92500e9bdc4
+    maintainers:
+    - name: harvester
+    name: harvester-vm-import-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-vm-import-controller-1.7.3/harvester-vm-import-controller-1.7.3.tgz
+    version: 1.7.3
   - apiVersion: v2
     appVersion: v1.7.3-rc1
     created: "2026-07-22T05:58:40.7757434Z"
@@ -11774,6 +11897,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/nvidia-driver-runtime-1.8.0-dev.0/nvidia-driver-runtime-1.8.0-dev.0.tgz
     version: 1.8.0-dev.0
   - apiVersion: v2
+    appVersion: v1.7.3
+    created: "2026-08-07T03:46:52.057578609Z"
+    description: A Helm chart for Kubernetes
+    digest: ed1fa131c967363c77f1fac79179974d08a737c43afde66f2d4d0bb93ee8cd95
+    maintainers:
+    - name: harvester
+    name: nvidia-driver-runtime
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/nvidia-driver-runtime-1.7.3/nvidia-driver-runtime-1.7.3.tgz
+    version: 1.7.3
+  - apiVersion: v2
     appVersion: v1.7.3-rc1
     created: "2026-07-22T05:58:40.897142337Z"
     description: A Helm chart for Kubernetes
@@ -12515,4 +12650,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2026-08-06T03:36:28.547815047Z"
+generated: "2026-08-07T03:46:52.060060707Z"
