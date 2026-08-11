@@ -1,0 +1,109 @@
+suse-observability-api-key: &apiKey API_KEY
+suse-observability-url: &url http://OBSERVABILITY_URL
+suse-observability-cluster-name: &clusterName cluster-name
+suse-observability-otel-endpoint: &otel-endpoint http://OBSERVABILITY_OTEL_URL
+suse-observability-otel-service-token: service-token
+servicetoken: service-token
+
+suse-observability-agent:
+  stackstate:
+    apiKey: *apiKey
+    url: *url
+    cluster: 
+      name:  *clusterName
+
+opentelemetry-collector:
+  extraEnvsFrom:
+    - secretRef:
+        name: open-telemetry-collector
+  mode: deployment
+  clusterRole:
+    create: true
+    rules:
+    - apiGroups:
+      - ''
+      resources:
+      - endpoints
+      - services
+      verbs:
+      - get
+      - list
+      - watch
+  image:
+    # Use the collector container image that has all components important for k8s. In case of missing components the ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib image can be used which
+    # has all components in the contrib repository: https://github.com/open-telemetry/opentelemetry-collector-contrib
+    repository: "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s"
+  ports:
+    metrics:
+      enabled: true
+  presets:
+    kubernetesAttributes:
+      enabled: true
+      extractAllPodLabels: true
+  # This is the config file for the collector:
+  config:
+    receivers:
+      prometheus:
+        config:
+          scrape_configs:
+          - job_name: 'kubevirt-metrics'
+            scrape_interval: 30s
+            tls_config:
+              insecure_skip_verify: true
+            scheme: https
+            kubernetes_sd_configs:
+              - role: endpoints
+                selectors:
+                  - role: endpoints
+                    field: "metadata.name=kubevirt-prometheus-metrics"
+    extensions:
+      # Use the API key from the env for authentication
+      bearertokenauth:
+        scheme: SUSEObservability
+        token: "${env:API_KEY}"
+    exporters:
+      nop: {}
+      otlphttp/suse-observability:
+        auth:
+          authenticator: bearertokenauth
+        endpoint: *otel-endpoint
+        compression: gzip
+    processors:
+      memory_limiter:
+        check_interval: 5s
+        limit_percentage: 80
+        spike_limit_percentage: 25
+      batch: {}
+      resource:
+        attributes:
+        - key: k8s.cluster.name
+          action: upsert
+          # Insert your own cluster name
+          value: *clusterName
+        - key: service.instance.id
+          from_attribute: k8s.pod.uid
+          action: insert
+          # Use the k8s namespace also as the open telemetry namespace
+        - key: service.namespace
+          from_attribute: k8s.namespace.name
+          action: insert
+    connectors:
+      # Generate metrics for spans
+      spanmetrics:
+        metrics_expiration: 5m
+        namespace: otel_span
+    service:
+      extensions: [ health_check,  bearertokenauth ]
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [memory_limiter, resource, batch]
+          exporters: [debug, spanmetrics, otlphttp/suse-observability]
+        metrics:
+          receivers: [otlp, spanmetrics, prometheus]
+          processors: [memory_limiter, resource, batch]
+          exporters: [debug, otlphttp/suse-observability]
+        logs:
+          receivers: [otlp]
+          processors: []
+          exporters: [nop]
