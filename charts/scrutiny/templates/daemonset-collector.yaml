@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "scrutiny.fullname" . }}-collector
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "scrutiny.labels" . | nindent 4 }}
+    app.kubernetes.io/component: collector
+spec:
+  selector:
+    matchLabels:
+      {{- include "scrutiny.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: collector
+  template:
+    metadata:
+      labels:
+        {{- include "scrutiny.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: collector
+    spec:
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      containers:
+        - name: collector
+          image: {{ .Values.collector.image }}
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - "SYS_RAWIO"
+          env:
+            - name: COLLECTOR_API_ENDPOINT
+              value: "http://{{ include `scrutiny.fullname` . }}-web:{{ .Values.web.service.port }}"
+            - name: COLLECTOR_RUN_STARTUP
+              value: "{{ .Values.collector.runStartup }}"
+            - name: COLLECTOR_RUN_STARTUP_SLEEP
+              value: "{{ .Values.collector.runStartupSleep }}"
+            - name: COLLECTOR_CRON_SCHEDULE
+              value: "{{ .Values.collector.cronSchedule }}"
+            - name: COLLECTOR_HOST_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - name: udev
+              mountPath: /run/udev
+              readOnly: true
+            - name: dev
+              mountPath: /dev
+              readOnly: true
+      volumes:
+        - name: udev
+          hostPath:
+            path: /run/udev
+        - name: dev
+          hostPath:
+            path: /dev
