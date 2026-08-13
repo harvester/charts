@@ -5,3 +5,4 @@ chart-dirs:
 excluded-charts:
   - forklift-operator
   - rancher-k3k
+  - harvester-mcp-server
