@@ -1,4 +1,4 @@
 remote: upstream
-target-branch: master
+target-branch: release
 chart-dirs:
   - charts
