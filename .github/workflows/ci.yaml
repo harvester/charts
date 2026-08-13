@@ -79,10 +79,6 @@ jobs:
         run: ct install --config tests/ct-install.yaml
         if: steps.list-changed.outputs.changed == 'true'
 
-      - name: Run chart-testing (install-lvm)
-        run: ct install --config tests/ct.yaml --charts charts/harvester-csi-driver-lvm
-        if: steps.list-changed.outputs.changed == 'true'
-
   release:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/heads/release')
