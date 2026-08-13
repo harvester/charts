@@ -151,8 +151,13 @@ kube-vip:
     cp_enable: "false"
     # svc_enable and svc_election replace old option `enable_service_security`
     svc_enable: "true"
-    # To get service `externalTrafficPolicy: Local` working, set `svc_election` to "true"
-    # and also remove the following `affinity`, as kube-vip needs to be deployed on each node
+    # By default, kube-vip runs only on control-plane nodes.
+    # To get service `externalTrafficPolicy: Local` working:
+    # 1. Set `svc_election` to "true".
+    # 2. Extend the following `affinity` rules so kube-vip runs on all nodes (including workers):
+    #        - matchExpressions:
+    #          - key: node-role.kubernetes.io/worker
+    #            operator: Exists
     svc_election: "false"
     vip_leaderelection: "false"
     prometheus_server: ":2112"
