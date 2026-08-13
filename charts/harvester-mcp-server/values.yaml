@@ -1,0 +1,17 @@
+global:
+  cattle:
+    systemDefaultRegistry: ""
+
+mcp:
+  readOnly: false
+  image:
+    repository: nginx
+    tag: latest
+    pullPolicy: Always
+
+insecureSkipTls: false
+seLinux:
+  enabled: false
+
+log:
+  level: info
