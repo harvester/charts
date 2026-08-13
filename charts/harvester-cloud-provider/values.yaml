@@ -47,7 +47,7 @@ image:
   repository: rancher/harvester-cloud-provider
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v0.2.7
+  # tag: v0.2.8
 
 # Configuration Precedence:
 # 1. cloudConfig.secretName: Primary priority for new deployments. If explicitly set,
@@ -138,7 +138,9 @@ kube-vip:
     operator: Exists
   image:
     repository: rancher/mirrored-kube-vip-kube-vip-iptables
-    tag: v1.1.2
+    # Updated to the latest image tag as of 2026.08.13 (kube-vip chart 0.11.0 default is v1.2.2)
+    # Always check this field if kube-vip sub-chart version is bumped to avoid accidentally/silently downgrading the image tag
+    tag: v1.2.3
   env:
     vip_interface: ""
     vip_arp: "true"
