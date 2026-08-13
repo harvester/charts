@@ -24,7 +24,7 @@ spec:
       hostNetwork: true
       containers:
         - name: {{ include "harvester-cloud-provider.name" . }}
-          image: {{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag }}
+          image: {{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - --cloud-config=/etc/kubernetes/cloud-config
