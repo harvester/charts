@@ -50,6 +50,30 @@ roleRef:
   name: harvester-csi-driver-lvm
   apiGroup: rbac.authorization.k8s.io
 ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: harvester-csi-driver-lvm-snapshot-locations
+  namespace: {{ .Release.Namespace }}
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "create", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: harvester-csi-driver-lvm-snapshot-locations
+  namespace: {{ .Release.Namespace }}
+subjects:
+  - kind: ServiceAccount
+    name: harvester-csi-driver-lvm
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: harvester-csi-driver-lvm-snapshot-locations
+  apiGroup: rbac.authorization.k8s.io
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
