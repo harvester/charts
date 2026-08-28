@@ -63,7 +63,7 @@ spec:
         - name: OPENSTACK_POPULATOR_IMAGE
           value: "{{$repo}}/harvester-forklift-openstack-populator:{{$tag}}"
         - name: OVA_PROVIDER_SERVER_IMAGE
-          value: "{{$repo}}/harvester-forklift-ova-provider-server:{{$tag}}"
+          value: "{{$repo}}/harvester-ova-provider-server:{{$tag}}"
         - name: OVIRT_OS_MAP
           value: {{ quote .Values.forkliftOperatorAnsible.forkliftOperator.env.ovirtOsMap }}
         - name: VSPHERE_OS_MAP
