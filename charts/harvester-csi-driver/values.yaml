@@ -61,3 +61,6 @@ tolerations:
 global:
   cattle:
     systemDefaultRegistry: ""
+    # Optional pull secrets for private registries.
+    # Referenced secrets must exist in the chart release namespace (normally kube-system).
+    imagePullSecrets: []
