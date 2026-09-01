@@ -11534,6 +11534,18 @@ entries:
     - https://github.com/harvester/charts/releases/download/kubeovn-operator-1.16.2-rc6/kubeovn-operator-1.16.2-rc6.tgz
     version: 1.16.2-rc6
   - apiVersion: v2
+    appVersion: v1.16.2-dev.0
+    created: "2026-09-01T12:18:03.343454826Z"
+    description: A Helm chart for kubeovn-operator
+    digest: e39b8f205ca247a2e9a912a12bd6121cfea7819834607160083e0a29de95eb29
+    maintainers:
+    - name: harvester
+    name: kubeovn-operator
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/kubeovn-operator-1.16.2-dev.0/kubeovn-operator-1.16.2-dev.0.tgz
+    version: 1.16.2-dev.0
+  - apiVersion: v2
     appVersion: v1.16.1-dev.0
     created: "2026-05-13T10:25:50.096065356Z"
     description: A Helm chart for kubeovn-operator
@@ -11774,6 +11786,18 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/kubeovn-operator-crd-1.16.2-rc6/kubeovn-operator-crd-1.16.2-rc6.tgz
     version: 1.16.2-rc6
+  - apiVersion: v2
+    appVersion: v1.16.2-dev.0
+    created: "2026-09-01T12:18:03.537901528Z"
+    description: A Helm chart for kubeovn-operator crds
+    digest: 08d919d008472afbe70ce2815896758b191f9bdbc47eb6c073534e3118fd4812
+    maintainers:
+    - name: harvester
+    name: kubeovn-operator-crd
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/kubeovn-operator-crd-1.16.2-dev.0/kubeovn-operator-crd-1.16.2-dev.0.tgz
+    version: 1.16.2-dev.0
   - apiVersion: v2
     appVersion: v1.16.1-dev.0
     created: "2026-05-13T10:25:50.348448335Z"
@@ -13045,4 +13069,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2026-08-27T01:23:59.642993228Z"
+generated: "2026-09-01T12:18:03.540338722Z"
