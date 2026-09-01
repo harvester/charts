@@ -11775,18 +11775,6 @@ entries:
     - https://github.com/harvester/charts/releases/download/kubeovn-operator-crd-1.16.2-rc6/kubeovn-operator-crd-1.16.2-rc6.tgz
     version: 1.16.2-rc6
   - apiVersion: v2
-    appVersion: v1.16.2-dev.0
-    created: "2026-06-09T04:15:29.023914054Z"
-    description: A Helm chart for kubeovn-operator crds
-    digest: d359f5e50b1ebb72ff55598da5153dfddfeed5f999b2f01e412d6d7ab56dc946
-    maintainers:
-    - name: harvester
-    name: kubeovn-operator-crd
-    type: application
-    urls:
-    - https://github.com/harvester/charts/releases/download/kubeovn-operator-crd-1.16.2-dev.0/kubeovn-operator-crd-1.16.2-dev.0.tgz
-    version: 1.16.2-dev.0
-  - apiVersion: v2
     appVersion: v1.16.1-dev.0
     created: "2026-05-13T10:25:50.348448335Z"
     description: A Helm chart for kubeovn-operator crds
