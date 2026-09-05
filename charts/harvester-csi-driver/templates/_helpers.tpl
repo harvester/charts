@@ -82,3 +82,34 @@ imagePullSecrets:
   {{- end }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Decide storageclass.kubernetes.io/is-default-class for the chart-managed
+"harvester" StorageClass. Keep harvester as default unless another StorageClass
+in the cluster is already marked as default (day-2 change), so Helm upgrades do
+not overwrite that choice.
+*/}}
+{{- define "harvester-csi-driver.annotations.defaultstorageclass" -}}
+{{- $allscs := (lookup "storage.k8s.io/v1" "StorageClass" "" "") -}}
+{{- if eq (len $allscs) 0 -}}
+storageclass.kubernetes.io/is-default-class: "true"
+{{- else -}}
+{{- $scname := "" -}}
+{{- range $index, $cursc := $allscs.items -}}
+{{- range $k, $v := $cursc.metadata.annotations -}}
+{{- if eq $k "storageclass.kubernetes.io/is-default-class" -}}
+{{- if eq $v "true" -}}
+{{- $scname = $cursc.metadata.name -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- if eq $scname "" -}}
+storageclass.kubernetes.io/is-default-class: "true"
+{{- else if eq $scname "harvester" -}}
+storageclass.kubernetes.io/is-default-class: "true"
+{{- else -}}
+storageclass.kubernetes.io/is-default-class: "false"
+{{- end -}}
+{{- end -}}
+{{- end -}}
