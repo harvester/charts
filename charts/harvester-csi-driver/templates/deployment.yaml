@@ -83,9 +83,17 @@ spec:
         - args:
             - --v=5
             - --csi-address=$(ADDRESS)
+            - --timeout=1m50s
+            - --leader-election
+            - --leader-election-namespace=$(POD_NAMESPACE)
           env:
             - name: ADDRESS
               value: /csi/csi.sock
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
           image: {{ template "system_default_registry" . }}{{ .Values.image.csi.snapshotter.repository }}:{{ .Values.image.csi.snapshotter.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: csi-snapshotter
