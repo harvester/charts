@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "scrutiny.fullname" . }}-config-pvc
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "scrutiny.labels" . | nindent 4 }}
+    app.kubernetes.io/component: web
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.web.persistence.size }}

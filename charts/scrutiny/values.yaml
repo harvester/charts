@@ -1,0 +1,30 @@
+nameOverride: ""
+fullnameOverride: ""
+
+tolerations:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+  - effect: NoExecute
+    operator: Exists
+
+influxdb:
+  image: influxdb:2.8
+  service:
+    port: 8086
+  persistence:
+    size: 10Gi
+
+web:
+  image: ghcr.io/analogj/scrutiny:master-web
+  service:
+    port: 8080
+  persistence:
+    size: 10Mi
+
+collector:
+  image: ghcr.io/analogj/scrutiny:master-collector
+  runStartup: true
+  # Delay the first collection by 45 seconds to allow the WebUI and InfluxDB services to start up.
+  runStartupSleep: 45
+  # Collect metrics every hour.
+  cronSchedule: "0 * * * *"

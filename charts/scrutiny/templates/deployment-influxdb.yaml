@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "scrutiny.fullname" . }}-influxdb
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "scrutiny.labels" . | nindent 4 }}
+    app.kubernetes.io/component: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "scrutiny.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: influxdb
+  template:
+    metadata:
+      labels:
+        {{- include "scrutiny.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: influxdb
+    spec:
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      containers:
+        - name: influxdb
+          image: {{ .Values.influxdb.image }}
+          ports:
+            - containerPort: {{ .Values.influxdb.service.port }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.influxdb.service.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          volumeMounts:
+            - name: influxdb-data
+              mountPath: /var/lib/influxdb2
+      volumes:
+        - name: influxdb-data
+          persistentVolumeClaim:
+            claimName: {{ include "scrutiny.fullname" . }}-influxdb-pvc
