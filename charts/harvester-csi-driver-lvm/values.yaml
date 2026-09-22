@@ -43,6 +43,12 @@ rbac:
 kubernetes:
   kubeletPath: /var/lib/kubelet
 
+csiProvisioner:
+  workerThreads: 2
+  timeout: "4m"
+  retryIntervalStart: "10s"
+  retryIntervalMax: "5m"
+
 storageClasses:
   linear:
     enabled: true
