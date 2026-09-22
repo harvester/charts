@@ -10,6 +10,16 @@ metadata:
   name: kubeovn
   namespace: kube-system
 spec:
+  aclSamplingSpec:
+    allowProbabilityPercent: {{ .Values.configurationSpec.aclSamplingSpec.allowProbabilityPercent | default 1 }}
+    appIDEstablished: {{ .Values.configurationSpec.aclSamplingSpec.appIDEstablished | default 103 }}
+    appIDNew: {{ .Values.configurationSpec.aclSamplingSpec.appIDNew | default 102 }}
+    collectorIDAllow: {{ .Values.configurationSpec.aclSamplingSpec.collectorIDAllow | default 1 }}
+    collectorIDDefaultDeny: {{ .Values.configurationSpec.aclSamplingSpec.collectorIDDefaultDeny | default 2 }}
+    defaultDenyProbabilityPercent: {{ .Values.configurationSpec.aclSamplingSpec.defaultDenyProbabilityPercent | default 100 }}
+    enabled: {{ .Values.configurationSpec.aclSamplingSpec.enabled | default false }}
+    localGroupID: {{ .Values.configurationSpec.aclSamplingSpec.localGroupID | default 142 }}
+    setID: {{ .Values.configurationSpec.aclSamplingSpec.setID | default 142 }}
   cniConf:
     cniBinDir: /opt/cni/bin
     cniConfFile: /kube-ovn/01-kube-ovn.conflist
@@ -47,7 +57,7 @@ spec:
   debug:
     mirrorInterface: {{.Values.configurationSpec.debug.mirrorInterface | default "mirror0"}}
   dpdkCPU:  {{.Values.configurationSpec.dpdkCPU | default "0" | quote}}
-  dpdkImageTag: {{.Values.configurationSpec.dpdkImageTag | default "v1.16.1-dpdk" | quote}}
+  dpdkImageTag: {{.Values.configurationSpec.dpdkImageTag | default "v1.16.4-dpdk" | quote}}
   dpdkMEMORY: {{.Values.configurationSpec.dpdkMEMORY | default "0" | quote}}
   dualStack:
     joinCIDR: fd00:100:64::/112
@@ -56,6 +66,11 @@ spec:
     podCIDR: fd00:10:16::/112
     podGateway: fd00:10:16::1
     serviceCIDR: fd00:10:96::/112
+  externalOvnCentral:
+    nbEndpoint: {{ .Values.configurationSpec.externalOvnCentral.nbEndpoint | default "" | quote }}
+    nbPort: {{ .Values.configurationSpec.externalOvnCentral.nbPort | default 6641 }}
+    sbEndpoint: {{ .Values.configurationSpec.externalOvnCentral.sbEndpoint | default "" | quote }}
+    sbPort: {{ .Values.configurationSpec.externalOvnCentral.sbPort | default 6642 }}
   global:
     images:
       kubeovn:
@@ -70,6 +85,11 @@ spec:
   hugePages: {{ .Values.configurationSpec.hugePages | default "0" | quote }}
   hugepageSizeType:  {{ .Values.configurationSpec.hugepageSizeType | default "hugepages-2Mi" }}
   imagePullPolicy: {{ .Values.configurationSpec.imagePullPolicy | default "IfNotPresent" }} 
+  installMode:
+    default: {{ .Values.configurationSpec.installMode.default | default "full" }}
+    enum:
+    {{ .Values.configurationSpec.installMode.enum | default (list "full" "controlPlaneOnly" "dataPlaneOnly") | toYaml | nindent 6 }}
+    type: {{ .Values.configurationSpec.installMode.type | default "string" }}
   ipv4:
     joinCIDR: {{ .Values.configurationSpec.ipv4.joinCIDR | default "100.64.0.0/16" }} 
     pingerExternalAddress: {{ .Values.configurationSpec.ipv4.pingerExternalAddress | default "1.1.1.1" }} 
@@ -98,6 +118,10 @@ spec:
     limits:
       cpu: {{ .Values.configurationSpec.kubeOvnController.limits.cpu | default "1" | quote }}
       memory: {{ .Values.configurationSpec.kubeOvnController.limits.memory | default "1Gi" | quote }}
+    leaderElection:
+      leaseDuration: {{ .Values.configurationSpec.kubeOvnController.leaderElection.leaseDuration | default "" | quote }}
+      renewDeadline: {{ .Values.configurationSpec.kubeOvnController.leaderElection.renewDeadline | default "" | quote }}
+      retryPeriod: {{ .Values.configurationSpec.kubeOvnController.leaderElection.retryPeriod | default "" | quote }}
   kubeOvnMonitor:
     requests:
       cpu: {{ .Values.configurationSpec.kubeOvnMonitor.requests.cpu | default "200m" | quote }}
@@ -142,6 +166,9 @@ spec:
       providerName: {{ .Values.configurationSpec.vlan.providerName | default "provider" }} 
       vlanId: {{ .Values.configurationSpec.vlan.vlanId | default "1" }} 
       vlanName: {{ .Values.configurationSpec.vlan.vlanName | default "ovn-vlan" }}
+    tlsCipherSuites: {{ .Values.configurationSpec.networking.tlsCipherSuites | default (list) | toJson }}
+    tlsMaxVersion: {{ .Values.configurationSpec.networking.tlsMaxVersion | default "" | quote }}
+    tlsMinVersion: {{ .Values.configurationSpec.networking.tlsMinVersion | default "" | quote }}
   openVSwitchDir: /var/lib/rancher/origin/openvswitch
   ovnCentral:
     requests:
@@ -150,6 +177,34 @@ spec:
     limits:
       cpu: {{ .Values.configurationSpec.ovnCentral.limits.cpu | default "3" }} 
       memory: {{ .Values.configurationSpec.ovnCentral.limits.memory | default "4Gi" }} 
+    hcp:
+      enabled: {{ .Values.configurationSpec.ovnCentral.hcp.enabled | default false }}
+      namespace: {{ .Values.configurationSpec.ovnCentral.hcp.namespace | default "hcp" }}
+      nbAddress: {{ .Values.configurationSpec.ovnCentral.hcp.nbAddress | default "" | quote }}
+      replicas: {{ .Values.configurationSpec.ovnCentral.hcp.replicas | default 3 }}
+      sbAddress: {{ .Values.configurationSpec.ovnCentral.hcp.sbAddress | default "" | quote }}
+      service:
+        nbNodePort: {{ .Values.configurationSpec.ovnCentral.hcp.service.nbNodePort | default 30641 }}
+        sbNodePort: {{ .Values.configurationSpec.ovnCentral.hcp.service.sbNodePort | default 30642 }}
+        type: {{ .Values.configurationSpec.ovnCentral.hcp.service.type | default "NodePort" }}
+      storage:
+        size: {{ .Values.configurationSpec.ovnCentral.hcp.storage.size | default "5Gi" | quote }}
+        storageClassName: {{ .Values.configurationSpec.ovnCentral.hcp.storage.storageClassName | default "" | quote }}
+    nodeSelector: {{ .Values.configurationSpec.ovnCentral.nodeSelector | default (dict "kubernetes.io/os" "linux") }}
+    service:
+      type: {{ .Values.configurationSpec.ovnCentral.service.type | default "ClusterIP" }}
+      externalTrafficPolicy: {{ .Values.configurationSpec.ovnCentral.service.externalTrafficPolicy | default "" | quote }}
+      loadBalancerIP: {{ .Values.configurationSpec.ovnCentral.service.loadBalancerIP | default "" | quote }}
+    storage:
+      accessModes: {{ .Values.configurationSpec.ovnCentral.storage.accessModes | default (list "ReadWriteOnce") | toYaml | nindent 8 }}
+      existingClaim: {{ .Values.configurationSpec.ovnCentral.storage.existingClaim | default "" | quote }}
+      size: {{ .Values.configurationSpec.ovnCentral.storage.size | default "10Gi" | quote }}
+      storageClassName: {{ .Values.configurationSpec.ovnCentral.storage.storageClassName | default "" | quote }}
+    tolerations: {{ .Values.configurationSpec.ovnCentral.tolerations | default (list) | toYaml | nindent 6 }}
+  ovnCentralMode:
+    default: {{ .Values.configurationSpec.ovnCentralMode.default | default "cluster" }}
+    enum: {{ .Values.configurationSpec.ovnCentralMode.enum | default (list "cluster" "single") | toYaml | nindent 4 }}
+    type: {{ .Values.configurationSpec.ovnCentralMode.type | default "string" }}
   ovnDir: {{ .Values.configurationSpec.ovnDir | default "/etc/origin/ovn" }}
   ovnIPSecKeysDir: {{ .Values.configurationSpec.ovnIPSecKeysDir | default "/etc/origin/ovs_ipsec_keys" }}
   ovsOVN:
