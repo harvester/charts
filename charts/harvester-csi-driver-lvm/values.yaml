@@ -49,6 +49,12 @@ csiProvisioner:
   retryIntervalStart: "10s"
   retryIntervalMax: "5m"
 
+csiSnapshotter:
+  workerThreads: 1
+  timeout: "4m"
+  retryIntervalStart: "10s"
+  retryIntervalMax: "5m"
+
 storageClasses:
   linear:
     enabled: true
