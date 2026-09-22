@@ -59,6 +59,16 @@ tolerations: []
 affinity: {}
 enableConfiguration: false
 configurationSpec:
+  aclsampling:
+    allowProbabilityPercent: 1
+    appIDEstablished: 103
+    appIDNew: 102
+    collectorIDAllow: 1
+    collectorIDDefaultDeny: 2
+    defaultDenyProbabilityPercent: 100
+    enabled: false
+    localGroupID: 142
+    setID: 142
   cniConf:
     nonPrimaryCNI: true
   components:
@@ -106,6 +116,13 @@ configurationSpec:
   hugePages: "0"
   hugepageSizeType: hugepages-2Mi
   imagePullPolicy: IfNotPresent
+  installMode:
+    default: full
+    enum:
+    - full
+    - controlPlaneOnly
+    - dataPlaneOnly
+    type: string
   ipv4:
     joinCIDR: 100.64.0.0/16
     pingerExternalAddress: 1.1.1.1
@@ -113,6 +130,11 @@ configurationSpec:
     podCIDR: 10.54.0.0/16
     podGateway: 10.54.0.1
     serviceCIDR: 10.55.0.0/16
+  externalOvnCentral:
+    nbEndpoint: ""
+    nbPort: 6641
+    sbEndpoint: ""
+    sbPort: 6642
   kubeOvnCNI:
     requests:
       cpu: "100m"
@@ -127,6 +149,10 @@ configurationSpec:
     limits:
       cpu: "1"
       memory: "1Gi"
+    leaderElection:
+      leaseDuration: ""
+      renewDeadline: ""
+      retryPeriod: ""
   kubeOvnMonitor:
     requests:
       cpu: "200m"
@@ -163,6 +189,9 @@ configurationSpec:
     providerName: {}
     vlanId: {}
     vlanName: {}
+  tlsCipherSuites: []
+  tlsMaxVersion: ""
+  tlsMinVersion: ""
   ovnCentral:
     requests:
       cpu: "300m"
@@ -170,6 +199,38 @@ configurationSpec:
     limits:
       cpu: "3"
       memory: "4Gi"
+    hcp:
+      enabled: false
+      namespace: hcp
+      nbAddress: ""
+      replicas: 3
+      sbAddress: ""
+      service:
+        nbNodePort: 30641
+        sbNodePort: 30642
+        type: NodePort
+      storage:
+        size: "5Gi"
+        storageClassName: ""
+    nodeSelector:
+      kubernetes.io/os: linux
+    service:
+      type: ClusterIP
+      externalTrafficPolicy: ""
+      loadBalancerIP: ""
+    storage:
+      accessModes:
+        - ReadWriteOnce
+      existingClaim: ""
+      size: "10Gi"
+      storageClassName: ""
+    tolerations: []
+  ovnCentralMode:
+    default: cluster
+    enum:
+      - cluster
+      - single
+    type: string
   ovnDir: /etc/origin/ovn
   ovnIPSecKeysDir: /etc/origin/ovs_ipsec_keys
   ovsOVN:
