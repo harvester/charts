@@ -28,6 +28,13 @@ lvm:
 
   driverName: lvm.driver.harvesterhci.io
 
+  # Keep command timeouts below their helper pod deadlines and CSI timeouts.
+  helperCommandTimeout: "3m"
+  helperPodTimeout: "3m30s"
+  thinPoolCreateTimeout: "15m"
+  thinPoolHelperPodTimeout: "18m"
+  maxActiveHelpersPerNodeVG: 3
+
 webhook:
   replicas: 1
   image:
