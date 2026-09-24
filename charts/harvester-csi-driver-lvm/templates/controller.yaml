@@ -54,6 +54,10 @@ spec:
             - -v=5
             - --csi-address=/csi/csi.sock
             - --feature-gates=Topology=true
+            - --worker-threads={{ .Values.csiProvisioner.workerThreads }}
+            - --timeout={{ .Values.csiProvisioner.timeout }}
+            - --retry-interval-start={{ .Values.csiProvisioner.retryIntervalStart }}
+            - --retry-interval-max={{ .Values.csiProvisioner.retryIntervalMax }}
           securityContext:
             privileged: true
           volumeMounts:
@@ -76,6 +80,10 @@ spec:
           args:
             - -v=5
             - -csi-address=/csi/csi.sock
+            - --worker-threads={{ .Values.csiSnapshotter.workerThreads }}
+            - --timeout={{ .Values.csiSnapshotter.timeout }}
+            - --retry-interval-start={{ .Values.csiSnapshotter.retryIntervalStart }}
+            - --retry-interval-max={{ .Values.csiSnapshotter.retryIntervalMax }}
           securityContext:
             privileged: true
           volumeMounts:
