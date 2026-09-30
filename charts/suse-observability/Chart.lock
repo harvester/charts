@@ -1,0 +1,9 @@
+dependencies:
+- name: suse-observability-agent
+  repository: https://charts.rancher.com/server-charts/prime/suse-observability
+  version: 1.0.65
+- name: opentelemetry-collector
+  repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+  version: 0.133.0
+digest: sha256:43e0a6aad5ac27c8a4d973aa7140861926a7feeafb8fa24ad30228623931e47b
+generated: "2025-09-16T14:22:39.774477+10:00"
