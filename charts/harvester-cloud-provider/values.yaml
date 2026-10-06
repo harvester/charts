@@ -22,6 +22,8 @@ replicasCount: 1
 #      Any IP on this list will NOT be reported as an InternalIP or ExternalIP.
 #    - --disable-annotation-alpha-provided-ip-addr: (bool) Set to true to disable legacy
 #      alpha annotations and force modern CIDR-based selection.
+#    - --disable-hostname-lookup: (bool) Set to true to disable redundant and error-prone
+#      VM hostname lookup fallback, enforcing a strict VM-name to Node-name match.
 #    - --show-full-help-on-error: (bool) Set to true to automatically display the
 #      comprehensive help menu if a flag-related error occurs during startup.
 #
@@ -31,6 +33,7 @@ replicasCount: 1
 #   - "--node-ip-cidr=192.168.1.0/24"
 #   - "--node-exclude-ip-ranges=192.168.1.1,192.168.1.254"
 #   - "--disable-annotation-alpha-provided-ip-addr=true"
+#   - "--disable-hostname-lookup=true"
 #   - "--show-full-help-on-error=true"
 #
 # Example 2 (Disable the LoadBalancer controller from harvester-cloud-provider):
