@@ -140,7 +140,7 @@ kube-vip:
     repository: rancher/mirrored-kube-vip-kube-vip-iptables
     # Updated to the latest image tag as of 2026.08.13 (kube-vip chart 0.11.0 default is v1.2.2)
     # Always check this field if kube-vip sub-chart version is bumped to avoid accidentally/silently downgrading the image tag
-    tag: v1.2.3
+    tag: v1.2.4
   env:
     vip_interface: ""
     vip_arp: "true"
