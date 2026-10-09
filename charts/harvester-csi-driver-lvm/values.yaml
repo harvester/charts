@@ -28,6 +28,13 @@ lvm:
 
   driverName: lvm.driver.harvesterhci.io
 
+  # Keep command timeouts below their helper pod deadlines and CSI timeouts.
+  helperCommandTimeout: "3m"
+  helperPodTimeout: "3m30s"
+  thinPoolCreateTimeout: "15m"
+  thinPoolHelperPodTimeout: "18m"
+  maxActiveHelpersPerNodeVG: 3
+
 webhook:
   replicas: 1
   image:
@@ -42,6 +49,18 @@ rbac:
 
 kubernetes:
   kubeletPath: /var/lib/kubelet
+
+csiProvisioner:
+  workerThreads: 2
+  timeout: "4m"
+  retryIntervalStart: "10s"
+  retryIntervalMax: "5m"
+
+csiSnapshotter:
+  workerThreads: 1
+  timeout: "4m"
+  retryIntervalStart: "10s"
+  retryIntervalMax: "5m"
 
 storageClasses:
   linear:
