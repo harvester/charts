@@ -6,7 +6,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
   configuration.yaml: |
-    aclsampling:
+    aclSamplingSpec:
       allowProbabilityPercent: {{ .Values.configurationSpec.aclSamplingSpec.allowProbabilityPercent }}
       appIDEstablished: {{ .Values.configurationSpec.aclSamplingSpec.appIDEstablished | default 103 }}
       appIDNew: {{ .Values.configurationSpec.aclSamplingSpec.appIDNew | default 102 }}
