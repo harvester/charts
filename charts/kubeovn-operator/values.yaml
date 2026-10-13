@@ -59,7 +59,7 @@ tolerations: []
 affinity: {}
 enableConfiguration: false
 configurationSpec:
-  aclsampling:
+  aclSamplingSpec:
     allowProbabilityPercent: 1
     appIDEstablished: 103
     appIDNew: 102
