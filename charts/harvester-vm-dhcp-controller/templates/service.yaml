@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "harvester-vm-dhcp-controller.labels" . | nindent 4 }}
 spec:
+  ipFamilyPolicy: {{ .Values.global.ipFamilyPolicy | default "SingleStack" }}
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.metricsPort }}
@@ -21,6 +22,7 @@ metadata:
   labels:
     {{- include "harvester-vm-dhcp-webhook.labels" . | nindent 4 }}
 spec:
+  ipFamilyPolicy: {{ .Values.global.ipFamilyPolicy | default "SingleStack" }}
   type: {{ .Values.webhook.service.type }}
   ports:
     - port: {{ .Values.webhook.service.port }}

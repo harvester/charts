@@ -39,6 +39,7 @@ metadata:
   name: harvester-csi-driver-lvm-webhook
   namespace: {{ .Release.Namespace }}
 spec:
+  ipFamilyPolicy: {{ .Values.global.ipFamilyPolicy | default "SingleStack" }}
   type: ClusterIP
   selector:
     {{- include "harvester-csi-driver-lvm-webhook.selectorLabels" . | nindent 4 }}

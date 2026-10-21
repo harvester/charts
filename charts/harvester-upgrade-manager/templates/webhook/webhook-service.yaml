@@ -10,6 +10,7 @@ metadata:
   name: {{ include "upgrade-toolkit.resourceName" (dict "suffix" "webhook-service" "context" $) }}
   namespace: {{ .Release.Namespace }}
 spec:
+  ipFamilyPolicy: {{ .Values.global.ipFamilyPolicy | default "SingleStack" }}
   ports:
   - port: 443
     protocol: TCP

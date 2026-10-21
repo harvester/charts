@@ -39,6 +39,8 @@ spec:
               {{- range .Values.isolation.networkPolicy.outgoingConnections.ipBlock.except }}
               - {{ . }}
               {{- end }}
+        - ipBlock:
+            cidr: ::/0
   policyTypes:
     - Egress
 ---
