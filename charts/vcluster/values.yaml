@@ -427,6 +427,14 @@ isolation:
           - 10.0.0.0/8
           - 172.16.0.0/12
           - 192.168.0.0/16
+      # IPv6 counterpart of the peer above. Set cidr to "" to disable IPv6 egress.
+      # Add the cluster's pod/service IPv6 ranges to except if they are not ULA.
+      ipv6Block:
+        cidr: ::/0
+        except:
+          - ::1/128
+          - fc00::/7
+          - fe80::/10
 
 # manifests to setup when initializing a vcluster
 init:
