@@ -4,7 +4,6 @@ metadata:
   name: harvester-mcp-server
   namespace: {{ .Release.Namespace }}
 spec:
-  ipFamilyPolicy: {{ .Values.global.ipFamilyPolicy | default "SingleStack" }}
   selector:
     app: harvester-mcp-server
   ports:
