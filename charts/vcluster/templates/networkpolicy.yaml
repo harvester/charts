@@ -39,18 +39,6 @@ spec:
               {{- range .Values.isolation.networkPolicy.outgoingConnections.ipBlock.except }}
               - {{ . }}
               {{- end }}
-        {{- with .Values.isolation.networkPolicy.outgoingConnections.ipv6Block }}
-        {{- if .cidr }}
-        - ipBlock:
-            cidr: {{ .cidr }}
-            {{- with .except }}
-            except:
-              {{- range . }}
-              - {{ . }}
-              {{- end }}
-            {{- end }}
-        {{- end }}
-        {{- end }}
   policyTypes:
     - Egress
 ---
