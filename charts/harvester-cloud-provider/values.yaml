@@ -50,7 +50,7 @@ image:
   repository: rancher/harvester-cloud-provider
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  # tag: v0.2.9
+  # tag: v0.2.10
 
 # Configuration Precedence:
 # 1. cloudConfig.secretName: Primary priority for new deployments. If explicitly set,
