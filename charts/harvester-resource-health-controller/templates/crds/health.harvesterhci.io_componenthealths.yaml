@@ -1,0 +1,93 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    {}
+  name: componenthealths.health.harvesterhci.io
+spec:
+  group: health.harvesterhci.io
+  names:
+    kind: ComponentHealth
+    listKind: ComponentHealthList
+    plural: componenthealths
+    singular: componenthealth
+  scope: Cluster
+  versions:
+  - name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: ComponentHealth reports the latest health check results of a
+          single resource kind of a component.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          status:
+            properties:
+              checks:
+                additionalProperties:
+                  properties:
+                    affectedCount:
+                      type: integer
+                    affectedResources:
+                      properties:
+                        apiVersion:
+                          type: string
+                        kind:
+                          type: string
+                        names:
+                          additionalProperties:
+                            properties:
+                              ignored:
+                                description: Ignored is true when this resource is
+                                  ignored by a HealthIgnoreRule.
+                                type: boolean
+                              ignoredBy:
+                                description: IgnoredBy is the name of the HealthIgnoreRule
+                                  that ignores the resource.
+                                type: string
+                            type: object
+                          type: object
+                      required:
+                      - apiVersion
+                      - kind
+                      type: object
+                    ignored:
+                      description: Ignored is true when the whole check is ignored,
+                        it does not count in the HealthSummary then.
+                      type: boolean
+                    ignoredBy:
+                      description: IgnoredBy is the name of the HealthIgnoreRule that
+                        ignores the check.
+                      type: string
+                    message:
+                      type: string
+                    severity:
+                      type: string
+                  required:
+                  - message
+                  - severity
+                  type: object
+                type: object
+              lastUpdatedAt:
+                format: date-time
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true

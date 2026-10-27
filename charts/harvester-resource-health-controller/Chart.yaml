@@ -1,0 +1,15 @@
+apiVersion: v2
+name: harvester-resource-health-controller
+description: A Helm chart for the Harvester resource health controller
+
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+version: 0.0.0-dev
+
+# This is the version number of the application being deployed.
+appVersion: "v0.1.0"
+
+maintainers:
+- name: harvester
