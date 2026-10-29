@@ -50,12 +50,12 @@ spec:
   dpdkImageTag: {{.Values.configurationSpec.dpdkImageTag | default "v1.16.1-dpdk" | quote}}
   dpdkMEMORY: {{.Values.configurationSpec.dpdkMEMORY | default "0" | quote}}
   dualStack:
-    joinCIDR: fd00:100:64::/112
-    pingerExternalAddress: 2606:4700:4700::1111
-    pingerExternalDomain: google.com.
-    podCIDR: fd00:10:16::/112
-    podGateway: fd00:10:16::1
-    serviceCIDR: fd00:10:96::/112
+    joinCIDR: {{ .Values.configurationSpec.dualStack.joinCIDR | default "100.64.0.0/16,fd00:100:64::/112" }}
+    pingerExternalAddress: {{ .Values.configurationSpec.dualStack.pingerExternalAddress | default "1.1.1.1,2606:4700:4700::1111" }}
+    pingerExternalDomain: {{ .Values.configurationSpec.dualStack.pingerExternalDomain | default "google.com." }}
+    podCIDR: {{ .Values.configurationSpec.dualStack.podCIDR | default "10.52.0.0/16,fd00:10:16::/112" }}
+    podGateway: {{ .Values.configurationSpec.dualStack.podGateway | default "10.52.0.1,fd00:10:16::1" }}
+    serviceCIDR: {{ .Values.configurationSpec.dualStack.serviceCIDR | default "10.53.0.0/16,fd00:10:96::/112" }}
   global:
     images:
       kubeovn:
@@ -78,12 +78,12 @@ spec:
     podGateway: {{ .Values.configurationSpec.ipv4.podGateway | default "10.52.0.1" }}
     serviceCIDR: {{ .Values.configurationSpec.ipv4.serviceCIDR | default "10.53.0.1" }}
   ipv6:
-    joinCIDR: fd00:100:64::/112
-    pingerExternalAddress: 2606:4700:4700::1111
-    pingerExternalDomain: google.com.
-    podCIDR: fd00:10:16::/112
-    podGateway: fd00:10:16::1
-    serviceCIDR: fd00:10:96::/112
+    joinCIDR: {{ .Values.configurationSpec.ipv6.joinCIDR | default "fd00:100:64::/112" }}
+    pingerExternalAddress: {{ .Values.configurationSpec.ipv6.pingerExternalAddress | default "2606:4700:4700::1111" }}
+    pingerExternalDomain: {{ .Values.configurationSpec.ipv6.pingerExternalDomain | default "google.com." }}
+    podCIDR: {{ .Values.configurationSpec.ipv6.podCIDR | default "fd00:10:16::/112" }}
+    podGateway: {{ .Values.configurationSpec.ipv6.podGateway | default "fd00:10:16::1" }}
+    serviceCIDR: {{ .Values.configurationSpec.ipv6.serviceCIDR | default "fd00:10:96::/112" }}
   kubeOvnCNI:
     requests:
       cpu: {{ .Values.configurationSpec.kubeOvnCNI.requests.cpu | default "100m" | quote }}
@@ -124,7 +124,7 @@ spec:
     enableEIPSNAT: {{ .Values.configurationSpec.networking.enableEIPSNAT | default "true" }}
     enableMetrics:  {{ .Values.configurationSpec.networking.enableMetrics | default "true" }}
     enableSSL: {{ .Values.configurationSpec.networking.enableSSL | default "false" }}
-    netStack: ipv4
+    netStack: {{ .Values.configurationSpec.networking.netStack | default "ipv4" }}
     networkType: {{ .Values.configurationSpec.networking.networkType | default "geneve" }} 
     nodeSubnet: {{ .Values.configurationSpec.networking.nodeSubnet | default "join" }} 
     ovnLeaderProbeInterval: {{ .Values.configurationSpec.networking.ovnLeaderProbeInterval | default "5" }} 
