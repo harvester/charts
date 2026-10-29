@@ -150,7 +150,7 @@ kube-vip:
     lb_enable: "true"
     lb_port: "6443"
     # vip_subnet defines the prefix length for the virtual IP
-    # vip_subnet: "32" for IPv4 (default), vip_subnet: "32,128" for dual-stack
+    # vip_subnet: "32" for IPv4, vip_subnet: "32,128" for dual-stack
     # Note: replaced legacy 'vip_cidr' which is no longer supported in newer kube-vip versions
     vip_subnet: "32"
     cp_enable: "false"
