@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "seeder.labels" . | nindent 4 }}
 spec:
+  ipFamilyPolicy: {{ .Values.global.ipFamilyPolicy | default "SingleStack" }}
   type: ClusterIP
   ports:
     - port: 9443
