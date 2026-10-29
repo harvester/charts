@@ -1,0 +1,6 @@
+remote: upstream
+target-branch: master
+chart-dirs:
+  - charts
+excluded-charts:
+  - harvester-csi-driver-lvm
