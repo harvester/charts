@@ -35,6 +35,7 @@ metadata:
   name: harvester-node-disk-manager-webhook
   namespace: {{ .Release.Namespace }}
 spec:
+  ipFamilyPolicy: {{ .Values.global.ipFamilyPolicy | default "SingleStack" }}
   type: ClusterIP
   selector:
     {{- include "harvester-node-disk-manager-webhook.selectorLabels" . | nindent 4 }}
