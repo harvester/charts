@@ -45,7 +45,10 @@ jobs:
         run: |
           changed=$(ct list-changed --config tests/ct.yaml)
           if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+          if grep -q "harvester-csi-driver-lvm" <<<"$changed"; then
+            echo "lvm-changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run chart-testing (lint-master)
@@ -83,6 +86,7 @@ jobs:
 
       - name: Run chart-testing (install-lvm)
         run: ct install --config tests/ct.yaml --charts charts/harvester-csi-driver-lvm
+        if: steps.list-changed.outputs.lvm-changed == 'true'
 
   release:
     runs-on: ubuntu-latest
