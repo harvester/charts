@@ -173,6 +173,8 @@ spec:
     limits:
       cpu: {{ .Values.configurationSpec.ovnCentral.limits.cpu | default "3" }} 
       memory: {{ .Values.configurationSpec.ovnCentral.limits.memory | default "4Gi" }} 
+    # ovn-central raft members follow the etcd quorum (2 management nodes + witness => 3 members)
+    nodesLabel: {{ .Values.configurationSpec.ovnCentral.nodesLabel | default "node-role.kubernetes.io/etcd=true" | quote }}
     hcp:
       enabled: {{ .Values.configurationSpec.ovnCentral.hcp.enabled | default false }}
       namespace: {{ .Values.configurationSpec.ovnCentral.hcp.namespace | default "kube-system" }}
