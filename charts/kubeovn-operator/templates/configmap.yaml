@@ -16,6 +16,11 @@ data:
       enabled: {{ .Values.configurationSpec.aclSamplingSpec.enabled | default false }}
       localGroupID: {{ .Values.configurationSpec.aclSamplingSpec.localGroupID | default 142 }}
       setID: {{ .Values.configurationSpec.aclSamplingSpec.setID | default 142 }}
+    bgp:
+      neighborV4Address: {{ .Values.configurationSpec.bgp.neighborV4Address | default "192.0.2.1" }}
+      neighborV6Address: {{ .Values.configurationSpec.bgp.neighborV6Address | default "2001:db8::1" }}
+      neighborAS: {{ .Values.configurationSpec.bgp.neighborAS | default 64512 }}
+      clusterAS: {{ .Values.configurationSpec.bgp.clusterAS | default 64513 }}
     cniConf:
       cniBinDir: /opt/cni/bin
       cniConfFile: /kube-ovn/01-kube-ovn.conflist
