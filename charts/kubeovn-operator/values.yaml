@@ -217,6 +217,11 @@ configurationSpec:
     limits:
       cpu: "3"
       memory: "4Gi"
+    # nodes hosting the ovn-central NB/SB raft members. The etcd quorum set gives 3 members on
+    # 3-node clusters and on 2 management nodes + witness clusters, and 1 on single-node clusters.
+    nodesLabel: node-role.kubernetes.io/etcd=true
+    # the witness node is tainted node-role.kubernetes.io/etcd=true:NoExecute; it is covered by the
+    # NoExecute toleration in ovnCentral.tolerations below
     hcp:
       enabled: false
       namespace: kube-system
