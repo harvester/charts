@@ -74,6 +74,11 @@ configurationSpec:
     enabled: false
     localGroupID: 142
     setID: 142
+  bgp:
+    neighborV4Address: 192.0.2.1
+    neighborV6Address: 2001:db8::1
+    neighborAS: 64512
+    clusterAS: 64513
   cniConf:
     nonPrimaryCNI: true
   components:
