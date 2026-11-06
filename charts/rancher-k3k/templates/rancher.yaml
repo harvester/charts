@@ -60,4 +60,6 @@ spec:
       mountPath: /var/lib/rancher/k3s/server/manifests/rancher-init
   persistence:
     type: dynamic
-    storageClassName:  {{ .Values.k3kCluster.storageClassName }}
+    {{- if .Values.k3kCluster.storageClassName }}
+    storageClassName: {{ .Values.k3kCluster.storageClassName }}
+    {{- end }}
