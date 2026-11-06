@@ -13,11 +13,12 @@ spec:
   resources:
     requests:
       storage: {{ .Values.pvcClaim.size | quote }}
-{{- if .Values.pvcClaim.storageClass }}
-{{- if (eq "-" .Values.pvcClaim.storageClass) }}
+{{- $storageClassName := .Values.pvcClaim.storageClassName | default .Values.pvcClaim.storageClass }}
+{{- if $storageClassName }}
+{{- if eq $storageClassName "-" }}
   storageClassName: ""
 {{- else }}
-  storageClassName: "{{ .Values.pvcClaim.storageClass }}"
+  storageClassName: {{ $storageClassName | quote }}
 {{- end }}
 {{- end }}
 {{- end }}
