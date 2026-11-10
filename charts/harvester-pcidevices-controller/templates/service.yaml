@@ -5,6 +5,7 @@ metadata:
     {{- include "harvester-pcidevices-controller.labels" . | nindent 4 }}
   name: pcidevices-webhook
 spec:
+  ipFamilyPolicy: {{ .Values.global.ipFamilyPolicy | default "SingleStack" }}
   ports:
     - port: 8443
   publishNotReadyAddresses: true

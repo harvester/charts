@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: harvester-vm-import-controller
 spec:
+  ipFamilyPolicy: {{ .Values.global.ipFamilyPolicy | default "SingleStack" }}
   selector:
     {{- include "vm-import-controller.selectorLabels" . | nindent 4 }}
   ports:
