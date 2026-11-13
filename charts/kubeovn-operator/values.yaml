@@ -80,6 +80,7 @@ configurationSpec:
     neighborAS: 64512
     clusterAS: 64513
   cniConf:
+    installCNIPlugins: true
     nonPrimaryCNI: true
   components:
     OVSDBConTimeout: 3
@@ -88,6 +89,8 @@ configurationSpec:
     enableANP: false
     enableBindLocalIP: true
     enableExternalVPC: true
+    enableGwNftableLBSvc: false
+    enableGwNftableSvcClusterIP: false
     enableIC: false
     enableKeepVMIP: true
     enableLB: true
@@ -98,14 +101,16 @@ configurationSpec:
     enableOVNIPSec: false
     enableTProxy: false
     hardwareOffload: false
+    hostTunnelSrc: false
     logicalGateway: false
     lsCtSkipOstLportIPS: true
     lsDnatModDlDst: true
     secureServing: false
+    setGeneveTxOff: false
     setVLANTxOff: false
     u2oInterconnection: false
     enableDNSNameResolver: false
-    enableOVNLBPreferLocal: false
+    enableRecompute: false
     npEnforcement: standard
   debug:
     mirrorInterface: mirror0
@@ -126,6 +131,20 @@ configurationSpec:
   hugePages: "0"
   hugepageSizeType: hugepages-2Mi
   imagePullPolicy: IfNotPresent
+  ipsec:
+    certManager:
+      enabled: false
+      issuerName: kube-ovn
+    certificateDuration: 63072000
+    priority: -5
+    requestTimeout: 300s
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 256Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
   installMode: full
   ipv4:
     joinCIDR: 100.64.0.0/16
@@ -175,6 +194,7 @@ configurationSpec:
       renewDeadline: ""
       retryPeriod: ""
   kubeOvnMonitor:
+    replicas: 1
     requests:
       cpu: "200m"
       memory: "200Mi"
@@ -195,6 +215,10 @@ configurationSpec:
     enableEIPSNAT: true
     enableMetrics: true
     enableSSL: false
+    externalGatewaySwitch: ""
+    gatewayNetfilterDetectTimeout: ""
+    gatewayNetfilterMode: ""
+    kubeProxyModeEndpoint: ""
     # netStack: ipv4 (default), ipv6 or dual_stack
     netStack: ipv4
     networkType: geneve
@@ -265,4 +289,3 @@ configurationSpec:
   performance:
     gcInterval: 360
     inspectInterval: 20
-    ovsVSCtlConcurrency: 100
