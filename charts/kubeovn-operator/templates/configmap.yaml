@@ -26,6 +26,7 @@ data:
       cniConfFile: /kube-ovn/01-kube-ovn.conflist
       cniConfigDir: /etc/cni/net.d
       cniConfigPriority: "90"
+      installCNIPlugins: {{ .Values.configurationSpec.cniConf.installCNIPlugins | default true }}
       localBinDir: /usr/local/bin
       mountCNIConfDir: /etc/cni/net.d
       nonPrimaryCNI: {{ .Values.configurationSpec.cniConf.nonPrimaryCNI | default true }}
@@ -36,6 +37,8 @@ data:
       enableANP: {{ .Values.configurationSpec.components.enableANP  | default false }}
       enableBindLocalIP: {{ .Values.configurationSpec.components.enableBindLocalIP | default true }}
       enableExternalVPC: {{ .Values.configurationSpec.components.enableExternalVPC  | default true }}
+      enableGwNftableLBSvc: {{ .Values.configurationSpec.components.enableGwNftableLBSvc | default false }}
+      enableGwNftableSvcClusterIP: {{ .Values.configurationSpec.components.enableGwNftableSvcClusterIP | default false }}
       enableIC: {{ .Values.configurationSpec.components.enableIC  | default false }}
       enableKeepVMIP: {{ .Values.configurationSpec.components.enableKeepVMIP | default true }}
       enableLB: {{ .Values.configurationSpec.components.enableLB  | default true }}
@@ -44,21 +47,23 @@ data:
       enableNATGateway:  {{ .Values.configurationSpec.components.enableNATGateway | default true }}
       enableNP: {{ .Values.configurationSpec.components.enableNP | default true }}
       enableOVNIPSec: {{ .Values.configurationSpec.components.enableOVNIPSec | default false }}
+      enableRecompute: {{ .Values.configurationSpec.components.enableRecompute | default false }}
       enableTProxy: {{ .Values.configurationSpec.components.enableTProxy | default false }}
       hardwareOffload: {{ .Values.configurationSpec.components.hardwareOffload | default false }}
+      hostTunnelSrc: {{ .Values.configurationSpec.components.hostTunnelSrc | default false }}
       logicalGateway: {{ .Values.configurationSpec.components.logicalGateway | default false }}
       lsCtSkipOstLportIPS: {{ .Values.configurationSpec.components.lsCtSkipOstLportIPS | default false }}
       lsDnatModDlDst: {{ .Values.configurationSpec.components.lsDnatModDlDst | default true }}
       secureServing: {{ .Values.configurationSpec.components.secureServing | default false }}
+      setGeneveTxOff: {{ .Values.configurationSpec.components.setGeneveTxOff | default false }}
       setVLANTxOff:  {{ .Values.configurationSpec.components.setVLANTxOff | default false }}
       u2oInterconnection:  {{ .Values.configurationSpec.components.u2oInterconnection | default false }}
       enableDNSNameResolver: {{ .Values.configurationSpec.components.enableDNSNameResolver | default false }}
-      enableOVNLBPreferLocal: {{ .Values.configurationSpec.components.enableOVNLBPreferLocal | default false }}
       npEnforcement: {{ .Values.configurationSpec.components.npEnforcement | default "standard" }}
     debug:
       mirrorInterface: {{.Values.configurationSpec.debug.mirrorInterface | default "mirror0"}}
     dpdkCPU:  {{.Values.configurationSpec.dpdkCPU | default "0" | quote}}
-    dpdkImageTag: {{.Values.configurationSpec.dpdkImageTag | default "v1.16.4-dpdk" | quote}}
+    dpdkImageTag: {{.Values.configurationSpec.dpdkImageTag | default "v1.16.0-dpdk" | quote}}
     dpdkMEMORY: {{.Values.configurationSpec.dpdkMEMORY | default "0" | quote}}
     dualStack:
       joinCIDR: {{ .Values.configurationSpec.dualStack.joinCIDR | default "100.64.0.0/16,fd00:100:64::/112" }}
@@ -87,6 +92,20 @@ data:
     hugepageSizeType:  {{ .Values.configurationSpec.hugepageSizeType | default "hugepages-2Mi" }}
     imagePullPolicy: {{ .Values.configurationSpec.imagePullPolicy | default "IfNotPresent" }}
     installMode: {{ .Values.configurationSpec.installMode | default "full" }}
+    ipsec:
+      certManager:
+        enabled: {{ .Values.configurationSpec.ipsec.certManager.enabled | default false }}
+        issuerName: {{ .Values.configurationSpec.ipsec.certManager.issuerName | default "kube-ovn" | quote }}
+      certificateDuration: {{ .Values.configurationSpec.ipsec.certificateDuration | default 63072000 }}
+      priority: {{ .Values.configurationSpec.ipsec.priority | default -5 }}
+      requestTimeout: {{ .Values.configurationSpec.ipsec.requestTimeout | default "300s" | quote }}
+      resources:
+        limits:
+          cpu: {{ .Values.configurationSpec.ipsec.resources.limits.cpu | default "1000m" | quote }}
+          memory: {{ .Values.configurationSpec.ipsec.resources.limits.memory | default "256Mi" | quote }}
+        requests:
+          cpu: {{ .Values.configurationSpec.ipsec.resources.requests.cpu | default "10m" | quote }}
+          memory: {{ .Values.configurationSpec.ipsec.resources.requests.memory | default "64Mi" | quote }}
     ipv4:
       joinCIDR: {{ .Values.configurationSpec.ipv4.joinCIDR | default "100.64.0.0/16" }}
       pingerExternalAddress: {{ .Values.configurationSpec.ipv4.pingerExternalAddress | default "1.1.1.1" }}
@@ -120,6 +139,7 @@ data:
         renewDeadline: {{ .Values.configurationSpec.kubeOvnController.leaderElection.renewDeadline | default "" | quote }}
         retryPeriod: {{ .Values.configurationSpec.kubeOvnController.leaderElection.retryPeriod | default "" | quote }}
     kubeOvnMonitor:
+      replicas: {{ .Values.configurationSpec.kubeOvnMonitor.replicas | default 1 }}
       requests:
         cpu: {{ .Values.configurationSpec.kubeOvnMonitor.requests.cpu | default "200m" | quote }}
         memory: {{ .Values.configurationSpec.kubeOvnMonitor.requests.memory | default "200Mi" | quote }}
@@ -155,6 +175,10 @@ data:
       ovnRemoteProbeInterval: {{ .Values.configurationSpec.networking.ovnRemoteProbeInterval | default "10000" }}
       skipConnTrackDstCIDRs: {{ .Values.configurationSpec.networking.skipConnTrackDstCIDRs | default "" }}
       externalGatewayConfigNS: {{ .Values.configurationSpec.networking.externalGatewayConfigNS | default "" }}
+      externalGatewaySwitch: {{ .Values.configurationSpec.networking.externalGatewaySwitch | default "" | quote }}
+      gatewayNetfilterDetectTimeout: {{ .Values.configurationSpec.networking.gatewayNetfilterDetectTimeout | default "" | quote }}
+      gatewayNetfilterMode: {{ .Values.configurationSpec.networking.gatewayNetfilterMode | default "" | quote }}
+      kubeProxyModeEndpoint: {{ .Values.configurationSpec.networking.kubeProxyModeEndpoint | default "" | quote }}
       podNicType: veth-pair
       probeInterval:  {{ .Values.configurationSpec.networking.probeInterval | default "180000" }}
       tunnelType: vxlan
@@ -211,5 +235,4 @@ data:
     performance:
       gcInterval: {{ .Values.configurationSpec.performance.gcInterval | default "360" }}
       inspectInterval: {{ .Values.configurationSpec.performance.inspectInterval | default "20" }}
-      ovsVSCtlConcurrency: {{ .Values.configurationSpec.performance.ovsVSCtlConcurrency | default "100" }}
 {{- end }}
