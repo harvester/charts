@@ -14,6 +14,13 @@ image:
   tag: main-head
   pullPolicy: Always
 
+# image used by the pre-delete hook that removes the runtime-registered
+# ValidatingWebhookConfiguration when the chart is uninstalled
+hookImage:
+  repository: rancher/kuberlr-kubectl
+  pullPolicy: IfNotPresent
+  tag: "v7.0.3"
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
