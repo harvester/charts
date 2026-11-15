@@ -4,6 +4,21 @@
 # global is populated by the parent chart when this is deployed as a
 # subchart dependency (e.g. ipFamilyPolicy set based on how the cluster's
 # IP families were configured at install time).
+#  Sub value `.ipFamilyPolicy` controls the IP family policy used by the controller and managed components.
+#  Passed to the controller and webhook runtime containers via the IP_FAMILY_POLICY environment variable.
+#
+#  Supported values (same as Kubernetes Service.spec.ipFamilyPolicy):
+#    - SingleStack     (default; matches historical/IPv4-only behavior)
+#    - PreferDualStack (requires IPv4-first dual-stack hosts with the kernel IPv6 stack enabled)
+#
+#  Note: When configured as PreferDualStack, it indicates the host is installed in
+#  dual-IPv4-first mode with the kernel IPv6 stack enabled. Under this policy,
+#  the controller runtime can safely assume the host IP stack is dual-stack (IPv4+IPv6).
+#  This awareness is important for network-controller.
+#
+#  CRITICAL: Install the Harvester cluster step by step. The host network stack is decided
+#  at that installation stage once and must never be changed independently or separately
+#  afterwards. A mismatched or malformed configuration will break system networking.
 global: {}
 
 image:
