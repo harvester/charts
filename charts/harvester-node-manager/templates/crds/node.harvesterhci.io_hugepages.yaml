@@ -39,6 +39,13 @@ spec:
             type: object
           spec:
             properties:
+              static:
+                properties:
+                  hugepages:
+                    description: Number of persistent hugepages
+                    format: int64
+                    type: integer
+                type: object
               transparent:
                 properties:
                   defrag:
@@ -99,6 +106,13 @@ spec:
                     type: integer
                   shmemHugePages:
                     default: 0
+                    format: int64
+                    type: integer
+                type: object
+              static:
+                properties:
+                  hugepages:
+                    description: Number of persistent hugepages
                     format: int64
                     type: integer
                 type: object
