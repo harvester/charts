@@ -1,0 +1,22 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: project
+description: Provides console and power access to virtual machines in the project, plus live migration and USB redirection, without editing virtual machine configuration (similar to the vSphere VirtualMachineUser role). Requires Harvester with per-action authorization (harvester/harvester#12341)
+displayName: Operate Virtual Machines
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  labels:
+  {{- include "harvester-rbac.labels" . | nindent 4 }}
+  name: virt-project-vm-operate
+roleTemplateNames:
+  - read-only
+  - monitoring-ui-view
+rules:
+{{- include "harvester-rbac.projectViewRules" . }}
+{{- include "harvester-rbac.vmConsoleRules" . }}
+{{- include "harvester-rbac.vmOperateRules" . }}
+  {{- with .Values.projectRole.virtProjectVmOperate.additionalRules }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}

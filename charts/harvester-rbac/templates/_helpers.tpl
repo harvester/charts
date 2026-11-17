@@ -140,3 +140,54 @@ Rules of the "View Virtualization Resources" project role (see harvester-rbac.cl
     verbs:
       - "*"
 {{- end }}
+
+{{/*
+Rules of the "Use Virtual Machine Consoles" project role, included by the roles built on it.
+*/}}
+{{- define "harvester-rbac.vmConsoleRules" }}
+  - apiGroups:
+      - subresources.kubevirt.io
+    resources:
+      - virtualmachineinstances/vnc
+      - virtualmachineinstances/console
+      - virtualmachineinstances/guestosinfo
+      - virtualmachineinstances/userlist
+      - virtualmachineinstances/filesystemlist
+    verbs:
+      - get
+  - apiGroups:
+      - subresources.kubevirt.io
+    resources:
+      - virtualmachines/start
+      - virtualmachines/stop
+      - virtualmachines/restart
+      - virtualmachineinstances/softreboot
+      - virtualmachineinstances/pause
+      - virtualmachineinstances/unpause
+      - virtualmachines/addvolume
+      - virtualmachines/removevolume
+    verbs:
+      - update
+{{- end }}
+
+{{/*
+Rules added by the "Operate Virtual Machines" project role on top of harvester-rbac.vmConsoleRules.
+*/}}
+{{- define "harvester-rbac.vmOperateRules" }}
+  - apiGroups:
+      - kubevirt.io
+    resources:
+      - virtualmachineinstancemigrations
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+  - apiGroups:
+      - subresources.kubevirt.io
+    resources:
+      - virtualmachineinstances/usbredir
+    verbs:
+      - get
+{{- end }}

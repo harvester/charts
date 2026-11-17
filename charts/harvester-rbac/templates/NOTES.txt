@@ -15,6 +15,9 @@ Project/Namespace scope:
 * View Virtualization Resources
 * Operate Virtualization Backups
 * Manage Virtualization Images and Templates
+* Use Virtual Machine Consoles
+* Operate Virtual Machines
+* Configure Virtual Machines
 
 They can be found in the "Cluster" and "Project/Namespace" sections of the "Role Template" page.
 

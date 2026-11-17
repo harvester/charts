@@ -65,3 +65,18 @@ projectRole:
       # - apiGroups: [""]
       #   resources: [""]
       #   verbs: [""]
+  virtProjectVmConsole:
+    additionalRules:
+      # - apiGroups: [""]
+      #   resources: [""]
+      #   verbs: [""]
+  virtProjectVmOperate:
+    additionalRules:
+      # - apiGroups: [""]
+      #   resources: [""]
+      #   verbs: [""]
+  virtProjectVmPower:
+    additionalRules:
+      # - apiGroups: [""]
+      #   resources: [""]
+      #   verbs: [""]
