@@ -13,28 +13,7 @@ roleTemplateNames:
   - read-only
   - monitoring-ui-view
 rules:
-  - apiGroups:
-      - loadbalancer.harvesterhci.io
-    resources:
-      - "*"
-    verbs:
-      - get
-      - list
-      - watch
-  - apiGroups:
-      - harvesterhci.io
-    resources:
-      - "*"
-    verbs:
-      - get
-      - list
-      - watch
-  - apiGroups:
-      - harvesterhci.io
-    resources:
-      - supportbundles
-    verbs:
-      - "*"
+{{- include "harvester-rbac.projectViewRules" . }}
   {{- with .Values.projectRole.virtProjectView.additionalRules }}
   {{- toYaml . | nindent 2 }}
   {{- end }}

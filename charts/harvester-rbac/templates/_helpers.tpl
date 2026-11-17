@@ -49,3 +49,94 @@ Selector labels
 app.kubernetes.io/name: {{ include "harvester-rbac.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Rules of the "View Virtualization Resources" cluster role. Roles in this chart include these
+rules instead of inheriting virt-view-cluster, because the Rancher webhook rejects a RoleTemplate
+whose inherited RoleTemplate does not exist yet, and Helm creates all RoleTemplates at once.
+*/}}
+{{- define "harvester-rbac.clusterViewRules" }}
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - supportbundles
+    verbs:
+      - "*"
+  - apiGroups:
+      - network.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - loadbalancer.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - devices.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - node.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - settings
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+{{- end }}
+
+{{/*
+Rules of the "View Virtualization Resources" project role (see harvester-rbac.clusterViewRules).
+*/}}
+{{- define "harvester-rbac.projectViewRules" }}
+  - apiGroups:
+      - loadbalancer.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - supportbundles
+    verbs:
+      - "*"
+{{- end }}
