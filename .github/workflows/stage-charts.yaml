@@ -52,6 +52,6 @@ jobs:
       # The version is worked out by cargueiro from the appVersion and the versions
       # that are already released.
       - name: Stamp, check, package and push the chart, and start the shipping
-        uses: rancher/charts/.github/actions/ship-staged@chart-owners
+        uses: rancher/charts/.github/actions/ship-staged@5b6d8660b09f1eeef144c56d455d191e67ac405a #chart-owners
         with:
           chart-dir: ${{ runner.temp }}/chart/harvester-rbac
