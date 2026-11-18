@@ -67,7 +67,7 @@ spec:
   debug:
     mirrorInterface: {{.Values.configurationSpec.debug.mirrorInterface | default "mirror0"}}
   dpdkCPU:  {{.Values.configurationSpec.dpdkCPU | default "0" | quote}}
-  dpdkImageTag: {{.Values.configurationSpec.dpdkImageTag | default "v1.16.0-dpdk" | quote}}
+  dpdkImageTag: {{.Values.configurationSpec.dpdkImageTag | default "v1.17.0-dpdk" | quote}}
   dpdkMEMORY: {{.Values.configurationSpec.dpdkMEMORY | default "0" | quote}}
   dualStack:
     joinCIDR: {{ .Values.configurationSpec.dualStack.joinCIDR | default "100.64.0.0/16,fd00:100:64::/112" }}
