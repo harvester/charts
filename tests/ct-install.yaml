@@ -6,3 +6,4 @@ excluded-charts:
   - forklift-operator
   - rancher-k3k
   - harvester-mcp-server
+  - harvester-csi-driver-lvm
