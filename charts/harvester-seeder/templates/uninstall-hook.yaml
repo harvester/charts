@@ -1,0 +1,37 @@
+# The seeder pod registers the ValidatingWebhookConfiguration at runtime
+# (harvester/webhook server.Start), so Helm does not own it and leaves it
+# behind on uninstall. With failurePolicy=Fail and the service gone, it then
+# rejects every create/update of metal.harvesterhci.io objects.
+# Delete it before the release resources are removed. The CA/TLS secrets and
+# the leader-election lease are left in place: they are harmless and are reused
+# when the add-on is enabled again.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: delete-{{ include "seeder.fullname" . }}-webhook
+  labels:
+    {{- include "seeder.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      name: delete-{{ include "seeder.fullname" . }}-webhook
+    spec:
+      serviceAccountName: {{ include "seeder.serviceAccountName" . }}
+      restartPolicy: Never
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: delete-seeder-validator-webhook
+        image: {{ .Values.hookImage.repository }}:{{ .Values.hookImage.tag }}
+        imagePullPolicy: {{ .Values.hookImage.pullPolicy }}
+        args:
+          - delete
+          - validatingwebhookconfiguration
+          - harvester-seeder
+          - --ignore-not-found
