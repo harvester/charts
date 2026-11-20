@@ -44,6 +44,8 @@ nodeSelector:
   kubernetes.io/os: linux
 
 tolerations:
+  - key: CriticalAddonsOnly
+    operator: Exists
   - effect: NoSchedule
     key: kubevirt.io/drain
     operator: Exists
