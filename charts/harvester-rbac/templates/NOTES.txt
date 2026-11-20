@@ -1,9 +1,23 @@
 The following Harvester/Rancher integration RBAC role template resources have been installed:
 
-* Manage Virtualization Resources (cluster scope)
-* View Virtualization Resources (cluster scope)
-* Manage Virtualization Resources (namespaced scope)
-* View Virtualization Resources (namespaced scope)
+Cluster scope:
+* Manage Virtualization Resources
+* View Virtualization Resources
+* Manage Virtualization Networks
+* Use Virtualization Networks
+* Manage Virtualization Storage
+* Manage Virtualization Devices
+* Manage Virtualization Hosts
+* Operate Virtualization Backups
+
+Project/Namespace scope:
+* Manage Virtualization Resources
+* View Virtualization Resources
+* Operate Virtualization Backups
+* Manage Virtualization Images and Templates
+* Use Virtual Machine Consoles
+* Operate Virtual Machines
+* Configure Virtual Machines
 
 They can be found in the "Cluster" and "Project/Namespace" sections of the "Role Template" page.
 

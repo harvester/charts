@@ -1,0 +1,54 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: project
+description: Provides access to operate and reconfigure existing virtual machines in the project (CPU, memory, disks, networks, hotplug), and to take and restore virtual machine snapshots, without creating or deleting virtual machines (similar to the vSphere VirtualMachinePowerUser role). Requires Harvester with per-action authorization (harvester/harvester#12341)
+displayName: Configure Virtual Machines
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  labels:
+  {{- include "harvester-rbac.labels" . | nindent 4 }}
+  name: virt-project-vm-power
+roleTemplateNames:
+  - read-only
+  - monitoring-ui-view
+rules:
+{{- include "harvester-rbac.projectViewRules" . }}
+{{- include "harvester-rbac.vmConsoleRules" . }}
+{{- include "harvester-rbac.vmOperateRules" . }}
+  - apiGroups:
+      - kubevirt.io
+    resources:
+      - virtualmachines
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+      - patch
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - virtualmachinebackups
+      - virtualmachinerestores
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+  {{- with .Values.projectRole.virtProjectVmPower.additionalRules }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
