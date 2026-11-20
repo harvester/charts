@@ -1,0 +1,46 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: cluster
+description: Provides management access to Harvester hosts (node maintenance, node configuration, cloud-init, huge pages, KSM, upgrades and support bundles), plus view-only access to other Harvester resources
+displayName: Manage Virtualization Hosts
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  labels:
+  {{- include "harvester-rbac.labels" . | nindent 4 }}
+  name: virt-cluster-host-manage
+roleTemplateNames:
+  - projects-view
+  - monitoring-ui-view
+  - clusterroletemplatebindings-view
+  - nodes-view
+  - nodes-manage
+rules:
+{{- include "harvester-rbac.clusterViewRules" . }}
+  - apiGroups:
+      - node.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - "*"
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - upgrades
+      - upgradelogs
+      - versions
+      - supportbundles
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+    verbs:
+      - get
+      - list
+      - watch
+  {{- with .Values.clusterRole.virtClusterHostManage.additionalRules }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}

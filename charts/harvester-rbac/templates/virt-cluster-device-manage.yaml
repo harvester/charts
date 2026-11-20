@@ -1,0 +1,36 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: cluster
+description: Provides management access to Harvester host devices (PCI, USB, vGPU, SR-IOV GPU and network devices, MIG configurations), plus view-only access to other Harvester resources
+displayName: Manage Virtualization Devices
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  labels:
+  {{- include "harvester-rbac.labels" . | nindent 4 }}
+  name: virt-cluster-device-manage
+roleTemplateNames:
+  - projects-view
+  - monitoring-ui-view
+  - clusterroletemplatebindings-view
+  - nodes-view
+rules:
+{{- include "harvester-rbac.clusterViewRules" . }}
+  - apiGroups:
+      - devices.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+    verbs:
+      - get
+      - list
+      - watch
+  {{- with .Values.clusterRole.virtClusterDeviceManage.additionalRules }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
