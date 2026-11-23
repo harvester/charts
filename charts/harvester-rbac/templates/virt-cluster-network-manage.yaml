@@ -1,0 +1,54 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: cluster
+description: Provides management access to Harvester networking (cluster networks, VM networks, Kube-OVN VPCs and subnets, load balancers and IP pools), plus view-only access to other Harvester resources
+displayName: Manage Virtualization Networks
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  labels:
+  {{- include "harvester-rbac.labels" . | nindent 4 }}
+  name: virt-cluster-network-manage
+roleTemplateNames:
+  - projects-view
+  - monitoring-ui-view
+  - clusterroletemplatebindings-view
+  - nodes-view
+rules:
+{{- include "harvester-rbac.clusterViewRules" . }}
+  - apiGroups:
+      - network.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - "*"
+  - apiGroups:
+      - loadbalancer.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - "*"
+  - apiGroups:
+      - k8s.cni.cncf.io
+    resources:
+      - network-attachment-definitions
+    verbs:
+      - "*"
+  - apiGroups:
+      - kubeovn.io
+    resources:
+      - "*"
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+    verbs:
+      - get
+      - list
+      - watch
+  {{- with .Values.clusterRole.virtClusterNetworkManage.additionalRules }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}

@@ -1,0 +1,52 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: cluster
+description: Provides view-only access to Harvester VM networks, Kube-OVN VPCs and subnets, and IP pools in all namespaces, so that users can attach virtual machines to shared networks without managing them
+displayName: Use Virtualization Networks
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  labels:
+  {{- include "harvester-rbac.labels" . | nindent 4 }}
+  name: virt-cluster-network-use
+rules:
+  - apiGroups:
+      - k8s.cni.cncf.io
+    resources:
+      - network-attachment-definitions
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - network.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - kubeovn.io
+    resources:
+      - vpcs
+      - subnets
+      - ips
+      - vips
+      - ippools
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - loadbalancer.harvesterhci.io
+    resources:
+      - ippools
+    verbs:
+      - get
+      - list
+      - watch
+  {{- with .Values.clusterRole.virtClusterNetworkUse.additionalRules }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}

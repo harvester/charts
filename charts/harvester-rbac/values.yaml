@@ -13,6 +13,36 @@ clusterRole:
       # - apiGroups: [""]
       #   resources: [""]
       #   verbs: [""]
+  virtClusterNetworkManage:
+    additionalRules:
+      # - apiGroups: [""]
+      #   resources: [""]
+      #   verbs: [""]
+  virtClusterNetworkUse:
+    additionalRules:
+      # - apiGroups: [""]
+      #   resources: [""]
+      #   verbs: [""]
+  virtClusterStorageManage:
+    additionalRules:
+      # - apiGroups: [""]
+      #   resources: [""]
+      #   verbs: [""]
+  virtClusterDeviceManage:
+    additionalRules:
+      # - apiGroups: [""]
+      #   resources: [""]
+      #   verbs: [""]
+  virtClusterHostManage:
+    additionalRules:
+      # - apiGroups: [""]
+      #   resources: [""]
+      #   verbs: [""]
+  virtClusterBackupOperate:
+    additionalRules:
+      # - apiGroups: [""]
+      #   resources: [""]
+      #   verbs: [""]
 
 projectRole:
   virtProjectManage:
@@ -21,6 +51,16 @@ projectRole:
       #   resources: [""]
       #   verbs: [""]
   virtProjectView:
+    additionalRules:
+      # - apiGroups: [""]
+      #   resources: [""]
+      #   verbs: [""]
+  virtProjectBackupOperate:
+    additionalRules:
+      # - apiGroups: [""]
+      #   resources: [""]
+      #   verbs: [""]
+  virtProjectImageManage:
     additionalRules:
       # - apiGroups: [""]
       #   resources: [""]
