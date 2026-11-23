@@ -6,7 +6,7 @@ image:
   repository: rancher/harvester-resource-health-controller
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "main-head"
+  tag: ""
 
 # Number of workers processing the ComponentHealth workqueue.
 threadiness: 10
