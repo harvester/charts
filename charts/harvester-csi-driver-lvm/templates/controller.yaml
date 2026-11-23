@@ -54,6 +54,7 @@ spec:
             - -v=5
             - --csi-address=/csi/csi.sock
             - --feature-gates=Topology=true
+            - --default-fstype=ext4
             - --worker-threads={{ .Values.csiProvisioner.workerThreads }}
             - --timeout={{ .Values.csiProvisioner.timeout }}
             - --retry-interval-start={{ .Values.csiProvisioner.retryIntervalStart }}
