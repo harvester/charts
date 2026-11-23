@@ -49,3 +49,145 @@ Selector labels
 app.kubernetes.io/name: {{ include "harvester-rbac.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Rules of the "View Virtualization Resources" cluster role. Roles in this chart include these
+rules instead of inheriting virt-view-cluster, because the Rancher webhook rejects a RoleTemplate
+whose inherited RoleTemplate does not exist yet, and Helm creates all RoleTemplates at once.
+*/}}
+{{- define "harvester-rbac.clusterViewRules" }}
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - supportbundles
+    verbs:
+      - "*"
+  - apiGroups:
+      - network.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - loadbalancer.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - devices.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - node.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - settings
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+{{- end }}
+
+{{/*
+Rules of the "View Virtualization Resources" project role (see harvester-rbac.clusterViewRules).
+*/}}
+{{- define "harvester-rbac.projectViewRules" }}
+  - apiGroups:
+      - loadbalancer.harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - supportbundles
+    verbs:
+      - "*"
+{{- end }}
+
+{{/*
+Rules of the "Use Virtual Machine Consoles" project role, included by the roles built on it.
+*/}}
+{{- define "harvester-rbac.vmConsoleRules" }}
+  - apiGroups:
+      - subresources.kubevirt.io
+    resources:
+      - virtualmachineinstances/vnc
+      - virtualmachineinstances/console
+      - virtualmachineinstances/guestosinfo
+      - virtualmachineinstances/userlist
+      - virtualmachineinstances/filesystemlist
+    verbs:
+      - get
+  - apiGroups:
+      - subresources.kubevirt.io
+    resources:
+      - virtualmachines/start
+      - virtualmachines/stop
+      - virtualmachines/restart
+      - virtualmachineinstances/softreboot
+      - virtualmachineinstances/pause
+      - virtualmachineinstances/unpause
+      - virtualmachines/addvolume
+      - virtualmachines/removevolume
+    verbs:
+      - update
+{{- end }}
+
+{{/*
+Rules added by the "Operate Virtual Machines" project role on top of harvester-rbac.vmConsoleRules.
+*/}}
+{{- define "harvester-rbac.vmOperateRules" }}
+  - apiGroups:
+      - kubevirt.io
+    resources:
+      - virtualmachineinstancemigrations
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+  - apiGroups:
+      - subresources.kubevirt.io
+    resources:
+      - virtualmachineinstances/usbredir
+    verbs:
+      - get
+{{- end }}

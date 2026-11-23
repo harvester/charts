@@ -1,0 +1,69 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: cluster
+description: Provides management access to Harvester storage (storage classes, volume snapshot classes, host disks, LVM volume groups and network filesystems), plus view-only access to other Harvester resources
+displayName: Manage Virtualization Storage
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  labels:
+  {{- include "harvester-rbac.labels" . | nindent 4 }}
+  name: virt-cluster-storage-manage
+roleTemplateNames:
+  - projects-view
+  - monitoring-ui-view
+  - clusterroletemplatebindings-view
+  - nodes-view
+  - storage-manage
+rules:
+{{- include "harvester-rbac.clusterViewRules" . }}
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - storageclasses
+      - volumeattributesclasses
+    verbs:
+      - "*"
+  - apiGroups:
+      - snapshot.storage.k8s.io
+    resources:
+      - volumesnapshotclasses
+    verbs:
+      - "*"
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - blockdevices
+      - lvmvolumegroups
+      - networkfilesystems
+    verbs:
+      - "*"
+  - apiGroups:
+      - longhorn.io
+    resources:
+      - volumes
+      - replicas
+      - engines
+      - nodes
+      - backingimages
+      - backuptargets
+      - backupvolumes
+      - backups
+      - recurringjobs
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+      - watch
+  {{- with .Values.clusterRole.virtClusterStorageManage.additionalRules }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}

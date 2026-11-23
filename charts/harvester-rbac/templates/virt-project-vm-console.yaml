@@ -1,0 +1,21 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: project
+description: Provides access to open virtual machine consoles, power virtual machines on, off and restart them, and change CD-ROM media in the project, without editing virtual machine configuration (similar to the vSphere VirtualMachineConsoleUser role). Requires Harvester with per-action authorization (harvester/harvester#12341)
+displayName: Use Virtual Machine Consoles
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  labels:
+  {{- include "harvester-rbac.labels" . | nindent 4 }}
+  name: virt-project-vm-console
+roleTemplateNames:
+  - read-only
+  - monitoring-ui-view
+rules:
+{{- include "harvester-rbac.projectViewRules" . }}
+{{- include "harvester-rbac.vmConsoleRules" . }}
+  {{- with .Values.projectRole.virtProjectVmConsole.additionalRules }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}

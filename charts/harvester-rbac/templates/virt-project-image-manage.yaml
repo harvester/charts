@@ -1,0 +1,49 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: project
+description: Provides management access to virtual machine images, templates, SSH key pairs, instance types and preferences in the project, plus view-only access to other Harvester resources in the project
+displayName: Manage Virtualization Images and Templates
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  labels:
+  {{- include "harvester-rbac.labels" . | nindent 4 }}
+  name: virt-project-image-manage
+roleTemplateNames:
+  - read-only
+  - monitoring-ui-view
+rules:
+{{- include "harvester-rbac.projectViewRules" . }}
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - virtualmachineimages
+      - virtualmachineimagedownloaders
+      - virtualmachinetemplates
+      - virtualmachinetemplateversions
+      - keypairs
+    verbs:
+      - "*"
+  - apiGroups:
+      - instancetype.kubevirt.io
+    resources:
+      - virtualmachineinstancetypes
+      - virtualmachinepreferences
+    verbs:
+      - "*"
+  - apiGroups:
+      - cdi.kubevirt.io
+    resources:
+      - datavolumes
+    verbs:
+      - "*"
+  - apiGroups:
+      - upload.cdi.kubevirt.io
+    resources:
+      - uploadtokenrequests
+    verbs:
+      - create
+  {{- with .Values.projectRole.virtProjectImageManage.additionalRules }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}

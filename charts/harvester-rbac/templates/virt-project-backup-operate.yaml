@@ -1,0 +1,87 @@
+apiVersion: management.cattle.io/v3
+builtin: false
+context: project
+description: Provides access to create and restore virtual machine snapshots, backups and exports and volume snapshots in the project, for backup operators and third-party backup software, plus view-only access to other Harvester resources in the project
+displayName: Operate Virtualization Backups
+external: false
+hidden: false
+kind: RoleTemplate
+metadata:
+  labels:
+  {{- include "harvester-rbac.labels" . | nindent 4 }}
+  name: virt-project-backup-operate
+roleTemplateNames:
+  - read-only
+  - monitoring-ui-view
+rules:
+{{- include "harvester-rbac.projectViewRules" . }}
+  - apiGroups:
+      - harvesterhci.io
+    resources:
+      - virtualmachinebackups
+      - virtualmachinerestores
+      - schedulevmbackups
+    verbs:
+      - "*"
+  - apiGroups:
+      - snapshot.kubevirt.io
+    resources:
+      - virtualmachinesnapshots
+      - virtualmachinerestores
+    verbs:
+      - "*"
+  - apiGroups:
+      - snapshot.kubevirt.io
+    resources:
+      - virtualmachinesnapshotcontents
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - backup.kubevirt.io
+    resources:
+      - virtualmachinebackups
+      - virtualmachinebackuptrackers
+    verbs:
+      - "*"
+  - apiGroups:
+      - export.kubevirt.io
+    resources:
+      - virtualmachineexports
+    verbs:
+      - "*"
+  - apiGroups:
+      - snapshot.storage.k8s.io
+    resources:
+      - volumesnapshots
+    verbs:
+      - "*"
+  - apiGroups:
+      - subresources.kubevirt.io
+    resources:
+      - virtualmachineinstances/freeze
+      - virtualmachineinstances/unfreeze
+    verbs:
+      - update
+  - apiGroups:
+      - kubevirt.io
+    resources:
+      - virtualmachines
+      - virtualmachineinstances
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+  {{- with .Values.projectRole.virtProjectBackupOperate.additionalRules }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
