@@ -10237,6 +10237,18 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/harvester-resource-health-controller-1.11.0-dev.0/harvester-resource-health-controller-1.11.0-dev.0.tgz
     version: 1.11.0-dev.0
+  - apiVersion: v2
+    appVersion: v1.10.0-rc3
+    created: "2026-11-23T02:54:21.450666263Z"
+    description: A Helm chart for the Harvester resource health controller
+    digest: 16690587cf40a57961199926e7979bd9422e88bd1ee8d1d382c138d27c02f1e7
+    maintainers:
+    - name: harvester
+    name: harvester-resource-health-controller
+    type: application
+    urls:
+    - https://github.com/harvester/charts/releases/download/harvester-resource-health-controller-1.10.0-rc3/harvester-resource-health-controller-1.10.0-rc3.tgz
+    version: 1.10.0-rc3
   harvester-resourcequotas-roles:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -15741,4 +15753,4 @@ entries:
     urls:
     - https://github.com/harvester/charts/releases/download/vcluster-0.0.0-dev/vcluster-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2026-11-23T02:43:31.041333231Z"
+generated: "2026-11-23T02:54:21.453258179Z"
