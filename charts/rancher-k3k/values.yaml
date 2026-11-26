@@ -9,4 +9,3 @@ k3kCluster:
   servers: 1
   agents: 0
   version: v1.35.4-k3s1
-  storageClassName: "harvester-longhorn"

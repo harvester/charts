@@ -34,7 +34,7 @@ rules:
     verbs: [ "get", "watch", "list" ]
   - apiGroups: [ "apps" ]
     resources: [ "daemonsets" ]
-    verbs: [ "watch", "list", "update" ]
+    verbs: [ "watch", "list", "update", "get", "patch", "create", "delete" ]
   - apiGroups: [ "batch" ]
     resources: [ "jobs" ]
     verbs: [ "*" ]

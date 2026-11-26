@@ -2,6 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# global is populated by the parent chart when this is deployed as a
+# subchart dependency (e.g. ipFamilyPolicy set based on how the cluster's
+# IP families were configured at install time).
+global: {}
+
 replicaCount: 2
 
 image:
@@ -40,17 +45,13 @@ securityContext: {}
   # runAsUser: 1000
 
 
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+resources:
+  limits:
+    cpu: 1
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
 nodeSelector: {}
 
@@ -59,7 +60,23 @@ tolerations: []
 affinity: {}
 enableConfiguration: false
 configurationSpec:
+  aclSamplingSpec:
+    allowProbabilityPercent: 1
+    appIDEstablished: 103
+    appIDNew: 102
+    collectorIDAllow: 1
+    collectorIDDefaultDeny: 2
+    defaultDenyProbabilityPercent: 100
+    enabled: false
+    localGroupID: 142
+    setID: 142
+  bgp:
+    neighborV4Address: 192.0.2.1
+    neighborV6Address: 2001:db8::1
+    neighborAS: 64512
+    clusterAS: 64513
   cniConf:
+    installCNIPlugins: true
     nonPrimaryCNI: true
   components:
     OVSDBConTimeout: 3
@@ -68,6 +85,8 @@ configurationSpec:
     enableANP: false
     enableBindLocalIP: true
     enableExternalVPC: true
+    enableGwNftableLBSvc: false
+    enableGwNftableSvcClusterIP: false
     enableIC: false
     enableKeepVMIP: true
     enableLB: true
@@ -78,14 +97,16 @@ configurationSpec:
     enableOVNIPSec: false
     enableTProxy: false
     hardwareOffload: false
+    hostTunnelSrc: false
     logicalGateway: false
     lsCtSkipOstLportIPS: true
     lsDnatModDlDst: true
     secureServing: false
+    setGeneveTxOff: false
     setVLANTxOff: false
     u2oInterconnection: false
     enableDNSNameResolver: false
-    enableOVNLBPreferLocal: false
+    enableRecompute: false
     npEnforcement: standard
   debug:
     mirrorInterface: mirror0
@@ -106,6 +127,21 @@ configurationSpec:
   hugePages: "0"
   hugepageSizeType: hugepages-2Mi
   imagePullPolicy: IfNotPresent
+  ipsec:
+    certManager:
+      enabled: false
+      issuerName: kube-ovn
+    certificateDuration: 63072000
+    priority: -5
+    requestTimeout: 300s
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 256Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+  installMode: full
   ipv4:
     joinCIDR: 100.64.0.0/16
     pingerExternalAddress: 1.1.1.1
@@ -113,6 +149,28 @@ configurationSpec:
     podCIDR: 10.54.0.0/16
     podGateway: 10.54.0.1
     serviceCIDR: 10.55.0.0/16
+  # dualStack.* fields must be comma-separated "IPv4,IPv6" pairs and are only
+  # used when networking.netStack is "dual_stack".
+  dualStack:
+    joinCIDR: 100.64.0.0/16,fd00:100:64::/112
+    pingerExternalAddress: 1.1.1.1,2606:4700:4700::1111
+    pingerExternalDomain: google.com.
+    podCIDR: 10.54.0.0/16,fd00:10:16::/112
+    podGateway: 10.54.0.1,fd00:10:16::1
+    serviceCIDR: 10.55.0.0/16,fd00:10:96::/112
+  # ipv6.* fields are only used when networking.netStack is "ipv6".
+  ipv6:
+    joinCIDR: fd00:100:64::/112
+    pingerExternalAddress: 2606:4700:4700::1111
+    pingerExternalDomain: google.com.
+    podCIDR: fd00:10:16::/112
+    podGateway: fd00:10:16::1
+    serviceCIDR: fd00:10:96::/112
+  externalOvnCentral:
+    nbEndpoint: ""
+    nbPort: 6641
+    sbEndpoint: ""
+    sbPort: 6642
   kubeOvnCNI:
     requests:
       cpu: "100m"
@@ -127,7 +185,12 @@ configurationSpec:
     limits:
       cpu: "1"
       memory: "1Gi"
+    leaderElection:
+      leaseDuration: ""
+      renewDeadline: ""
+      retryPeriod: ""
   kubeOvnMonitor:
+    replicas: 1
     requests:
       cpu: "200m"
       memory: "200Mi"
@@ -148,6 +211,12 @@ configurationSpec:
     enableEIPSNAT: true
     enableMetrics: true
     enableSSL: false
+    externalGatewaySwitch: ""
+    gatewayNetfilterDetectTimeout: ""
+    gatewayNetfilterMode: ""
+    kubeProxyModeEndpoint: ""
+    # netStack: ipv4 (default), ipv6 or dual_stack
+    netStack: ipv4
     networkType: geneve
     nodeSubnet: join
     ovnLeaderProbeInterval: 5
@@ -159,10 +228,13 @@ configurationSpec:
     nodeLocalDNSIPS: ""
     skipConnTrackDstCIDRs: ""
     externalGatewayConfigNS: ""
-  vlan:
-    providerName: {}
-    vlanId: {}
-    vlanName: {}
+    tlsCipherSuites: []
+    tlsMaxVersion: ""
+    tlsMinVersion: ""
+    vlan:
+      providerName: {}
+      vlanId: {}
+      vlanName: {}
   ovnCentral:
     requests:
       cpu: "300m"
@@ -170,6 +242,37 @@ configurationSpec:
     limits:
       cpu: "3"
       memory: "4Gi"
+    hcp:
+      enabled: false
+      namespace: kube-system
+      nbAddress: ""
+      replicas: 3
+      sbAddress: ""
+      service:
+        nbNodePort: 30641
+        sbNodePort: 30642
+        type: NodePort
+      storage:
+        size: "5Gi"
+        storageClassName: ""
+    nodeSelector:
+      kubernetes.io/os: linux
+    service:
+      type: ClusterIP
+      externalTrafficPolicy: ""
+      loadBalancerIP: ""
+    storage:
+      accessModes:
+        - ReadWriteOnce
+      existingClaim: ""
+      size: "10Gi"
+      storageClassName: ""
+    tolerations:
+    - effect: NoSchedule
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+  ovnCentralMode: cluster
   ovnDir: /etc/origin/ovn
   ovnIPSecKeysDir: /etc/origin/ovs_ipsec_keys
   ovsOVN:
@@ -182,4 +285,3 @@ configurationSpec:
   performance:
     gcInterval: 360
     inspectInterval: 20
-    ovsVSCtlConcurrency: 100

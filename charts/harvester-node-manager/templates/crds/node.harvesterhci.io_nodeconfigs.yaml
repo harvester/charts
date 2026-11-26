@@ -46,6 +46,12 @@ spec:
               ntpConfigs:
                 properties:
                   ntpServers:
+                    description: |-
+                      NTPServers is a space-separated list of NTP server hostnames or IP
+                      addresses (IPv4 and/or IPv6), e.g. "0.pool.ntp.org 192.0.2.1 fd00::1".
+                      This maps directly to systemd-timesyncd's NTP= setting, which contacts
+                      entries in the given order until one responds, so the configured order
+                      is preserved rather than reordered. Duplicate entries are dropped.
                     type: string
                 required:
                 - ntpServers

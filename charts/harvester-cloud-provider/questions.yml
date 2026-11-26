@@ -34,6 +34,7 @@ questions:
     * --node-ip-cidr: CIDR range for accurate IP selection.
     * --node-exclude-ip-ranges: Blacklist IPs/subnets (comma-separated); excluded IPs won't be reported as Node IPs.
     * --disable-annotation-alpha-provided-ip-addr=true: Ignore legacy annotations in favor of CIDR logic.
+    * --disable-hostname-lookup=true: Disable redundant VM hostname lookup fallback for strict VM-name to Node-name matching.
     * --show-full-help-on-error=true: Display full help menu on startup flag errors.
   group: "Advanced"
   type: array

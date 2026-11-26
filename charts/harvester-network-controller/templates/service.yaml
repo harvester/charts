@@ -4,6 +4,7 @@ metadata:
   name: harvester-network-webhook
   namespace: {{ .Release.Namespace }}
 spec:
+  ipFamilyPolicy: {{ .Values.global.ipFamilyPolicy | default "SingleStack" }}
   ports:
     - name: https
       port: 443

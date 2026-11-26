@@ -57,6 +57,11 @@ spec:
         - --namespace={{ .Release.Namespace }}
         - --provisionerimage={{ .Values.provisionerImage.repository }}:{{ .Values.provisionerImage.tag | default .Chart.AppVersion }}
         - --pullpolicy={{ .Values.provisionerImage.pullPolicy }}
+        - --helper-command-timeout={{ .Values.lvm.helperCommandTimeout }}
+        - --helper-pod-timeout={{ .Values.lvm.helperPodTimeout }}
+        - --thin-pool-create-timeout={{ .Values.lvm.thinPoolCreateTimeout }}
+        - --thin-pool-helper-pod-timeout={{ .Values.lvm.thinPoolHelperPodTimeout }}
+        - --max-active-helpers-per-node-vg={{ .Values.lvm.maxActiveHelpersPerNodeVG }}
         env:
         - name: KUBE_NODE_NAME
           valueFrom:

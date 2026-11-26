@@ -1,0 +1,61 @@
+name: Stage the chart in the Rancher catalog
+
+# Sends harvester-rbac to the staging registry of the Rancher catalog and has
+# rancher/charts ship it: the chart is stamped with its final version, checked against
+# the catalog rules, packaged and pushed to stgregistry.suse.com/rancher/catalog, and
+# rancher/charts opens a pull request with it against its staging branch.
+#
+# Run it by hand, from the branch that holds the release to stage:
+#
+#   gh workflow run stage-charts.yaml --repo harvester/charts --ref <branch>
+#
+# It is additive: the release job of ci.yaml (chart-releaser) is not touched.
+#
+# The final version, 1XY.Z.W+upA.B.C, is worked out from the appVersion of
+# charts/harvester-rbac/Chart.yaml and the versions already released, so the appVersion
+# has to be the release to stage. The catalog checks need two annotations in that
+# Chart.yaml that this workflow does not change: catalog.cattle.io/rancher-version and
+# catalog.cattle.io/kube-version, both with a lower and an upper bound. Until they are
+# right, the action fails before it pushes anything.
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+# Two runs of the same branch could push at the same time, and the check that the
+# version is not in the registry yet and the push are two calls. A second run waits.
+concurrency:
+  group: stage-harvester-rbac-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  stage-chart:
+    name: Stage the chart
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # to log in to Vault with the OIDC token
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
+
+      # The action stamps the folder it is given, so it gets a copy and the checkout
+      # stays as it is.
+      - name: Copy the chart
+        run: |
+          mkdir -p "$RUNNER_TEMP/chart"
+          cp -r charts/harvester-rbac "$RUNNER_TEMP/chart/"
+
+      # The version is worked out by cargueiro from the appVersion and the versions
+      # that are already released.
+      - name: Stamp, check, package and push the chart, and start the shipping
+        # Please keep this action on the chart-owners branch and do not pin it to a commit.
+        # The branch carries the checks that stop a faulty release, for example that the
+        # images of the chart are pushed before the chart. A commit keeps only the checks
+        # that existed when it was copied.
+        uses: rancher/charts/.github/actions/ship-staged@chart-owners # zizmor: ignore[unpinned-uses] rancher/charts is an internal trusted repository and its chart-owners branch carries the release checks
+        with:
+          chart-dir: ${{ runner.temp }}/chart/harvester-rbac
