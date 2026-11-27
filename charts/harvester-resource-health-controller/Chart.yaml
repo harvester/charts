@@ -6,10 +6,10 @@ type: application
 
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
-version: 1.10.0-rc3
+version: 1.10.0-rc4
 
 # This is the version number of the application being deployed.
-appVersion: "v1.10.0-rc3"
+appVersion: "v1.10.0-rc4"
 
 maintainers:
 - name: harvester
